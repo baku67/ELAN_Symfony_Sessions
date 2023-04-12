@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une formation{% endblock %}
+
+{% block body %}
+
+
+    {% if edit %}
+        <h1>Modifier une formation</h1>
+    {% else %}
+        <h1>Ajouter une formation</h1>
+    {% endif %}
+
+    <a href="{{ path('app_training') }}">Retour</a>
+    
+
+
+    {# Custom form #}
+    {{ form_start(formAddTraining) }}
+
+
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(formAddTraining) }}
+        </div>
+
+
+        <div>
+            {{ form_label(formAddTraining.title, 'Titre')}}
+            {{ form_widget(formAddTraining.title) }}
+        </div>
+
+
+        {% if edit %}
+            {{ form_widget(formAddTraining.submit, { 'label': 'Modifier' }) }}
+        {% else %}
+            {{ form_widget(formAddTraining.submit, { 'label': 'Ajouter' }) }}
+        {% endif %}
+
+
+    {{ form_end(formAddTraining) }}
+
+
+
+{% endblock %}

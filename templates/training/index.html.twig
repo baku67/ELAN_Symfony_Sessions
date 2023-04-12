@@ -3,18 +3,34 @@
 {% block title %}Hello TrainingController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/ELAN_Symfony/Session/src/Controller/TrainingController.php'|file_link(0) }}">src/Controller/TrainingController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/ELAN_Symfony/Session/templates/training/index.html.twig'|file_link(0) }}">templates/training/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <h1>Liste des Formations</h1>
+        <a href="{{ path('app_home') }}">Retour</a>
+
+        <br><br>
+
+        {# {% if is_granted('ROLE_ADMIN') %} #}
+        {% if app.user %}
+
+            {% for training in trainings %}
+                <a href="{{ path('app_trainingDetail', {'id': training.id}) }}">{{ training.title }}</a>
+                <br>
+            {% endfor %}
+
+        {% else %}
+
+            <p>Vous n'avez pas l'autorisation de voir ces infos</p>
+
+        {% endif %}
+
+
+
+
+        {# {% if is_granted('ROLE_ADMIN') %} #}
+        {% if app.user %}
+            <a href="{{ path('app_addTraining') }}">Ajouter une formation</a>
+        {% endif %}
+
+
 {% endblock %}

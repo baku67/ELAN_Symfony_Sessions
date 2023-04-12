@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formation{% endblock %}
+
+
+{% block body %}
+
+    <h1>Formation {{ training.title }}</h1>
+    <a href="{{ path('app_training') }}">Retour</a>
+
+    <br><br>
+
+    {# {% if is_granted('ROLE_ADMIN') %} #}
+    {% if app.user %}
+    
+        <p>Infos</p>
+        <ul>
+            <li>Titre: {{ training.title }}</li>
+            <li>Nombre de sessions en cours:</li>
+            <li>Nombre de sessions à venir:</li>
+        </ul>
+
+
+    {% else %}
+
+        <p>Vous n'avez pas l'autorisation de voir ces infos</p>
+
+    {% endif %}
+
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_editTraining', {'id': training.id }) }}">Editer la formation</a>
+    {% else %}
+        <p style="opacity: 0.5">Editer la formation (Admin)</p>
+    {% endif %}
+        
+
+
+{% endblock %}
