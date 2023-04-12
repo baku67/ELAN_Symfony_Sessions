@@ -38,9 +38,13 @@ class Session
     #[ORM\JoinColumn(nullable: false)]
     private ?Training $training = null;
 
+    #[ORM\OneToMany(mappedBy: 'session', targetEntity: Programme::class)]
+    private Collection $programmes;
+
     public function __construct()
     {
         $this->trainees = new ArrayCollection();
+        $this->programmes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,10 +141,6 @@ class Session
     }
 
 
-    public function __toString(): string 
-    {
-        return $this->getTitle();
-    }
 
     public function getTraining(): ?Training
     {
@@ -152,5 +152,42 @@ class Session
         $this->training = $training;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Programme>
+     */
+    public function getProgrammes(): Collection
+    {
+        return $this->programmes;
+    }
+
+    public function addProgramme(Programme $programme): self
+    {
+        if (!$this->programmes->contains($programme)) {
+            $this->programmes->add($programme);
+            $programme->setSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgramme(Programme $programme): self
+    {
+        if ($this->programmes->removeElement($programme)) {
+            // set the owning side to null (unless already changed)
+            if ($programme->getSession() === $this) {
+                $programme->setSession(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+    public function __toString(): string 
+    {
+        return $this->getTitle();
     }
 }
