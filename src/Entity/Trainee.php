@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TraineeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,14 @@ class Trainee
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, options:['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $creation_date = null;
+
+    #[ORM\ManyToMany(targetEntity: Session::class, inversedBy: 'trainees')]
+    private Collection $sessions;
+
+    public function __construct()
+    {
+        $this->sessions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -147,5 +157,29 @@ class Trainee
     public function __toString(): string 
     {
         return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+    /**
+     * @return Collection<int, Session>
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    public function addSession(Session $session): self
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions->add($session);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Session $session): self
+    {
+        $this->sessions->removeElement($session);
+
+        return $this;
     }
 }
