@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil Formateur{% endblock %}
+
+
+{% block body %}
+
+    <h1>Formateur {{ trainer }}</h1>
+    <a href="{{ path('app_trainer') }}">Retour</a>
+
+    <br><br>
+
+    {# {% if is_granted('ROLE_ADMIN') %} #}
+    {% if app.user %}
+    
+        <p>Infos</p>
+        <ul>
+            <li>Nom: {{ trainer }}</li>
+        </ul>
+
+
+    {% else %}
+
+        <p>Vous n'avez pas l'autorisation de voir ces infos</p>
+
+    {% endif %}
+
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_editTrainer', {'id': trainer.id }) }}">Editer le formateur</a>
+    {% else %}
+        <p style="opacity: 0.5">Editer le formateur (Admin)</p>
+    {% endif %}
+        
+
+
+{% endblock %}

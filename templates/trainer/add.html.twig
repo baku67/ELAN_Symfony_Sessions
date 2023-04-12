@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un formateur{% endblock %}
+
+{% block body %}
+
+
+    {% if edit %}
+        <h1>Modifier un formateur</h1>
+    {% else %}
+        <h1>Ajouter un formateur</h1>
+    {% endif %}
+
+    <a href="{{ path('app_trainer') }}">Retour</a>
+    
+
+
+    {# Custom form #}
+    {{ form_start(formAddTrainer) }}
+
+
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(formAddTrainer) }}
+        </div>
+
+
+        <div class="inline">
+            <div>
+                {{ form_label(formAddTrainer.firstName, 'Prénom')}}
+                {{ form_widget(formAddTrainer.firstName) }}
+            </div>
+            <div>
+            {{ form_label(formAddTrainer.lastName, 'Nom') }}
+            {{ form_widget(formAddTrainer.lastName) }}
+            </div>
+        </div>
+
+
+        {% if edit %}
+            {{ form_widget(formAddTrainer.submit, { 'label': 'Modifier' }) }}
+        {% else %}
+            {{ form_widget(formAddTrainer.submit, { 'label': 'Ajouter' }) }}
+        {% endif %}
+
+
+    {{ form_end(formAddTrainer) }}
+
+
+
+{% endblock %}
