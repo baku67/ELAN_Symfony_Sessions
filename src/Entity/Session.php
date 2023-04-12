@@ -31,6 +31,13 @@ class Session
     #[ORM\ManyToMany(targetEntity: Trainee::class, mappedBy: 'sessions')]
     private Collection $trainees;
 
+    #[ORM\ManyToOne(inversedBy: 'sessions')]
+    private ?Trainer $trainer = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sessions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Training $training = null;
+
     public function __construct()
     {
         $this->trainees = new ArrayCollection();
@@ -117,8 +124,33 @@ class Session
     }
 
 
+    public function getTrainer(): ?Trainer
+    {
+        return $this->trainer;
+    }
+
+    public function setTrainer(?Trainer $trainer): self
+    {
+        $this->trainer = $trainer;
+
+        return $this;
+    }
+
+
     public function __toString(): string 
     {
         return $this->getTitle();
+    }
+
+    public function getTraining(): ?Training
+    {
+        return $this->training;
+    }
+
+    public function setTraining(?Training $training): self
+    {
+        $this->training = $training;
+
+        return $this;
     }
 }
