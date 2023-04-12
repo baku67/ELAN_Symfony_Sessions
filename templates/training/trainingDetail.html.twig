@@ -48,10 +48,16 @@
 
                     {% for session in sessions %}
                     <tr>    
-                        <td>{{ session.title }}</td>
+                        
+                        <td>
+                            <a href="{{ path('app_editSession', {id: session.id}) }}">
+                                {{ session.title }}
+                            </a>
+                        </td>
                         <td>{{ session.beginDate | date('m/d/Y') }}</td>
                         <td>{{ session.endDate | date('m/d/Y') }}</td>
                         <td>{{ session.nbrPlaces }}</td>
+
                     </tr>
                     {% endfor %}
 
@@ -64,7 +70,7 @@
 
     {% endif %}
 
-    {# <a href="{{ path('app_addSession') }}">Ajouter une Session</a> #}
+    <a href="{{ path('app_addSession') }}">Ajouter une Session</a>
         
 
 

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une session{% endblock %}
+
+{% block body %}
+
+
+    {% if edit %}
+        <h1>Modifier la session</h1>
+    {% else %}
+        <h1>Ajouter la session</h1>
+    {% endif %}
+
+    {# Retour sur la formation détail (avec id formation) #}
+    {# <a href="{{ path('app_trainingDetail', {'id': trainingId }) }}">Retour</a> #}
+    <a href="{{ path('app_training') }}">Retour</a>
+
+
+    {# Custom form #}
+    {{ form_start(formAddSession) }}
+
+
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(formAddSession) }}
+        </div>
+
+
+        {{ form_label(formAddSession.title, 'Titre')}}
+        {{ form_widget(formAddSession.title) }}
+
+        {{ form_label(formAddSession.begin_date, 'Date de début')}}
+        {{ form_widget(formAddSession.begin_date) }}
+
+        {{ form_label(formAddSession.end_date, 'Date de fin')}}
+        {{ form_widget(formAddSession.end_date) }}
+
+        {{ form_label(formAddSession.nbr_places, 'Places disponibles')}}
+        {{ form_widget(formAddSession.nbr_places) }}
+
+        {{ form_label(formAddSession.trainer, 'Formateur')}}
+        {{ form_widget(formAddSession.trainer) }}
+
+        {# // Désactivé dans le formType car on est déjà sur la page formation "mère" #}
+        {# // Problème: en mettant training en disable, la value est nulle (essayer readonly ou donner la value par defaut) #}
+        {{ form_label(formAddSession.training, 'Formation')}}
+        {{ form_widget(formAddSession.training) }}
+
+
+
+
+        {% if edit %}
+            {{ form_widget(formAddSession.submit, { 'label': 'Modifier' }) }}
+        {% else %}
+            {{ form_widget(formAddSession.submit, { 'label': 'Ajouter' }) }}
+        {% endif %}
+
+
+    {{ form_end(formAddSession) }}
+
+
+
+{% endblock %}
