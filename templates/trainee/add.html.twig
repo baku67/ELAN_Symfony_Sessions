@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un stagiaire{% endblock %}
+
+{% block body %}
+
+
+    {% if edit %}
+        <h1>Modifier un stagiaire</h1>
+    {% else %}
+        <h1>Ajouter un stagiaire</h1>
+    {% endif %}
+    
+
+
+    {# Custom form #}
+    {{ form_start(formAddTrainee) }}
+
+
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(formAddTrainee) }}
+        </div>
+
+
+        <div class="inline">
+            <div>
+                {{ form_label(formAddTrainee.firstName, 'Prénom')}}
+                {{ form_widget(formAddTrainee.firstName) }}
+            </div>
+            <div>
+            {{ form_label(formAddTrainee.lastName, 'Nom') }}
+            {{ form_widget(formAddTrainee.lastName) }}
+            </div>
+        </div>
+        
+        <div>
+            {{ form_label(formAddTrainee.ville, 'Ville') }}
+            {{ form_widget(formAddTrainee.ville) }}
+        </div>
+        <div>
+            {{ form_label(formAddTrainee.birth_date, 'Date de naissance') }}
+            {{ form_widget(formAddTrainee.birth_date) }}
+        </div>
+        <div>
+            {{ form_label(formAddTrainee.email, 'Email') }}
+            {{ form_widget(formAddTrainee.email) }}
+        </div>
+        <div>
+            {{ form_label(formAddTrainee.tel, 'Tél') }}
+            {{ form_widget(formAddTrainee.tel) }}
+        </div>
+        <div>
+            {{ form_label(formAddTrainee.gender, 'Genre') }}
+            {{ form_widget(formAddTrainee.gender) }}
+        </div>
+
+        {{ form_widget(formAddTrainee.submit, { 'label': 'Ajouter' }) }}
+
+
+    {{ form_end(formAddTrainee) }}
+
+
+
+{% endblock %}
