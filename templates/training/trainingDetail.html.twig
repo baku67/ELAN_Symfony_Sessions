@@ -15,7 +15,9 @@
     
         <p>Infos</p>
         <ul>
-            <li>Titre: {{ training.title }}</li>
+            <li>
+                Titre: {{ training.title }}&nbsp; {% if app.user %}<a href="{{ path('app_editTraining', {'id': training.id }) }}">Editer</a>{% endif %}
+            </li>
             <li>Nombre de sessions en cours:</li>
             <li>Nombre de sessions à venir:</li>
         </ul>
@@ -28,11 +30,41 @@
     {% endif %}
 
 
-    {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_editTraining', {'id': training.id }) }}">Editer la formation</a>
-    {% else %}
-        <p style="opacity: 0.5">Editer la formation (Admin)</p>
+    <h2>Sessions programmées</h2>
+
+    {% if app.user %}
+
+            <table id="sessionsTable">
+                <thead>
+                    <tr>    
+                        <th>Titre</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Places</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for session in sessions %}
+                    <tr>    
+                        <td>{{ session.title }}</td>
+                        <td>{{ session.beginDate | date('m/d/Y') }}</td>
+                        <td>{{ session.endDate | date('m/d/Y') }}</td>
+                        <td>{{ session.nbrPlaces }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+            <script>
+                let table = new DataTable('#sessionsTable');
+            </script>
+
     {% endif %}
+
+    {# <a href="{{ path('app_addSession') }}">Ajouter une Session</a> #}
         
 
 
