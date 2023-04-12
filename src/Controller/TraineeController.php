@@ -13,11 +13,18 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TraineeController extends AbstractController
 {
+
+    
     #[Route('/trainee', name: 'app_trainee')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
+
+        $traineeRepo = $entityManager->getRepository(Trainee::class);
+
+        $traineeList = $traineeRepo->findBy([], ['lastName' => 'ASC']);
+
         return $this->render('trainee/index.html.twig', [
-            'controller_name' => 'TraineeController',
+            'trainees' => $traineeList,
         ]);
     }
 
@@ -46,7 +53,7 @@ class TraineeController extends AbstractController
                 $entityManager->persist($trainee);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('app_traineeList');
+                return $this->redirectToRoute('app_trainee');
             }
         }
 

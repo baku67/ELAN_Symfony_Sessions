@@ -37,8 +37,8 @@ class Trainee
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $gender = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, options:['default' => 'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeInterface $creation_date = null;
+    // #[ORM\Column(type: Types::DATETIME_MUTABLE, options:['default' => 'CURRENT_TIMESTAMP'])]
+    // private ?\DateTimeInterface $creation_date = null;
 
     #[ORM\ManyToMany(targetEntity: Session::class, inversedBy: 'trainees')]
     private Collection $sessions;
@@ -137,17 +137,17 @@ class Trainee
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
-    {
-        return $this->creation_date;
-    }
+    // public function getCreationDate(): ?\DateTimeInterface
+    // {
+    //     return $this->creation_date;
+    // }
 
-    public function setCreationDate(\DateTimeInterface $creation_date): self
-    {
-        $this->creation_date = $creation_date;
+    // public function setCreationDate(\DateTimeInterface $creation_date): self
+    // {
+    //     $this->creation_date = $creation_date;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
 
 

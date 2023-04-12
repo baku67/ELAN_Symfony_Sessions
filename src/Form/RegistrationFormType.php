@@ -20,8 +20,11 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+            ->add('email', TextType::class, [
+                'attr' => ['class' => 'form-control']
+            ])
             ->add('agreeTerms', CheckboxType::class, [
+                'attr' => ['class' => 'form-check-input'],
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -33,11 +36,15 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
-                'options' => ['attr' => ['class' => 'password-field']],
+                'options' => ['attr' => ['class' => 'password-field form-control']],
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                'first_options'  => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Confirmation du mot de passe'],
             ])
+            // Class joutée dans l'HTML Twig 
+            // ->add('submit', SubmitType::class, [
+            //     'attr' => ['class' => 'btn btn-primary']
+            // ])
         ;
     }
 

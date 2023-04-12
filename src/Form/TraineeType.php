@@ -45,7 +45,7 @@ class TraineeType extends AbstractType
             ])
             // ->add('sessions')
             ->add('submit', SubmitType::class, [
-                'attr' => ['class' => 'btn btn-secondary']
+                'attr' => ['class' => 'btn btn-primary']
             ])
         ;
     }
