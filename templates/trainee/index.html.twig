@@ -6,14 +6,31 @@
 {% block body %}
 
     <h1>Liste des stagiaires</h1>
+    <a href="{{ path('app_home') }}">Retour</a>
 
-    {% if is_granted('ROLE_ADMIN') %}
+    <br><br>
+
+    {# {% if is_granted('ROLE_ADMIN') %} #}
+    {% if app.user %}
+
         {% for trainee in trainees %}
-            {{ trainee }}
+            <a href="{{ path('app_traineeDetail', {'id': trainee.id}) }}">{{ trainee }}</a>
             <br>
         {% endfor %}
+
     {% else %}
+
         <p>Vous n'avez pas l'autorisation de voir ces infos</p>
+
     {% endif %}
+
+
+
+
+    {# {% if is_granted('ROLE_ADMIN') %} #}
+    {% if app.user %}
+        <a href="{{ path('app_addTrainee') }}">Ajouter un Stagiaire</a>
+    {% endif %}
+
 
 {% endblock %}

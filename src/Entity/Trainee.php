@@ -137,6 +137,12 @@ class Trainee
         return $this;
     }
 
+
+
+    public function getAge() {
+        
+    }
+
     // public function getCreationDate(): ?\DateTimeInterface
     // {
     //     return $this->creation_date;
@@ -150,14 +156,6 @@ class Trainee
     // }
 
 
-
-
-
-
-    public function __toString(): string 
-    {
-        return $this->getFirstName() . ' ' . $this->getLastName();
-    }
 
     /**
      * @return Collection<int, Session>
@@ -182,4 +180,12 @@ class Trainee
 
         return $this;
     }
+
+
+
+    public function __toString(): string 
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
 }

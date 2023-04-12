@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste stagiaires{% endblock %}
+
+
+{% block body %}
+
+    <h1>Stagiaire {{ trainee }}</h1>
+    <a href="{{ path('app_trainee') }}">Retour</a>
+
+    <br><br>
+
+    {# {% if is_granted('ROLE_ADMIN') %} #}
+    {% if app.user %}
+    
+        <p>Infos</p>
+        <ul>
+            <li>Nom: {{ trainee }}</li>
+            <li>Age: {{ trainee.birthDate|date("m/d/Y") }}</li>
+            <li>Ville: {{ trainee.ville }}</li>
+            <li>Email: {{ trainee.email }}</li>
+            <li>Tél: {{ trainee.tel }}</li>
+            <li>Genre: {{ trainee.gender }}</li>
+        </ul>
+
+
+    {% else %}
+
+        <p>Vous n'avez pas l'autorisation de voir ces infos</p>
+
+    {% endif %}
+
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_editTrainee', {'id': trainee.id }) }}">Editer le stagiaire</a>
+    {% else %}
+        <p style="opacity: 0.5">Editer le stagiaire (Admin)</p>
+    {% endif %}
+        
+
+
+{% endblock %}

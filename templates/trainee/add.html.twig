@@ -10,6 +10,8 @@
     {% else %}
         <h1>Ajouter un stagiaire</h1>
     {% endif %}
+
+    <a href="{{ path('app_trainee') }}">Retour</a>
     
 
 
@@ -54,7 +56,13 @@
             {{ form_widget(formAddTrainee.gender) }}
         </div>
 
-        {{ form_widget(formAddTrainee.submit, { 'label': 'Ajouter' }) }}
+        
+
+            {% if edit %}
+                {{ form_widget(formAddTrainee.submit, { 'label': 'Modifier' }) }}
+            {% else %}
+                {{ form_widget(formAddTrainee.submit, { 'label': 'Ajouter' }) }}
+            {% endif %}
 
 
     {{ form_end(formAddTrainee) }}

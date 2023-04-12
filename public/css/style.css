@@ -8,3 +8,11 @@ body {
     display: flex;
     gap: 20px;
 }
+
+ul {
+    list-style-type: none;
+    padding-inline-start: 0em;
+}
+ul li {
+    padding-inline-start: 0em;
+}
