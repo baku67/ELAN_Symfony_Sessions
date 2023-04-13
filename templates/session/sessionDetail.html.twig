@@ -71,23 +71,23 @@
                 </thead>
                 <tbody>
                     
-                    {% for trainee in notSubTrainees %}
+                    {% for notSubtrainee in notSubTrainees %}
                     <tr>   
                         
                         <td>
-                            {{ trainee.firstName }}
+                            {{ notSubtrainee.firstName }}
                         </td>
                         <td>
-                            {{ trainee.lastName }}
+                            {{ notSubtrainee.lastName }}
                         </td>
                         <td>
-                            {{ trainee.ville }}
+                            {{ notSubtrainee.ville }}
                         </td>
                         <td>
-                            <a href="{{ path('app_traineeDetail', {id: trainee.id}) }}">Voir</a>
+                            <a href="{{ path('app_traineeDetail', {id: notSubtrainee.id}) }}">Voir</a>
                         </td> 
                         <td>
-                            <a>IIII</a>
+                            <a href="{{ path('app_addtraineeSession', {'id': notSubtrainee.id, 'idSession': session.id}) }}">IIII</a>
                         </td>
                     </tr>
                     {% endfor %}
