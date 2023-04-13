@@ -48,7 +48,7 @@
     {% if app.user %}
 
         {% for subTrainee in subTrainees %}
-            <a href="{{ path('app_traineeDetail', {id: subTrainee.id})}}">{{ subTrainee }}</a>
+            <a href="{{ path('app_traineeDetail', {id: subTrainee.id})}}">{{ subTrainee }}</a> &nbsp;<a href="{{ path('app_removetraineeSession', {'id': subTrainee.id, 'idSession': session.id}) }}">Désinscrire</a>
             <br>
         {% endfor %}
     {% else %}
