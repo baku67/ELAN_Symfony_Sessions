@@ -22,8 +22,8 @@ class TraineeSessionController extends AbstractController
     }
 
 
-    #[Route('/traineeSession/remove/{id}/{idSession}', name: 'app_removetraineeSession')]
-    public function remove(EntityManagerInterface $entityManager, int $id, int $idSession): Response
+    #[Route('/traineeSession/remove/{id}/{idSession}/{redirect}', name: 'app_removetraineeSession')]
+    public function remove(EntityManagerInterface $entityManager, int $id, int $idSession, string $redirect ): Response
     {
 
         // Méthode rapide pour savoir si User connecté
@@ -44,7 +44,12 @@ class TraineeSessionController extends AbstractController
         // $entityManager->persist($session);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_sessionDetail', array('id' => $idSession) );
+        if ($redirect == 'trainee') {
+            return $this->redirectToRoute('app_traineeDetail', array('id' => $id) );
+        }
+        else if ($redirect == 'session') {
+            return $this->redirectToRoute('app_sessionDetail', array('id' => $idSession) );
+        }
 
     }
 

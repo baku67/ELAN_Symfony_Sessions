@@ -44,10 +44,14 @@ class TraineeController extends AbstractController
 
         $traineeRepo = $entityManager->getRepository(Trainee::class);
 
-        $traineeData = $traineeRepo->find($id);
+        $trainee = $traineeRepo->find($id);
+
+        $traineeSessions = $trainee->getSessions();
+        
 
         return $this->render('trainee/traineeDetail.html.twig', [
-            'trainee' => $traineeData,
+            'trainee' => $trainee,
+            'traineeSessions' => $traineeSessions
         ]);
     }
 

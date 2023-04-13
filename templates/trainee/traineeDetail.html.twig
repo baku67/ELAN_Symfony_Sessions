@@ -36,7 +36,16 @@
     {% else %}
         <p style="opacity: 0.5">Editer le stagiaire (Admin)</p>
     {% endif %}
-        
 
+
+    {% if app.user %}
+        {# Si session en cours (label ou bgColor vert?) #}
+        <h2>Formations</h2>
+
+        {% for traineeSession in traineeSessions %}
+            <a href="{{ path('app_sessionDetail', {'id': traineeSession.id }) }}">{{ traineeSession }}</a> &nbsp;<a href="{{ path('app_removetraineeSession', {'id': trainee.id, 'idSession': traineeSession.id, 'redirect': 'trainee' }) }}">Désinscrire</a>
+            <br>
+        {% endfor %}
+    {% endif %}
 
 {% endblock %}
