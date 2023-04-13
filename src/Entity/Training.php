@@ -21,6 +21,13 @@ class Training
     #[ORM\OneToMany(mappedBy: 'training', targetEntity: Session::class, orphanRemoval: true)]
     private Collection $sessions;
 
+
+    /**
+     * #NotMapped
+     */
+    private ?int $sessionCount = null;
+
+
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
@@ -50,6 +57,15 @@ class Training
     {
         return $this->sessions;
     }
+
+
+    public function getSessionCount() {
+        if ($this->sessionCount === null) {
+            $this->sessionCount = $this->sessions->count();
+        }
+        return $this->sessionCount;
+    }
+
 
     public function addSession(Session $session): self
     {
