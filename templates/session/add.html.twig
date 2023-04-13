@@ -42,10 +42,9 @@
 
         {# // Désactivé dans le formType car on est déjà sur la page formation "mère" #}
         {# // Problème: en mettant training en disable, la value est nulle (essayer readonly ou donner la value par defaut) #}
+        {# // EDIT: Le 'value' correspond au trainingId séléctionné #}
         {{ form_label(formAddSession.training, 'Formation')}}
-        {{ form_widget(formAddSession.training) }}
-
-
+        {{ form_widget(formAddSession.training, { 'attr': {'class': 'form-control'}, 'placeholder': 'Select a value', 'value': trainingId}) }}
 
 
         {% if edit %}

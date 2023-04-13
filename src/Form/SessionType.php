@@ -56,7 +56,7 @@ class SessionType extends AbstractType
                 // 'readonly' => true,
                 'attr' => [
                     'class' => 'form-control',
-                    // 'disabled' => true,
+                    'disabled' => true,
                     
                     // 'value' => 
                 ]
