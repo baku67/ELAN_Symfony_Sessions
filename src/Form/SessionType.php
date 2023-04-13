@@ -47,18 +47,13 @@ class SessionType extends AbstractType
                 ]
             ])
 
-
             // Selection parmies les entités formation(trainings) DESACTIVE car on est déjà sur la page de la formation "mère"
-            // Problème: en mettant training en disable, la value est nulle (essayer readonly ou donner la value par defaut)
+            # Readonly marche pas et disabled envoie valeur nulle: workaround readonly CSS front #}
             ->add('training', EntityType::class, [
                 'class' => Training::class,
                 'choice_label' => 'title',
-                // 'readonly' => true,
                 'attr' => [
-                    'class' => 'form-control',
-                    'disabled' => true,
-                    
-                    // 'value' => 
+                    'class' => 'form-control readonly',
                 ]
             ])
 

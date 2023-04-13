@@ -21,3 +21,9 @@ ul li {
 .underline {
     text-decoration: underline;
 }
+
+
+.readonly {
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}

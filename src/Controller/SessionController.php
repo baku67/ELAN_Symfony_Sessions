@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Session;
+use App\Entity\Training;
 use App\Form\SessionType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -79,8 +80,6 @@ class SessionController extends AbstractController
         // View qui affiche le formuaire d'ajout
         return $this->render('session/add.html.twig', [
             'formAddSession' => $form->createView(),
-            // 'trainingId' => $session->getTraining()->getId(),
-            // 'trainingTitle' => $session->getTraining()->getTitle(),
             // Si y'a Id c'est qu'on modifie (sinon renvoie false, = création), pour le titre de la page
             'edit' => $session->getId(),
             'trainingId' => $idTraining

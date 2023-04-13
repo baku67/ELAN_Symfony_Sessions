@@ -7,5 +7,12 @@ Pour nombre place affiché par session: inscrit/total (+ code couleur: Vert < 50
 Vérifier si normal de jamais utiliser la fonction addSession dans entité Training (c'est pour pouvoir associer une session à un training post-création?)
 De meme le removeSession dans entité Training (c'est pour désassocier la session au training sans la suppr?)
 
-
 Fix retour: A partie de fiche detail Session retour vers Training Parent (même si fiche detail Session depuis home :/)
+
+
+Pour le select Formation dans addSession: (Solution:https://www.developpez.net/forums/d970869/php/bibliotheques-frameworks/symfony/readonly-select/)
+    Disabled empeche bien le select mais envoie pas la value (=null) 
+    Readonly marche pas (l'user peut select d'autre options)
+
+    =>Soit enlever l'input carrément et juste mettre un <p class="form-type">training.title</p>
+    =>Soit mettre le disabled et ajouter un input caché avec la value et le name (mais chaud)
