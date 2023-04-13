@@ -2,6 +2,12 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Trainee;
+use App\Entity\Trainer;
+use App\Entity\Training;
+
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,10 +17,24 @@ class SecurityController extends AbstractController
 {
 
     #[Route(path: '', name: 'app_landingPage')]
-    public function landingPage() {
+    public function landingPage(EntityManagerInterface $entityManager) {
         if ($this->getUser()) {
-            // return $this->redirectToRoute('app_home');
-            return $this->render('security/home.html.twig');
+
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+            $traineeRepo = $entityManager->getRepository(Trainee::class);
+            $trainerRepo = $entityManager->getRepository(Trainer::class);
+            $trainingRepo = $entityManager->getRepository(Training::class);
+    
+            $traineeCount = $traineeRepo->count([]);
+            $trainerCount = $trainerRepo->count([]);
+            $trainingCount = $trainingRepo->count([]);
+
+            return $this->render('security/home.html.twig', [
+                'traineeCount' => $traineeCount,
+                'trainerCount' => $trainerCount,
+                'trainingCount' => $trainingCount,
+            ]);
         }
         else {
             return $this->render('/landingPage.html.twig');
@@ -45,9 +65,24 @@ class SecurityController extends AbstractController
 
 
     #[Route(path: '/home', name: 'app_home')]
-    public function home(): Response
+    public function home(EntityManagerInterface $entityManager): Response
     {
-        return $this->render('security/home.html.twig');
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $traineeRepo = $entityManager->getRepository(Trainee::class);
+        $trainerRepo = $entityManager->getRepository(Trainer::class);
+        $trainingRepo = $entityManager->getRepository(Training::class);
+
+        $traineeCount = $traineeRepo->count([]);
+        $trainerCount = $trainerRepo->count([]);
+        $trainingCount = $trainingRepo->count([]);
+
+        return $this->render('security/home.html.twig', [
+            'traineeCount' => $traineeCount,
+            'trainerCount' => $trainerCount,
+            'trainingCount' => $trainingCount,
+        ]);
     }
 
 }

@@ -26,9 +26,11 @@ class TraineeController extends AbstractController
         $traineeRepo = $entityManager->getRepository(Trainee::class);
 
         $traineeList = $traineeRepo->findBy([], ['lastName' => 'ASC']);
+        $traineeTotalCount = $traineeRepo->count([]);
 
         return $this->render('trainee/index.html.twig', [
             'trainees' => $traineeList,
+            'totalCount' => $traineeTotalCount
         ]);
     }
 

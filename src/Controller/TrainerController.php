@@ -25,9 +25,11 @@ class TrainerController extends AbstractController
         $trainerRepo = $entityManager->getRepository(Trainer::class);
 
         $trainerList = $trainerRepo->findBy([], ['lastName' => 'ASC']);
+        $trainerTotalCount = $trainerRepo->count([]);
 
         return $this->render('trainer/index.html.twig', [
             'trainers' => $trainerList,
+            'totalCount' => $trainerTotalCount
         ]);
     }
 

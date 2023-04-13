@@ -6,11 +6,11 @@
 
     <h1>Bienvenue {{ app.user.email }} </h1>
 
-    <a href="{{ path('app_trainee') }}">Liste des stagiaires</a>
+    <a href="{{ path('app_trainee') }}">Liste des stagiaires ({{ traineeCount }})</a>
     <br>
-    <a href="{{ path('app_trainer') }}">Liste des formateurs</a>
+    <a href="{{ path('app_trainer') }}">Liste des formateurs ({{ trainerCount }})</a>
     <br>
-    <a href="{{ path('app_training') }}">Liste des formations (et sessions)</a>
+    <a href="{{ path('app_training') }}">Liste des formations ({{ trainingCount }})</a>
     <br>
 
     <br><br><br>
