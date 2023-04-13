@@ -11,8 +11,6 @@
         <h1>Ajouter la session</h1>
     {% endif %}
 
-    {# Retour sur la formation détail (avec id formation) #}
-    <a href="{{ path('app_trainingDetail', {'id': trainingId }) }}">Retour</a>
 
 
     {# Custom form #}
@@ -44,11 +42,12 @@
         {{ form_widget(formAddSession.training, { 'value': trainingId}) }}
 
         {% if edit %}
-            {{ form_widget(formAddSession.submit, { 'label': 'Modifier' }) }}
+            {# Retour sur la formation détail (avec id formation) #}
+            {{ form_widget(formAddSession.submit, { 'label': 'Modifier' }) }} &nbsp;<a href="{{ path('app_trainingDetail', {'id': trainingId }) }}">Annuler</a>
         {% else %}
-            {{ form_widget(formAddSession.submit, { 'label': 'Ajouter' }) }}
+            {{ form_widget(formAddSession.submit, { 'label': 'Ajouter' }) }} &nbsp;<a href="{{ path('app_trainingDetail', {'id': trainingId }) }}">Annuler</a>
         {% endif %}
-
+    
 
     {{ form_end(formAddSession) }}
 

@@ -6,7 +6,9 @@
 {% block body %}
 
     <h1>Formation: {{ training.title }}</h1>
-    <a href="{{ path('app_training') }}">Retour</a>
+    {# <a href="{{ path('app_training') }}">Retour</a> #}
+    <button onclick="history.back()">Retour</button>
+
 
     <br><br>
 

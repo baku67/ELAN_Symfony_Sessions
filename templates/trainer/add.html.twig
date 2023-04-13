@@ -11,7 +11,7 @@
         <h1>Ajouter un formateur</h1>
     {% endif %}
 
-    <a href="{{ path('app_trainer') }}">Retour</a>
+    
     
 
 
@@ -37,9 +37,9 @@
 
 
         {% if edit %}
-            {{ form_widget(formAddTrainer.submit, { 'label': 'Modifier' }) }}
+            {{ form_widget(formAddTrainer.submit, { 'label': 'Modifier' }) }} &nbsp;<a href="{{ path('app_trainer') }}">Annuler</a>
         {% else %}
-            {{ form_widget(formAddTrainer.submit, { 'label': 'Ajouter' }) }}
+            {{ form_widget(formAddTrainer.submit, { 'label': 'Ajouter' }) }} &nbsp;<a href="{{ path('app_trainer') }}">Annuler</a>
         {% endif %}
 
 

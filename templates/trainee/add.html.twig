@@ -11,8 +11,6 @@
         <h1>Ajouter un stagiaire</h1>
     {% endif %}
 
-    <a href="{{ path('app_trainee') }}">Retour</a>
-    
 
 
     {# Custom form #}
@@ -59,9 +57,9 @@
         
 
             {% if edit %}
-                {{ form_widget(formAddTrainee.submit, { 'label': 'Modifier' }) }}
+                {{ form_widget(formAddTrainee.submit, { 'label': 'Modifier' }) }} &nbsp;<a href="{{ path('app_trainee') }}">Annuler</a>
             {% else %}
-                {{ form_widget(formAddTrainee.submit, { 'label': 'Ajouter' }) }}
+                {{ form_widget(formAddTrainee.submit, { 'label': 'Ajouter' }) }} &nbsp;<a href="{{ path('app_trainee') }}">Annuler</a>
             {% endif %}
 
 

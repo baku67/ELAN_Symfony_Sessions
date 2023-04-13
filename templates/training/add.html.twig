@@ -11,7 +11,7 @@
         <h1>Ajouter une formation</h1>
     {% endif %}
 
-    <a href="{{ path('app_training') }}">Retour</a>
+    
     
 
 
@@ -31,9 +31,9 @@
 
 
         {% if edit %}
-            {{ form_widget(formAddTraining.submit, { 'label': 'Modifier' }) }}
+            {{ form_widget(formAddTraining.submit, { 'label': 'Modifier' }) }} &nbsp;<a href="{{ path('app_training') }}">Annuler</a>
         {% else %}
-            {{ form_widget(formAddTraining.submit, { 'label': 'Ajouter' }) }}
+            {{ form_widget(formAddTraining.submit, { 'label': 'Ajouter' }) }} &nbsp;<a href="{{ path('app_training') }}">Annuler</a>
         {% endif %}
 
 

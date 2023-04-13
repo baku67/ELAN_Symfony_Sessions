@@ -6,7 +6,9 @@
 {% block body %}
 
     <h1>Formateur {{ trainer }}</h1>
-    <a href="{{ path('app_trainer') }}">Retour</a>
+    {# <a href="{{ path('app_trainer') }}">Retour</a> #}
+    <button onclick="history.back()">Retour</button>
+
 
     <br><br>
 

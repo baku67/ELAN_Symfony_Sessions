@@ -43,10 +43,14 @@ class TraineeController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $traineeRepo = $entityManager->getRepository(Trainee::class);
-
         $trainee = $traineeRepo->find($id);
-
         $traineeSessions = $trainee->getSessions();
+
+        $sessionRepo = $entityManager->getRepository(Session::class);
+
+        $incomingSessionsTrainee = $sessionRepo->findIncomingSessionsByTrainee();
+        $inProgressSessionsTrainee =  $sessionRepo->findInProgressSessionsByTrainee();
+        $passedSessionsTrainee =  $sessionRepo->findPassedSessionsByTrainee();
         
 
         return $this->render('trainee/traineeDetail.html.twig', [

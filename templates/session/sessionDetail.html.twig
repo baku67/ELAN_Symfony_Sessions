@@ -7,7 +7,9 @@
 
     <h1>Détail de la session {{ session }}</h1>
     {# Retour sur la fiche formation #}
-    <a href="{{ path('app_trainingDetail', {'id':session.training.id }) }}">Retour</a>
+    {# <a href="{{ path('app_trainingDetail', {'id':session.training.id }) }}">Retour</a> #}
+    <button onclick="history.back()">Retour</button>
+    {# <input action="action" onclick="window.history.go(-1); return false;" type="submit" value="Cancel" /> #}
 
     <br><br>
 
@@ -47,10 +49,15 @@
     {# Colonne <a>"-"</a> pour désinscrire un stagiaire #}
     {% if app.user %}
 
-        {% for subTrainee in subTrainees %}
-            <a href="{{ path('app_traineeDetail', {id: subTrainee.id})}}">{{ subTrainee }}</a> &nbsp;<a href="{{ path('app_removetraineeSession', {'id': subTrainee.id, 'idSession': session.id, 'redirect': 'session'}) }}">Désinscrire</a>
-            <br>
-        {% endfor %}
+        {% if subTrainees|length == 0 %}
+            <p>Pas de stagiaires inscrits pour le moment</p>
+        {% else %}
+            {% for subTrainee in subTrainees %}
+                <a href="{{ path('app_traineeDetail', {id: subTrainee.id})}}">{{ subTrainee }}</a> &nbsp;<a href="{{ path('app_removetraineeSession', {'id': subTrainee.id, 'idSession': session.id, 'redirect': 'session'}) }}">Désinscrire</a>
+                <br>
+            {% endfor %}
+        {% endif %}
+        
     {% else %}
         <p>Accès non autorisé<p> 
     {% endif %}
@@ -98,7 +105,10 @@
                 let table = new DataTable('#subscribersTable', {
                     paging: false,
                     // searching: false,
-                    "info": false 
+                    "info": false,
+                    language: {
+                        url: 'dataTables.french.json',
+                    },
                     // scrollY: 400
                 });
             </script>
