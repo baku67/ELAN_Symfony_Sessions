@@ -19,7 +19,7 @@
         {% for incomingSession in incSessions %}
             {# TODO: faire les session Detail avec liste des inscrit, formateur, places #}
             {# Affichage des places prises/total avec code couleur (vert, orange si >50%, rouge full) dans la ligne #}
-            <a href="">
+            <a href="{{ path('app_sessionDetail', { 'id':incomingSession.id }) }}">
                 {{ incomingSession }} <br>
             <a>
         {% endfor %}
@@ -29,7 +29,7 @@
         {% for inProgressSession in inProgressSessions %}
             {# TODO: faire les session Detail avec liste des inscrit, formateur, places #}
             {# Affichage des places prises/total avec code couleur (vert, orange si >50%, rouge full) dans la ligne #}
-            <a href="">
+            <a href="{{ path('app_sessionDetail', { 'id':inProgressSession.id }) }}">
                 {{ inProgressSession }} <br>
             <a>
         {% endfor %}
@@ -39,7 +39,7 @@
         {% for passedSession in passedSessions %}
             {# TODO: faire les session Detail avec liste des inscrit, formateur, places #}
             {# Affichage des places prises/total avec code couleur (vert, orange si >50%, rouge full) dans la ligne #}
-            <a href="">
+            <a href="{{ path('app_sessionDetail', { 'id':passedSession.id }) }}">
                 {{ passedSession }} <br>
             <a>
         {% endfor %}

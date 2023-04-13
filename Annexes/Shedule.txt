@@ -3,3 +3,9 @@ Calcul des sessions à venir et en cours (juste avec dates)
 Inscription des stagiaires aux sessions
 
 Pour nombre place affiché par session: inscrit/total (+ code couleur: Vert < 50%, orange > 50%, Rouge full)
+
+Vérifier si normal de jamais utiliser la fonction addSession dans entité Training (c'est pour pouvoir associer une session à un training post-création?)
+De meme le removeSession dans entité Training (c'est pour désassocier la session au training sans la suppr?)
+
+
+Fix retour: A partie de fiche detail Session retour vers Training Parent (même si fiche detail Session depuis home :/)

@@ -33,8 +33,11 @@
 
     {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('app_editSession', {'id': session.id }) }}">Editer la session</a>
+        <a href="{{ path('app_deleteSession', {'id': session.id }) }}">Supprimer la session</a>
     {% else %}
         <p style="opacity: 0.5">Editer la session (Admin)</p>
+        <p style="opacity: 0.5">Supprimer la session (Admin)</p>
+        
     {% endif %}
 
 

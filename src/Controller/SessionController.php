@@ -87,4 +87,23 @@ class SessionController extends AbstractController
         ]);
     }
 
+
+    #[Route('/session/{id}/delete', name: 'app_deleteSession')]
+    public function deleteSession(EntityManagerInterface $entityManager, int $id, Request $request): Response  {
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        // Pour redirection: faire passé l'idTraining dans l'url (+ ajouter dans param)
+
+        $sessionRepo = $entityManager->getRepository(Session::class);
+
+        $sessionToDelete = $sessionRepo->find($id);
+        $sessionRepo->remove($sessionToDelete, true);
+
+        return $this->redirectToRoute('app_home');
+
+    }
+
+
+
 }
