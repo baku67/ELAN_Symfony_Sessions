@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Trainee;
 use App\Entity\Trainer;
 use App\Entity\Training;
+use App\Entity\Session;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,15 +26,23 @@ class SecurityController extends AbstractController
             $traineeRepo = $entityManager->getRepository(Trainee::class);
             $trainerRepo = $entityManager->getRepository(Trainer::class);
             $trainingRepo = $entityManager->getRepository(Training::class);
+            $sessionRepo = $entityManager->getRepository(Session::class);
     
             $traineeCount = $traineeRepo->count([]);
             $trainerCount = $trainerRepo->count([]);
             $trainingCount = $trainingRepo->count([]);
 
+            $incomingSessions = $sessionRepo->findIncomingSessions();
+            $inProgressSessions =  $sessionRepo->findInProgressSessions();
+            $passedSessions =  $sessionRepo->findPassedSessions();
+
             return $this->render('security/home.html.twig', [
                 'traineeCount' => $traineeCount,
                 'trainerCount' => $trainerCount,
                 'trainingCount' => $trainingCount,
+                'incSessions' => $incomingSessions,
+                'inProgressSessions' => $inProgressSessions,
+                'passedSessions' => $passedSessions
             ]);
         }
         else {
@@ -73,15 +82,23 @@ class SecurityController extends AbstractController
         $traineeRepo = $entityManager->getRepository(Trainee::class);
         $trainerRepo = $entityManager->getRepository(Trainer::class);
         $trainingRepo = $entityManager->getRepository(Training::class);
+        $sessionRepo = $entityManager->getRepository(Session::class);
 
         $traineeCount = $traineeRepo->count([]);
         $trainerCount = $trainerRepo->count([]);
         $trainingCount = $trainingRepo->count([]);
 
+        $incomingSessions = $sessionRepo->findIncomingSessions();
+        $inProgressSessions =  $sessionRepo->findInProgressSessions();
+        $passedSessions =  $sessionRepo->findPassedSessions();
+
         return $this->render('security/home.html.twig', [
             'traineeCount' => $traineeCount,
             'trainerCount' => $trainerCount,
             'trainingCount' => $trainingCount,
+            'incSessions' => $incomingSessions,
+            'inProgressSessions' => $inProgressSessions,
+            'passedSessions' => $passedSessions
         ]);
     }
 

@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Session;
+
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +22,45 @@ class SessionRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Session::class);
+    }
+
+    // Affichage sur /home des sessions à venir
+    public function findPassedSessions() {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->where('a.begin_date < :now')
+           ->andWhere('a.end_date < :now')
+           ->setParameters(new ArrayCollection(array(
+                new Parameter('now', new \DateTime() )
+            )));
+
+        return $qb->getQuery()->getResult();
+    }
+
+    // Affichage sur /home des sessions en cours
+    public function findInProgressSessions() {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->where('a.begin_date < :now')
+           ->andWhere('a.end_date > :now2')
+           ->setParameters(new ArrayCollection(array(
+                new Parameter('now', new \DateTime()),
+                new Parameter('now2', new \DateTime())
+            )));
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+    public function findIncomingSessions() {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->where('a.begin_date > :now')
+           ->setParameters(new ArrayCollection(array(
+                new Parameter('now', new \DateTime() )
+            )));
+
+        return $qb->getQuery()->getResult();
     }
 
     public function save(Session $entity, bool $flush = false): void
