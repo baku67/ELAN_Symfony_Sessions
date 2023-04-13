@@ -43,9 +43,13 @@ class Trainee
     #[ORM\ManyToMany(targetEntity: Session::class, inversedBy: 'trainees')]
     private Collection $sessions;
 
+    #[ORM\OneToMany(mappedBy: 'trainee', targetEntity: TraineeSession::class, orphanRemoval: true)]
+    private Collection $traineeSessions;
+
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
+        $this->traineeSessions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -186,6 +190,36 @@ class Trainee
     public function __toString(): string 
     {
         return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+    /**
+     * @return Collection<int, TraineeSession>
+     */
+    public function getTraineeSessions(): Collection
+    {
+        return $this->traineeSessions;
+    }
+
+    public function addTraineeSession(TraineeSession $traineeSession): self
+    {
+        if (!$this->traineeSessions->contains($traineeSession)) {
+            $this->traineeSessions->add($traineeSession);
+            $traineeSession->setTrainee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTraineeSession(TraineeSession $traineeSession): self
+    {
+        if ($this->traineeSessions->removeElement($traineeSession)) {
+            // set the owning side to null (unless already changed)
+            if ($traineeSession->getTrainee() === $this) {
+                $traineeSession->setTrainee(null);
+            }
+        }
+
+        return $this;
     }
 
 }

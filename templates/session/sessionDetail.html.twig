@@ -21,7 +21,7 @@
             <li>Formateur: {{ session.trainer }} </li>
             <li>Date de début: {{ session.beginDate|date("m/d/Y") }} </li>
             <li>Date de fin: {{ session.endDate|date("m/d/Y") }} </li>
-            <li>Places: {{ session.nbrPlaces }}</li>
+            <li>Inscriptions: {{ nbrSubscribers }}/{{ session.nbrPlaces }}</li>
         </ul>
 
     {% else %}
@@ -42,13 +42,70 @@
 
 
     <br><br>
-    <h2>Inscriptions</h2>
+    <h2>Inscriptions ({{ nbrSubscribers }}/{{ session.nbrPlaces }})</h2>
     {# Nbr inscrits à coté du titre () #}
     {# Colonne <a>"-"</a> pour désinscrire un stagiaire #}
+    {% if app.user %}
+
+        {% for subTrainee in subTrainees %}
+            <a href="{{ path('app_traineeDetail', {id: subTrainee.id})}}">{{ subTrainee }}</a>
+            <br>
+        {% endfor %}
+    {% else %}
+        <p>Accès non autorisé<p> 
+    {% endif %}
+
 
     <h2>Inscrire un stagiaire<h2>
     {# Mettre un dataTables avec recherche intégré qui affiche uniquement les stagiaire qui sont pas inscrit à cette session (!) et ajouter une colonne <a>"+"</a> dans la table #}
-        
+    {% if app.user %}
+            <table id="subscribersTable" class="display">
+                <thead>
+                    <tr>  
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Ville</th>
+                        <th>Profil</th>
+                        <th>Inscrire</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for trainee in notSubTrainees %}
+                    <tr>   
+                        
+                        <td>
+                            {{ trainee.firstName }}
+                        </td>
+                        <td>
+                            {{ trainee.lastName }}
+                        </td>
+                        <td>
+                            {{ trainee.ville }}
+                        </td>
+                        <td>
+                            <a href="{{ path('app_traineeDetail', {id: trainee.id}) }}">Voir</a>
+                        </td> 
+                        <td>
+                            <a>IIII</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <script>
+                let table = new DataTable('#subscribersTable', {
+                    paging: false,
+                    // searching: false,
+                    "info": false 
+                    // scrollY: 400
+                });
+            </script>
+
+        {% else %}
+            <p>Accès non autorisé<p> 
+        {% endif %}
 
 
 {% endblock %}

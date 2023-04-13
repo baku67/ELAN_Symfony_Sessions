@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\PersistentCollection;
 use App\Entity\Session;
 use App\Entity\Training;
+use App\Entity\Trainee;
 use App\Form\SessionType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,11 +33,32 @@ class SessionController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $sessionRepo = $entityManager->getRepository(Session::class);
+        $traineeRepo = $entityManager->getRepository(Trainee::class);
 
         $session = $sessionRepo->find($id);
 
+        $susbcribedTrainees = $session->getTrainees();
+        // PersistentCollection (entités avec relation) to array d'objets
+        $susbcribedTraineesArray = $susbcribedTrainees->toArray();
+        $nbrSubscribers = count($susbcribedTrainees);
+
+        $allTrainees = $traineeRepo->findAll();
+
+        // Pour enlever les stagiaires deja inscrits de la liste des stagiaires dispo
+        $notSubTrainees = array_diff($allTrainees, $susbcribedTraineesArray);
+        // $notSubTrainees = array_filter($allTrainees, function($trainee) {
+        //     if (!in_array($trainee, $susbcribedTrainees)) {
+                
+        //     }
+        // });
+        // https://www.w3schools.com/php/func_array_filter.asp
+
         return $this->render('session/sessionDetail.html.twig', [
             'session' => $session,
+            'subTrainees' => $susbcribedTrainees,
+            'nbrSubscribers' => $nbrSubscribers,
+            'allTrainees' => $allTrainees,
+            'notSubTrainees' => $notSubTrainees
         ]);
 
     }
