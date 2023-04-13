@@ -35,7 +35,7 @@
     <h3>Prochainement</h3>
 
         {% if app.user %}
-            <table id="sessionsTable">
+            <table id="sessionsTable" class="display">
                 <thead>
                     <tr>    
                         <th>Titre</th>
@@ -137,11 +137,26 @@
                 </tbody>
             </table>
 
+
             <script>
-                let table = new DataTable('#sessionsTable');
-                let table2 = new DataTable('#sessionsTable2');
-                let table3 = new DataTable('#sessionsTable3');
+                let table = new DataTable('#sessionsTable', {
+                    paging: false,
+                    searching: false,
+                    // scrollY: 400
+                });
+                let table2 = new DataTable('#sessionsTable2', {
+                    paging: false,
+                    searching: false,
+                    // scrollY: 400
+                });
+                let table3 = new DataTable('#sessionsTable3', {
+                    paging: false,
+                    searching: false,
+                    // scrollY: 400
+                });
+
             </script>
+
         {% else %}
                 <p>Accès non autorisé<p> 
         {% endif %}
