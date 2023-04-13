@@ -48,17 +48,26 @@ class TrainingController extends AbstractController
         $trainingData = $trainingRepo->find($id);
         
         $sessions = $sessionRepo->findBy(["training" => $id], ['begin_date' => 'DESC']);
+        $nbrSession = count($sessions);
 
         $incomingSessions = $sessionRepo->findIncomingSessionByTraining($id);
         $ongoingSessions = $sessionRepo->findOngoingSessionByTraining($id);
         $passedSessions = $sessionRepo->findPassedSessionByTraining($id);
 
+        $nbrIncomingSessions = count($incomingSessions);
+        $nbrOngoingSessions = count($ongoingSessions);
+        $nbrPassedSessions = count($passedSessions);
+
         return $this->render('training/trainingDetail.html.twig', [
             'training' => $trainingData,
             'sessions' => $sessions,
+            'nbrSessions' => $nbrSession,
             'incomingSessions' => $incomingSessions,
             'ongoingSessions' => $ongoingSessions,
-            'passedSessions' => $passedSessions
+            'passedSessions' => $passedSessions,
+            'nbrIncomingSessions' => $nbrIncomingSessions,
+            'nbrOngoingSessions' => $nbrOngoingSessions,
+            'nbrPassedSessions' => $nbrPassedSessions
         ]);
     }
 

@@ -5,7 +5,7 @@
 
 {% block body %}
 
-    <h1>Formation {{ training.title }}</h1>
+    <h1>Formation: {{ training.title }}</h1>
     <a href="{{ path('app_training') }}">Retour</a>
 
     <br><br>
@@ -13,14 +13,9 @@
     {# {% if is_granted('ROLE_ADMIN') %} #}
     {% if app.user %}
     
-        <p>Infos</p>
-        <ul>
-            <li>
-                Titre: {{ training.title }}&nbsp; {% if app.user %}<a href="{{ path('app_editTraining', {'id': training.id }) }}">Editer</a>{% endif %}
-            </li>
-            <li>Nombre de sessions en cours:</li>
-            <li>Nombre de sessions à venir:</li>
-        </ul>
+
+        <p>Titre: {{ training.title }}&nbsp; {% if app.user %}<a href="{{ path('app_editTraining', {'id': training.id }) }}">Editer</a>{% endif %}</p>
+
 
 
     {% else %}
@@ -30,9 +25,9 @@
     {% endif %}
 
 
-    <h2>Sessions</h2>
+    <h2>Sessions ({{ nbrSessions }})</h2>
 
-    <h3>Prochainement</h3>
+    <h3>Prochainement ({{ nbrIncomingSessions }})</h3>
 
         {% if app.user %}
             <table id="sessionsTable" class="display">
@@ -48,7 +43,10 @@
                     {% for incomingSession in incomingSessions %}
                     <tr>    
                         <td>
-                            <a href="{{ path('app_editSession', {id: incomingSession.id}) }}">
+                            {# <a href="{{ path('app_editSession', {id: incomingSession.id}) }}">
+                                {{ incomingSession.title }}
+                            </a> #}
+                            <a href="{{ path('app_sessionDetail', {id: incomingSession.id}) }}">
                                 {{ incomingSession.title }}
                             </a>
                         </td>
@@ -65,7 +63,7 @@
         {% endif %}
 
     
-    <h3>En cours</h3>
+    <h3>En cours ({{ nbrOngoingSessions }})</h3>
 
         {# {% for ongoingSession in ongoingSessions %}
             {{ dump(ongoingSession) }}
@@ -85,7 +83,10 @@
                     {% for ongoingSession in ongoingSessions %}
                     <tr>    
                         <td>
-                            <a href="{{ path('app_editSession', {id: ongoingSession.id}) }}">
+                            {# <a href="{{ path('app_editSession', {id: ongoingSession.id}) }}">
+                                {{ ongoingSession.title }}
+                            </a> #}
+                            <a href="{{ path('app_sessionDetail', {id: ongoingSession.id}) }}">
                                 {{ ongoingSession.title }}
                             </a>
                         </td>
@@ -105,7 +106,7 @@
 
 
 
-    <h3>Passés</h3>
+    <h3>Passés ({{ nbrPassedSessions }})</h3>
 
         {# {% for passedSession in passedSessions %}
             {{ dump(passedSession) }}
@@ -125,7 +126,10 @@
                     {% for passedSession in passedSessions %}
                     <tr>    
                         <td>
-                            <a href="{{ path('app_editSession', {id: passedSession.id}) }}">
+                            {# <a href="{{ path('app_editSession', {id: passedSession.id}) }}">
+                                {{ passedSession.title }}
+                            </a> #}
+                            <a href="{{ path('app_sessionDetail', {id: passedSession.id}) }}">
                                 {{ passedSession.title }}
                             </a>
                         </td>

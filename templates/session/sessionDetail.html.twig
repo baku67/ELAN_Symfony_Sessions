@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail session{% endblock %}
+
+
+{% block body %}
+
+    <h1>Détail de la session {{ session }}</h1>
+    {# Retour sur la fiche formation #}
+    <a href="{{ path('app_trainingDetail', {'id':session.training.id }) }}">Retour</a>
+
+    <br><br>
+
+    {# {% if is_granted('ROLE_ADMIN') %} #}
+    {% if app.user %}
+    
+        <p>Infos</p>
+        <ul>
+            <li>Formation: {{ session.training }} </li>
+            <li>Session: {{ session }} </li>
+            <li>Formateur: {{ session.trainer }} </li>
+            <li>Date de début: {{ session.beginDate|date("m/d/Y") }} </li>
+            <li>Date de fin: {{ session.endDate|date("m/d/Y") }} </li>
+            <li>Places: {{ session.nbrPlaces }}</li>
+        </ul>
+
+    {% else %}
+
+        <p>Vous n'avez pas l'autorisation de voir ces infos</p>
+
+    {% endif %}
+
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_editSession', {'id': session.id }) }}">Editer la session</a>
+    {% else %}
+        <p style="opacity: 0.5">Editer la session (Admin)</p>
+    {% endif %}
+
+
+    <br><br>
+    <h2>Inscriptions</h2>
+    {# Nbr inscrits à coté du titre () #}
+    {# Colonne <a>"-"</a> pour désinscrire un stagiaire #}
+
+    <h2>Inscrire un stagiaire<h2>
+    {# Mettre un dataTables avec recherche intégré qui affiche uniquement les stagiaire qui sont pas inscrit à cette session (!) et ajouter une colonne <a>"+"</a> dans la table #}
+        
+
+
+{% endblock %}

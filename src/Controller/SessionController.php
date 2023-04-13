@@ -14,12 +14,29 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SessionController extends AbstractController
 {
+
     #[Route('/session', name: 'app_session')]
     public function index(): Response
     {
         return $this->render('session/index.html.twig', [
             'controller_name' => 'SessionController',
         ]);
+    }
+
+
+    #[Route('/sessionDetail/{id}', name: 'app_sessionDetail')]
+    public function sessionDetail(EntityManagerInterface $entityManager, int $id): Response {
+        
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $sessionRepo = $entityManager->getRepository(Session::class);
+
+        $session = $sessionRepo->find($id);
+
+        return $this->render('session/sessionDetail.html.twig', [
+            'session' => $session,
+        ]);
+
     }
 
 
