@@ -15,7 +15,7 @@
 
     <br><br><br>
     
-    <p>Sessions à venir</p>
+    <p class="underline">Sessions à venir</p>
         {% for incomingSession in incSessions %}
             {# TODO: faire les session Detail avec liste des inscrit, formateur, places #}
             {# Affichage des places prises/total avec code couleur (vert, orange si >50%, rouge full) dans la ligne #}
@@ -25,7 +25,7 @@
         {% endfor %}
 
     <br>
-    <p>Sessions en cours</p>
+    <p class="underline">Sessions en cours</p>
         {% for inProgressSession in inProgressSessions %}
             {# TODO: faire les session Detail avec liste des inscrit, formateur, places #}
             {# Affichage des places prises/total avec code couleur (vert, orange si >50%, rouge full) dans la ligne #}
@@ -35,7 +35,7 @@
         {% endfor %}
 
     <br>
-    <p>Sessions passées</p>
+    <p class="underline">Sessions passées</p>
         {% for passedSession in passedSessions %}
             {# TODO: faire les session Detail avec liste des inscrit, formateur, places #}
             {# Affichage des places prises/total avec code couleur (vert, orange si >50%, rouge full) dans la ligne #}

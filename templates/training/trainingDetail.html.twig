@@ -30,10 +30,11 @@
     {% endif %}
 
 
-    <h2>Sessions programmées</h2>
+    <h2>Sessions</h2>
 
-    {% if app.user %}
+    <h3>Prochainement</h3>
 
+        {% if app.user %}
             <table id="sessionsTable">
                 <thead>
                     <tr>    
@@ -43,33 +44,112 @@
                         <th>Places</th>
                     </tr>
                 </thead>
-
                 <tbody>
-
-                    {% for session in sessions %}
+                    {% for incomingSession in incomingSessions %}
                     <tr>    
-                        
                         <td>
-                            <a href="{{ path('app_editSession', {id: session.id}) }}">
-                                {{ session.title }}
+                            <a href="{{ path('app_editSession', {id: incomingSession.id}) }}">
+                                {{ incomingSession.title }}
                             </a>
                         </td>
-                        <td>{{ session.beginDate | date('m/d/Y') }}</td>
-                        <td>{{ session.endDate | date('m/d/Y') }}</td>
-                        <td>{{ session.nbrPlaces }}</td>
-
+                        <td>{{ incomingSession.beginDate | date('m/d/Y') }}</td>
+                        <td>{{ incomingSession.endDate | date('m/d/Y') }}</td>
+                        <td>{{ incomingSession.nbrPlaces }}</td>
                     </tr>
                     {% endfor %}
+                </tbody>
+            </table>
 
+        {% else %}
+            <p>Accès non autorisé<p> 
+        {% endif %}
+
+    
+    <h3>En cours</h3>
+
+        {# {% for ongoingSession in ongoingSessions %}
+            {{ dump(ongoingSession) }}
+        {% endfor %} #}
+
+        {% if app.user %}
+            <table id="sessionsTable2">
+                <thead>
+                    <tr>    
+                        <th>Titre</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Places</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ongoingSession in ongoingSessions %}
+                    <tr>    
+                        <td>
+                            <a href="{{ path('app_editSession', {id: ongoingSession.id}) }}">
+                                {{ ongoingSession.title }}
+                            </a>
+                        </td>
+                        <td>{{ ongoingSession.beginDate | date('m/d/Y') }}</td>
+                        <td>{{ ongoingSession.endDate | date('m/d/Y') }}</td>
+                        <td>{{ ongoingSession.nbrPlaces }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        {% else %}
+            <p>Accès non autorisé<p> 
+        {% endif %}
+        
+
+
+
+
+    <h3>Passés</h3>
+
+        {# {% for passedSession in passedSessions %}
+            {{ dump(passedSession) }}
+        {% endfor %} #}
+
+        {% if app.user %}
+            <table id="sessionsTable3">
+                <thead>
+                    <tr>    
+                        <th>Titre</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Places</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for passedSession in passedSessions %}
+                    <tr>    
+                        <td>
+                            <a href="{{ path('app_editSession', {id: passedSession.id}) }}">
+                                {{ passedSession.title }}
+                            </a>
+                        </td>
+                        <td>{{ passedSession.beginDate | date('m/d/Y') }}</td>
+                        <td>{{ passedSession.endDate | date('m/d/Y') }}</td>
+                        <td>{{ passedSession.nbrPlaces }}</td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
 
             <script>
                 let table = new DataTable('#sessionsTable');
+                let table2 = new DataTable('#sessionsTable2');
+                let table3 = new DataTable('#sessionsTable3');
             </script>
+        {% else %}
+                <p>Accès non autorisé<p> 
+        {% endif %}
 
-    {% endif %}
 
+
+
+    <br>
     <a href="{{ path('app_addSession', { 'idTraining': training.id }) }}">Ajouter une Session</a>
         
 

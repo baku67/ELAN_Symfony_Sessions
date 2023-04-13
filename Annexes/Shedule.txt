@@ -1,3 +1,5 @@
 Faire les count de listes 
 Calcul des sessions à venir et en cours (juste avec dates)
 Inscription des stagiaires aux sessions
+
+Pour nombre place affiché par session: inscrit/total (+ code couleur: Vert < 50%, orange > 50%, Rouge full)

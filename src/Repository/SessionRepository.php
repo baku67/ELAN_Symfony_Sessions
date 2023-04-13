@@ -24,7 +24,7 @@ class SessionRepository extends ServiceEntityRepository
         parent::__construct($registry, Session::class);
     }
 
-    // Affichage sur /home des sessions à venir
+    // Récupération des listes de session (A venir, en cours, passées) globales sur /home
     public function findPassedSessions() {
         $qb = $this->createQueryBuilder('a');
 
@@ -37,7 +37,6 @@ class SessionRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    // Affichage sur /home des sessions en cours
     public function findInProgressSessions() {
         $qb = $this->createQueryBuilder('a');
 
@@ -51,7 +50,6 @@ class SessionRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-
     public function findIncomingSessions() {
         $qb = $this->createQueryBuilder('a');
 
@@ -62,6 +60,54 @@ class SessionRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+
+
+    // Récupération des listes de session (A venir, en cours, passées) pour un Training (trainingDetail)
+    public function findPassedSessionByTraining(int $trainingId) {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->where('a.begin_date < :now')
+           ->andWhere('a.end_date < :now')
+           ->andWhere('a.training = :trainingId')
+           ->setParameters(new ArrayCollection(array(
+                new Parameter('now', new \DateTime()),
+                new Parameter('trainingId', $trainingId)
+            )));
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findOngoingSessionByTraining(int $trainingId) {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->where('a.begin_date < :now')
+           ->andWhere('a.end_date > :now2')
+           ->andWhere('a.training = :trainingId')
+           ->setParameters(new ArrayCollection(array(
+                new Parameter('now', new \DateTime()),
+                new Parameter('now2', new \DateTime()),
+                new Parameter('trainingId', $trainingId)
+            )));
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findIncomingSessionByTraining(int $trainingId) {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->where('a.begin_date > :now')
+           ->andWhere('a.training = :trainingId')
+           ->setParameters(new ArrayCollection(array(
+                new Parameter('now', new \DateTime()),
+                new Parameter('trainingId', $trainingId)
+            )));
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+
 
     public function save(Session $entity, bool $flush = false): void
     {
