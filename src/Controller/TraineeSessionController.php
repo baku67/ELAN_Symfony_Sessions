@@ -69,12 +69,28 @@ class TraineeSessionController extends AbstractController
         $trainee = $traineeRepo->find($id);
         $session = $sessionRepo->find($idSession);
 
-        $session->addTrainee($trainee);
-        $entityManager->persist($session);
-        $entityManager->flush();
+        // On check s'il reste des places disponibles dans la session 
+        // Recuperation du count de stagiaires de la session
+        $sessionNbrSub = count($session->getTrainees());
+        $sessionNbrPlaces = $session->getNbrPlaces();
+        if(($sessionNbrPlaces-$sessionNbrSub) >= 1 ) {
 
-        $this->addFlash('success', 'Le stagiaire a bien été inscrit à la session');
-        return $this->redirectToRoute('app_sessionDetail', array('id' => $idSession) );
+            $session->addTrainee($trainee);
+            $entityManager->persist($session);
+            $entityManager->flush();
+    
+            $this->addFlash('success', 'Le stagiaire a bien été inscrit à la session');
+            return $this->redirectToRoute('app_sessionDetail', array('id' => $idSession) );
+    
+        }
+        else {
+
+            $this->addFlash('error', 'Il n\'y a plus de places disponible pour cette session');
+            return $this->redirectToRoute('app_sessionDetail', array('id' => $idSession) );
+
+        }
+
+
 
     }
 
