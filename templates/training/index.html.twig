@@ -14,7 +14,7 @@
         {% if app.user %}
 
             {% for training in trainings %}
-                <a href="{{ path('app_trainingDetail', {'id': training.id}) }}">{{ training.title }} ({{ training.sessionCount }})</a>
+                <a href="{{ path('app_trainingDetail', {'id': training.id}) }}">{{ training.title }} ({{ training.sessionCount }} sessions)</a>
                 <br>
             {% endfor %}
 

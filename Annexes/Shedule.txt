@@ -1,3 +1,5 @@
+Mettre des table partout (les liste de sessions dans home par exemple) pour structure cadrée
+
 Ajout les flash success/error
 
 Faire les count de listes 

@@ -44,6 +44,11 @@ class Session
     #[ORM\OneToMany(mappedBy: 'session', targetEntity: TraineeSession::class)]
     private Collection $traineeSessions;
 
+    /**
+     * @Assert\NotMapped
+     */
+    private $nbrOfSubscribers;
+
     public function __construct()
     {
         $this->trainees = new ArrayCollection();
@@ -130,6 +135,13 @@ class Session
 
         return $this;
     }
+
+
+    public function getNbrOfSubscribers() {
+        // return toArray(count($this->trainees));
+        return $this->trainees->count();
+    }
+
 
 
     public function getTrainer(): ?Trainer

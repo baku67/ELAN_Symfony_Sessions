@@ -94,9 +94,12 @@ ul li {
     transition: all 0.5s;
 }
 .fa-trash-can {
-    color: #ad0d0d;
+    /* color: #ad0d0d; */
     padding: 0 5px;
     transition: all 0.5s;
+}
+.red {
+    color: #ad0d0d;
 }
 .deleteBin {
     margin-left: 15px;
@@ -132,4 +135,82 @@ ul li {
 }
 .full {
     color: #ad0d0d;
+}
+
+.fa-right-to-bracket {
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+
+    transition: all 0.5s;
+}
+.fa-right-to-bracket:hover {
+    background-color: #0dad55;
+    color: white !important;
+}
+
+.fa-magnifying-glass {
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+
+    transition: all 0.5s;
+}
+.fa-magnifying-glass:hover {
+    background-color: #0d6efd;
+    color: white !important;
+}
+
+
+.fa-right-from-bracket {
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 5px;
+
+    transition: all 0.5s;
+}
+.fa-right-from-bracket:hover {
+    background-color: #ad0d0d;
+    color: white !important;
+}
+
+
+.deleteButton {
+    padding: 5px 9px;
+    text-decoration: none;
+    border: 1px solid;
+    border-radius: 5px;
+    color:#ad0d0d;
+
+    transition: all 0.5s;
+}
+.editButton {
+    padding: 5px 9px;
+    text-decoration: none;
+    border: 1px solid;
+    border-radius: 5px;
+
+    transition: all 0.5s;
+}
+
+.deleteButton:hover {
+    background-color: #ad0d0d;
+    color: white;
+}
+
+.editButton:hover {
+    background-color: #0d6efd;
+    color: white;
+}
+
+
+.homeSessionLine {
+    display: inline-flex;
+}
+.homeSessionSection {
+    display: inline-flex;
+    flex-direction: column;
+}
+.spaceLeft {
+    margin-left: 20px;
 }

@@ -35,9 +35,9 @@
 
         <p>Infos</p>
         <ul>
-            <li>Formation: {{ session.training }} </li>
+            <li>Formation: <a href="{{ path('app_trainingDetail', {'id': session.training.id}) }}">{{ session.training }}</a> </li>
             <li>Session: {{ session }} </li>
-            <li>Formateur: {{ session.trainer }} </li>
+            <li>Formateur: <a href="{{ path('app_trainerDetail', {'id': session.trainer.id}) }}">{{ session.trainer }}</a> </li>
             <li>Date de début: {{ session.beginDate|date("m/d/Y") }} </li>
             <li>Date de fin: {{ session.endDate|date("m/d/Y") }} </li>
             <li>Inscriptions: {{ nbrSubscribers }}/{{ session.nbrPlaces }} <i class="fa-solid fa-user-group {{ sessionStatusClass }}"></i></li>
@@ -52,8 +52,8 @@
 
 
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_editSession', {'id': session.id }) }}"><i class="fa-solid fa-pen-to-square"></i> Éditer</a>
-        <a style="color:red;" href="{{ path('app_deleteSession', {'id': session.id }) }}"><i class="fa-regular fa-trash-can"></i> Supprimer</a>
+        <a class="editButton" href="{{ path('app_editSession', {'id': session.id }) }}"><i class="fa-solid fa-pen-to-square"></i> Éditer</a>
+        <a class="deleteButton" href="{{ path('app_deleteSession', {'id': session.id }) }}"><i class="fa-regular fa-trash-can"></i> Supprimer</a>
     {% else %}
         <p style="opacity: 0.5"><i class="fa-solid fa-pen-to-square"></i> Éditer (Admin)</p>
         <p style="opacity: 0.5"><i class="fa-regular fa-trash-can"></i> Supprimer (Admin)</p>
@@ -65,7 +65,7 @@
     <h2>Programme</h2>
     <div class="sessionModulesDiv">
         {% for sessionProgramme in sessionProgrammes %}
-            <a href="{{ path('app_deleteProgram', {'id': session.id, 'idProgram': sessionProgramme.id}) }}" class="sessionModule">{{ sessionProgramme.module.name }} | {{ sessionProgramme.length }}h <span class="deleteBin"><i class="fa-regular fa-trash-can"></i></span></a>
+            <a href="{{ path('app_deleteProgram', {'id': session.id, 'idProgram': sessionProgramme.id}) }}" class="sessionModule">{{ sessionProgramme.module.name }} | {{ sessionProgramme.length }}h <span class="deleteBin"><i class="fa-regular fa-trash-can red"></i></span></a>
         {% endfor %}
     </div>
 

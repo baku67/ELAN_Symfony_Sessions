@@ -6,43 +6,94 @@
 
     <h1>Bienvenue {{ app.user.email }} </h1>
 
-    <a href="{{ path('app_trainee') }}">Liste des stagiaires ({{ traineeCount }})</a>
+    <a href="{{ path('app_trainee') }}">Stagiaires ({{ traineeCount }})</a>
     <br>
-    <a href="{{ path('app_trainer') }}">Liste des formateurs ({{ trainerCount }})</a>
+    <a href="{{ path('app_trainer') }}">Formateurs ({{ trainerCount }})</a>
     <br>
-    <a href="{{ path('app_training') }}">Liste des formations ({{ trainingCount }})</a>
+    <a href="{{ path('app_training') }}">Formations ({{ trainingCount }})</a>
     <br>
 
     <br><br><br>
     
     <p class="underline">Sessions à venir</p>
+        <div class="homeSessionSection">
         {% for incomingSession in incSessions %}
-            {# TODO: faire les session Detail avec liste des inscrit, formateur, places #}
-            {# Affichage des places prises/total avec code couleur (vert, orange si >50%, rouge full) dans la ligne #}
-            <a href="{{ path('app_sessionDetail', { 'id':incomingSession.id }) }}">
-                {{ incomingSession }} <br>
-            <a>
-        {% endfor %}
 
-    <br>
+            {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+            {% if ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) < 0.5) %}
+                {% set sessionStatusClass = "open" %}
+                {% set sessionStatusText = "(ouvert)" %}
+            {% elseif ( ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) >= 0.5) and ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) != 1) ) %}
+                {% set sessionStatusClass = "midOpen" %}
+                {% set sessionStatusText = "(ouvert)" %}
+            {% else %}
+                {% set sessionStatusClass = "full" %}
+                {% set sessionStatusText = "(complet)" %}
+            {% endif %}
+
+            <div class="homeSessionLine">
+                <a href="{{ path('app_sessionDetail', { 'id':incomingSession.id }) }}">
+                    {{ incomingSession }} <br>
+                </a>
+                <span class="spaceLeft {{ sessionStatusClass }}">({{ incomingSession.nbrOfSubscribers }}/{{ incomingSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
+                <span class="spaceLeft {{ sessionStatusClass }}">{{ sessionStatusText }}</span>
+            </div>
+        {% endfor %}
+        </div>
+
+    <br><br>
     <p class="underline">Sessions en cours</p>
+        <div class="homeSessionSection">
         {% for inProgressSession in inProgressSessions %}
-            {# TODO: faire les session Detail avec liste des inscrit, formateur, places #}
-            {# Affichage des places prises/total avec code couleur (vert, orange si >50%, rouge full) dans la ligne #}
-            <a href="{{ path('app_sessionDetail', { 'id':inProgressSession.id }) }}">
-                {{ inProgressSession }} <br>
-            <a>
-        {% endfor %}
 
-    <br>
-    <p class="underline">Sessions passées</p>
-        {% for passedSession in passedSessions %}
-            {# TODO: faire les session Detail avec liste des inscrit, formateur, places #}
-            {# Affichage des places prises/total avec code couleur (vert, orange si >50%, rouge full) dans la ligne #}
-            <a href="{{ path('app_sessionDetail', { 'id':passedSession.id }) }}">
-                {{ passedSession }} <br>
-            <a>
+            {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+            {% if ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) < 0.5) %}
+                {% set sessionStatusClass = "open" %}
+                {% set sessionStatusText = "(ouvert)" %}
+            {% elseif ( ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) >= 0.5) and ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) != 1) ) %}
+                {% set sessionStatusClass = "midOpen" %}
+                {% set sessionStatusText = "(ouvert)" %}
+            {% else %}
+                {% set sessionStatusClass = "full" %}
+                {% set sessionStatusText = "(complet)" %}
+            {% endif %}
+            
+            <div class="homeSessionLine">
+                <a href="{{ path('app_sessionDetail', { 'id':inProgressSession.id }) }}">
+                    {{ inProgressSession }} <br>
+                </a>
+                <span class="spaceLeft {{ sessionStatusClass }}">({{ inProgressSession.nbrOfSubscribers }}/{{ inProgressSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
+                <span class="spaceLeft {{ sessionStatusClass }}">{{ sessionStatusText }}</span>
+            </div>
         {% endfor %}
+        </div>
+
+    <br><br>
+    <p class="underline">Sessions passées</p>
+        <div class="homeSessionSection">
+        {% for passedSession in passedSessions %}
+            
+            {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+            {% if ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) < 0.5) %}
+                {% set sessionStatusClass = "open" %}
+                {% set sessionStatusText = "(ouvert)" %}
+            {% elseif ( ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 0.5) and ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) != 1) ) %}
+                {% set sessionStatusClass = "midOpen" %}
+                {% set sessionStatusText = "(ouvert)" %}
+            {% else %}
+                {% set sessionStatusClass = "full" %}
+                {% set sessionStatusText = "(complet)" %}
+            {% endif %}
+
+            <div class="homeSessionLine">
+                <a href="{{ path('app_sessionDetail', { 'id':passedSession.id }) }}">
+                    {{ passedSession }} <br>
+                </a>
+                <span class="spaceLeft {{ sessionStatusClass }}">({{ passedSession.nbrOfSubscribers }}/{{ passedSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
+                <span class="spaceLeft {{ sessionStatusClass }}">{{ sessionStatusText }}</span>
+            </div>
+        {% endfor %}
+        </div>
 
 
 {% endblock %}
