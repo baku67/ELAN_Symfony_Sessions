@@ -96,4 +96,24 @@ class TrainerController extends AbstractController
             'edit' => $trainer->getId()
         ]);
     }
+
+
+
+   
+    #[Route('/trainer/{id}/delete', name: 'app_deleteTrainer')]
+    public function delete(EntityManagerInterface $entityManager, int $id): Response  {
+
+        // Méthode rapide pour savoir si User connecté
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $trainerRepo = $entityManager->getRepository(Trainer::class);
+
+        $trainerToDelete = $trainerRepo->find($id);
+
+        $trainerRepo->remove($trainerToDelete, true);
+
+
+        $this->addFlash('success', "Le formateur a bien été supprimé");
+        return $this->redirectToRoute('app_trainer');
+    }
 }

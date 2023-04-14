@@ -116,5 +116,26 @@ class TrainingController extends AbstractController
                 'edit' => $training->getId()
             ]);
         }
+
+
+        
+       
+        #[Route('/training/{id}/delete', name: 'app_deleteTraining')]
+        public function delete(EntityManagerInterface $entityManager, int $id): Response  {
+    
+            // Méthode rapide pour savoir si User connecté
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+            $trainingRepo = $entityManager->getRepository(Training::class);
+
+            $tainingToDelete = $trainingRepo->find($id);
+
+            $trainingRepo->remove($tainingToDelete, true);
+    
+
+            $this->addFlash('success', "La formation a bien été supprimé");
+            return $this->redirectToRoute('app_training');
+            
+        }
     
 }

@@ -51,9 +51,10 @@
     {% endif %}
 
 
-    {% if is_granted('ROLE_ADMIN') %}
+    {# {% if is_granted('ROLE_ADMIN') %} #}
+    {% if app.user %}
         <a class="editButton" href="{{ path('app_editSession', {'id': session.id }) }}"><i class="fa-solid fa-pen-to-square"></i> Éditer</a>
-        <a class="deleteButton" href="{{ path('app_deleteSession', {'id': session.id }) }}"><i class="fa-regular fa-trash-can"></i> Supprimer</a>
+        <a class="deleteButton" href="{{ path('app_deleteSession', {'id': session.id }) }}"><i class="fa-regular fa-trash-can"></i> Supprimer la session</a>
     {% else %}
         <p style="opacity: 0.5"><i class="fa-solid fa-pen-to-square"></i> Éditer (Admin)</p>
         <p style="opacity: 0.5"><i class="fa-regular fa-trash-can"></i> Supprimer (Admin)</p>

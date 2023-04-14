@@ -105,4 +105,22 @@ class TraineeController extends AbstractController
             'edit' => $trainee->getId()
         ]);
     }
+
+
+    #[Route('/trainee/{id}/delete', name: 'app_deleteTrainee')]
+    public function delete(EntityManagerInterface $entityManager, int $id): Response  {
+
+        // Méthode rapide pour savoir si User connecté
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $traineeRepo = $entityManager->getRepository(Trainee::class);
+
+        $traineeToDelete = $traineeRepo->find($id);
+
+        $traineeRepo->remove($traineeToDelete, true);
+        
+
+        $this->addFlash('success', "Le stagiaire a bien été supprimé");
+        return $this->redirectToRoute('app_trainee');
+    }
 }

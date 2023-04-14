@@ -16,7 +16,7 @@
     {% if app.user %}
     
 
-        <p>Titre: {{ training.title }}&nbsp; {% if app.user %}<a href="{{ path('app_editTraining', {'id': training.id }) }}">Editer</a>{% endif %}</p>
+        <p>Titre: {{ training.title }}&nbsp; {% if app.user %}<a class="editButton" href="{{ path('app_editTraining', {'id': training.id }) }}"><i class="fa-solid fa-pen-to-square"></i> Éditer</a>{% endif %}</p>
 
 
 
@@ -214,6 +214,7 @@
 
     <br>
     <a class="listAddButton" href="{{ path('app_addSession', { 'idTraining': training.id }) }}"><i class="fa-solid fa-square-plus"></i> Ajouter une Session</a>
+    <a href="{{ path('app_deleteTraining', {'id': training.id}) }}" class="deleteButton"><i class="fa-solid fa-triangle-exclamation"></i> Supprimer la formation <i class="fa-solid fa-triangle-exclamation"></i></a>
         
 
 
