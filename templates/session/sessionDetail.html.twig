@@ -45,10 +45,11 @@
 
     <br><br>
     <h2>Programme</h2>
-    {% for sessionProgramme in sessionProgrammes %}
-        {{ sessionProgramme.module.name }} | {{ sessionProgramme.length }}h
-        <br>
-    {% endfor %}
+    <div class="sessionModulesDiv">
+        {% for sessionProgramme in sessionProgrammes %}
+            <a href="{{ path('app_deleteProgram', {'id': session.id, 'idProgram': sessionProgramme.id}) }}" class="sessionModule">{{ sessionProgramme.module.name }} | {{ sessionProgramme.length }}h <span class="deleteBin"><i class="fa-regular fa-trash-can"></i></span></a>
+        {% endfor %}
+    </div>
 
     <br><br>
     <h3>Ajouter un module</h3>

@@ -99,8 +99,6 @@ class SessionController extends AbstractController
 
         }
 
-
-
         return $this->render('session/sessionDetail.html.twig', [
             'session' => $session,
             'subTrainees' => $susbcribedTrainees,
@@ -113,6 +111,33 @@ class SessionController extends AbstractController
         ]);
 
     }
+
+
+
+    #[Route('/session/{id}/app_deleteProgram/{idProgram}', name: 'app_deleteProgram')]
+    public function deleteProgram(EntityManagerInterface $entityManager, int $id, int $idProgram, Request $request): Response  {
+
+        // Méthode rapide pour savoir si User connecté
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $sessionRepo = $entityManager->getRepository(Session::class);
+        $programRepo = $entityManager->getRepository(Programme::class);
+
+        $session = $sessionRepo->find($id);
+        $program = $programRepo->find($idProgram);
+
+        $session->removeProgramme($program);
+        $programRepo->remove($program, true);
+
+
+        $this->addFlash('success', 'Le module à bien été supprimé de la programmation');
+        return $this->redirectToRoute('app_sessionDetail', array('id' => $id) );
+
+    }
+
+
+
+
 
 
     // Gère l'affichage du form d'ajout/modification MAIS GERE AUSSI l'envoi du form (if isSubmitted  ou juste affichage form )

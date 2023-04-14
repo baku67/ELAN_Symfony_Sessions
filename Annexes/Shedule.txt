@@ -1,3 +1,5 @@
+Ajout les flash success/error
+
 Faire les count de listes 
 Calcul des sessions à venir et en cours (juste avec dates)
 Inscription des stagiaires aux sessions

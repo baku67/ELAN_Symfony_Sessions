@@ -63,5 +63,45 @@ ul li {
 }
 .successFlash {
     background-color: #0dad55;
-    color: rgb(20, 20, 20);
+    color: rgb(255, 255, 255);
+}
+
+
+.sessionModulesDiv {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.sessionModule {
+    text-decoration: none;
+    color: black;
+    padding: 5px 8px;
+    margin: 5px 0px;
+    border-radius: 5px;
+
+    border-left: 2px solid rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.05);
+
+    /* // Pour aligner la trashcan à droite du bouton */
+    display: inline-flex;
+    justify-content: space-between;
+
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.fa-trash-can {
+    color: #ad0d0d;
+    padding: 0 5px;
+    transition: all 0.5s;
+}
+.deleteBin {
+    margin-left: 15px;
+}
+
+.sessionModule:hover {
+    background-color: #ad0d0d;
+    color: white;
+}
+.sessionModule:hover .fa-trash-can {
+    color: white;
 }
