@@ -6,17 +6,19 @@
 {% block body %}
 
     <h1>Liste des stagiaires ({{ totalCount }})</h1>
-    <a href="{{ path('app_home') }}">Retour</a>
+    <a href="{{ path('app_home') }}"><i class="fa-solid fa-arrow-left"></i> Retour</a>
 
     <br><br>
 
     {# {% if is_granted('ROLE_ADMIN') %} #}
     {% if app.user %}
 
-        {% for trainee in trainees %}
-            <a href="{{ path('app_traineeDetail', {'id': trainee.id}) }}">{{ trainee }}</a>
-            <br>
-        {% endfor %}
+        <div class="marginBottom">
+            {% for trainee in trainees %}
+                <a href="{{ path('app_traineeDetail', {'id': trainee.id}) }}">{{ trainee }}</a>
+                <br>
+            {% endfor %}
+        </div>
 
     {% else %}
 
@@ -29,7 +31,7 @@
 
     {# {% if is_granted('ROLE_ADMIN') %} #}
     {% if app.user %}
-        <a href="{{ path('app_addTrainee') }}">Ajouter un Stagiaire</a>
+        <a class="listAddButton" href="{{ path('app_addTrainee') }}"><i class="fa-solid fa-square-plus"></i> Ajouter un Stagiaire</a>
     {% endif %}
 
 

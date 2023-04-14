@@ -6,17 +6,29 @@
 
 
         <h1>Liste des Formations ({{ totalCount }})</h1>
-        <a href="{{ path('app_home') }}">Retour</a>
+        <a href="{{ path('app_home') }}"><i class="fa-solid fa-arrow-left"></i> Retour</a>
 
         <br><br>
 
         {# {% if is_granted('ROLE_ADMIN') %} #}
         {% if app.user %}
 
-            {% for training in trainings %}
-                <a href="{{ path('app_trainingDetail', {'id': training.id}) }}">{{ training.title }} ({{ training.sessionCount }} sessions)</a>
-                <br>
-            {% endfor %}
+            <table style="gap: 15px">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Sessions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for training in trainings %}
+                    <tr>
+                        <td><a href="{{ path('app_trainingDetail', {'id': training.id}) }}">{{ training.title }}</a></td>
+                        <td>({{ training.sessionCount }} sessions)</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
         {% else %}
 
@@ -29,7 +41,7 @@
 
         {# {% if is_granted('ROLE_ADMIN') %} #}
         {% if app.user %}
-            <a href="{{ path('app_addTraining') }}">Ajouter une formation</a>
+            <a class="listAddButton" href="{{ path('app_addTraining') }}"><i class="fa-solid fa-square-plus"></i> Ajouter une formation</a>
         {% endif %}
 
 

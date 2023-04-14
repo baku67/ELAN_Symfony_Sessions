@@ -7,7 +7,7 @@
 
     <h1>Formation: {{ training.title }}</h1>
     {# <a href="{{ path('app_training') }}">Retour</a> #}
-    <button onclick="history.back()">Retour</button>
+    <button onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Retour</button>
 
 
     <br><br>
@@ -38,11 +38,24 @@
                         <th>Titre</th>
                         <th>Début</th>
                         <th>Fin</th>
-                        <th>Places</th>
+                        <th>Inscriptions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for incomingSession in incomingSessions %}
+
+                    {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+                    {% if ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) < 0.5) %}
+                        {% set sessionStatusClass = "open" %}
+                        {% set sessionStatusText = "(ouvert)" %}
+                    {% elseif ( ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) >= 0.5) and ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) != 1) ) %}
+                        {% set sessionStatusClass = "midOpen" %}
+                        {% set sessionStatusText = "(ouvert)" %}
+                    {% else %}
+                        {% set sessionStatusClass = "full" %}
+                        {% set sessionStatusText = "(complet)" %}
+                    {% endif %}
+
                     <tr>    
                         <td>
                             {# <a href="{{ path('app_editSession', {id: incomingSession.id}) }}">
@@ -54,7 +67,7 @@
                         </td>
                         <td>{{ incomingSession.beginDate | date('m/d/Y') }}</td>
                         <td>{{ incomingSession.endDate | date('m/d/Y') }}</td>
-                        <td>{{ incomingSession.nbrPlaces }}</td>
+                        <td class="centered {{ sessionStatusClass }}">{{ incomingSession.nbrOfSubscribers }}/{{ incomingSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -78,24 +91,37 @@
                         <th>Titre</th>
                         <th>Début</th>
                         <th>Fin</th>
-                        <th>Places</th>
+                        <th>Inscriptions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for ongoingSession in ongoingSessions %}
-                    <tr>    
-                        <td>
-                            {# <a href="{{ path('app_editSession', {id: ongoingSession.id}) }}">
-                                {{ ongoingSession.title }}
-                            </a> #}
-                            <a href="{{ path('app_sessionDetail', {id: ongoingSession.id}) }}">
-                                {{ ongoingSession.title }}
-                            </a>
-                        </td>
-                        <td>{{ ongoingSession.beginDate | date('m/d/Y') }}</td>
-                        <td>{{ ongoingSession.endDate | date('m/d/Y') }}</td>
-                        <td>{{ ongoingSession.nbrPlaces }}</td>
-                    </tr>
+
+                        {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+                        {% if ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) < 0.5) %}
+                            {% set sessionStatusClass = "open" %}
+                            {% set sessionStatusText = "(ouvert)" %}
+                        {% elseif ( ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) >= 0.5) and ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) != 1) ) %}
+                            {% set sessionStatusClass = "midOpen" %}
+                            {% set sessionStatusText = "(ouvert)" %}
+                        {% else %}
+                            {% set sessionStatusClass = "full" %}
+                            {% set sessionStatusText = "(complet)" %}
+                        {% endif %}
+                    
+                        <tr>    
+                            <td>
+                                {# <a href="{{ path('app_editSession', {id: ongoingSession.id}) }}">
+                                    {{ ongoingSession.title }}
+                                </a> #}
+                                <a href="{{ path('app_sessionDetail', {id: ongoingSession.id}) }}">
+                                    {{ ongoingSession.title }}
+                                </a>
+                            </td>
+                            <td>{{ ongoingSession.beginDate | date('m/d/Y') }}</td>
+                            <td>{{ ongoingSession.endDate | date('m/d/Y') }}</td>
+                            <td class="centered {{ sessionStatusClass }}">{{ ongoingSession.nbrOfSubscribers }}/{{ ongoingSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -121,24 +147,37 @@
                         <th>Titre</th>
                         <th>Début</th>
                         <th>Fin</th>
-                        <th>Places</th>
+                        <th>Inscriptions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for passedSession in passedSessions %}
-                    <tr>    
-                        <td>
-                            {# <a href="{{ path('app_editSession', {id: passedSession.id}) }}">
-                                {{ passedSession.title }}
-                            </a> #}
-                            <a href="{{ path('app_sessionDetail', {id: passedSession.id}) }}">
-                                {{ passedSession.title }}
-                            </a>
-                        </td>
-                        <td>{{ passedSession.beginDate | date('m/d/Y') }}</td>
-                        <td>{{ passedSession.endDate | date('m/d/Y') }}</td>
-                        <td>{{ passedSession.nbrPlaces }}</td>
-                    </tr>
+
+                        {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+                        {% if ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) < 0.5) %}
+                            {% set sessionStatusClass = "open" %}
+                            {% set sessionStatusText = "(ouvert)" %}
+                        {% elseif ( ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 0.5) and ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) != 1) ) %}
+                            {% set sessionStatusClass = "midOpen" %}
+                            {% set sessionStatusText = "(ouvert)" %}
+                        {% else %}
+                            {% set sessionStatusClass = "full" %}
+                            {% set sessionStatusText = "(complet)" %}
+                        {% endif %}
+
+                        <tr>    
+                            <td>
+                                {# <a href="{{ path('app_editSession', {id: passedSession.id}) }}">
+                                    {{ passedSession.title }}
+                                </a> #}
+                                <a href="{{ path('app_sessionDetail', {id: passedSession.id}) }}">
+                                    {{ passedSession.title }}
+                                </a>
+                            </td>
+                            <td>{{ passedSession.beginDate | date('m/d/Y') }}</td>
+                            <td>{{ passedSession.endDate | date('m/d/Y') }}</td>
+                            <td class="centered {{ sessionStatusClass }}">{{ passedSession.nbrOfSubscribers }}/{{ passedSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -174,7 +213,7 @@
 
 
     <br>
-    <a href="{{ path('app_addSession', { 'idTraining': training.id }) }}">Ajouter une Session</a>
+    <a class="listAddButton" href="{{ path('app_addSession', { 'idTraining': training.id }) }}"><i class="fa-solid fa-square-plus"></i> Ajouter une Session</a>
         
 
 

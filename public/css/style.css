@@ -214,3 +214,32 @@ ul li {
 .spaceLeft {
     margin-left: 20px;
 }
+
+table {
+    margin-bottom: 25px;
+}
+
+.listAddButton {
+    text-decoration: none;
+    color: #0dad55;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #0dad55;
+
+    transition: all 0.5s;
+}
+.listAddButton:hover {
+    background-color: #0dad55;
+    color: white;
+}
+
+.marginBottom {
+    margin-bottom: 25px;
+}
+
+.centered {
+    text-align: center;
+}
+.right {
+    text-align: right;
+}
