@@ -27,3 +27,41 @@ ul li {
     pointer-events: none;
     background-color: rgba(0, 0, 0, 0.1) !important;
 }
+
+.alertFlash {
+    position: fixed;
+    bottom: 45px;
+    right: 10px;
+    width: 300px;
+    font-size: 0.60em;
+    border-radius: 5px;
+    padding: 10px 20px;
+
+    opacity: 0;
+    animation: fadeInFlash 0.8s 0.1s forwards ease, fadeOutFlash 0.8s 3s forwards ease;
+}
+@keyframes fadeInFlash {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes fadeOutFlash {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.errorFlash {
+    background-color: #ad0d0d;
+    color: white;
+}
+.successFlash {
+    background-color: #0dad55;
+    color: rgb(20, 20, 20);
+}

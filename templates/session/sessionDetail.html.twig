@@ -44,6 +44,39 @@
 
 
     <br><br>
+    <h2>Programme</h2>
+    {% for sessionProgramme in sessionProgrammes %}
+        {{ sessionProgramme.module.name }} | {{ sessionProgramme.length }}h
+        <br>
+    {% endfor %}
+
+    <br><br>
+    <h3>Ajouter un module</h3>
+    {# formAddProgramme #}
+    {{ form_start(formAddProgramme) }}
+
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(formAddProgramme) }}
+        </div>
+
+        <div class="inline">
+            {{ form_label(formAddProgramme.module, 'Module')}}
+            {{ form_widget(formAddProgramme.module) }}
+    
+            {{ form_label(formAddProgramme.length, 'Durée')}}
+            {{ form_widget(formAddProgramme.length) }} h
+
+            {{ form_label(formAddProgramme.session, 'Session')}}
+            {{ form_widget(formAddProgramme.session, { 'value': session.id}) }} 
+        </div>
+
+        {{ form_widget(formAddProgramme.submit, { 'label': 'Programmer' }) }} 
+    
+    {{ form_end(formAddProgramme) }}
+
+    
+
+    <br><br>
     <h2>Inscriptions ({{ nbrSubscribers }}/{{ session.nbrPlaces }})</h2>
     {# Nbr inscrits à coté du titre () #}
     {# Colonne <a>"-"</a> pour désinscrire un stagiaire #}

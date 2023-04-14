@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Trainee;
+use App\Entity\Session;
 use App\Form\TraineeType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,9 +49,9 @@ class TraineeController extends AbstractController
 
         $sessionRepo = $entityManager->getRepository(Session::class);
 
-        $incomingSessionsTrainee = $sessionRepo->findIncomingSessionsByTrainee();
-        $inProgressSessionsTrainee =  $sessionRepo->findInProgressSessionsByTrainee();
-        $passedSessionsTrainee =  $sessionRepo->findPassedSessionsByTrainee();
+        // $incomingSessionsTrainee = $sessionRepo->findIncomingSessionsByTrainee($id);
+        // $inProgressSessionsTrainee =  $sessionRepo->findInProgressSessionsByTrainee($id);
+        // $passedSessionsTrainee =  $sessionRepo->findPassedSessionsByTrainee($id);
         
 
         return $this->render('trainee/traineeDetail.html.twig', [

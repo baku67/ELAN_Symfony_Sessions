@@ -67,7 +67,7 @@ class SessionRepository extends ServiceEntityRepository
 
 
     // Récupération des listes de session (A venir, en cours, passées) pour un Trainee (traineeDetail)
-    public function findPassedSessionByTrainee(int $traineeId) {
+    public function findPassedSessionsByTrainee(int $traineeId) {
 
         // Custom query: https://symfony.com/doc/current/doctrine/associations.html#joining-related-records
         // $entityManager = $this->getEntityManager();
@@ -90,7 +90,7 @@ class SessionRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findOngoingSessionByTrainee(int $traineeId) {
+    public function findOngoingSessionsByTrainee(int $traineeId) {
 
         // Custom query: https://symfony.com/doc/current/doctrine/associations.html#joining-related-records
         $qb = $this->createQueryBuilder('a');
@@ -105,8 +105,8 @@ class SessionRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
-
-    public function findIncomingSessionByTrainee(int $traineeId) {
+    
+    public function findIncomingSessionsByTrainee(int $traineeId) {
 
         // Custom query: https://symfony.com/doc/current/doctrine/associations.html#joining-related-records
         $qb = $this->createQueryBuilder('a');

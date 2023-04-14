@@ -195,33 +195,4 @@ class Session
         return $this->getTitle();
     }
 
-    /**
-     * @return Collection<int, TraineeSession>
-     */
-    public function getTraineeSessions(): Collection
-    {
-        return $this->traineeSessions;
-    }
-
-    public function addTraineeSession(TraineeSession $traineeSession): self
-    {
-        if (!$this->traineeSessions->contains($traineeSession)) {
-            $this->traineeSessions->add($traineeSession);
-            $traineeSession->setSession($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTraineeSession(TraineeSession $traineeSession): self
-    {
-        if ($this->traineeSessions->removeElement($traineeSession)) {
-            // set the owning side to null (unless already changed)
-            if ($traineeSession->getSession() === $this) {
-                $traineeSession->setSession(null);
-            }
-        }
-
-        return $this;
-    }
 }

@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\PersistentCollection;
+// use Doctrine\ORM\PersistentCollection;
 use App\Entity\Session;
 use App\Entity\Training;
+use App\Entity\Programme;
 use App\Entity\Trainee;
+use App\Entity\Module;
 use App\Form\SessionType;
+use App\Form\ProgrammeType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,12 +31,13 @@ class SessionController extends AbstractController
 
 
     #[Route('/sessionDetail/{id}', name: 'app_sessionDetail')]
-    public function sessionDetail(EntityManagerInterface $entityManager, int $id): Response {
+    public function sessionDetail(EntityManagerInterface $entityManager, int $id, Request $request): Response {
         
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $sessionRepo = $entityManager->getRepository(Session::class);
         $traineeRepo = $entityManager->getRepository(Trainee::class);
+        $moduleRepo = $entityManager->getRepository(Module::class);
 
         $session = $sessionRepo->find($id);
 
@@ -53,12 +57,59 @@ class SessionController extends AbstractController
         // });
         // https://www.w3schools.com/php/func_array_filter.asp
 
+        $allModules = $moduleRepo->findAll(); 
+        $sessionProgrammes = $session->getProgrammes();
+
+        // Tableau des modules deja ajouté dans la programmation (pour empecher doublons)
+        $sessionModules = [];
+        foreach ($sessionProgrammes as $sessionProgramme) {
+            $sessionModules[] = $sessionProgramme->getModule();
+        }
+
+        // form ajout d'un programme à la session
+        $programme = new Programme();
+        $form = $this->createForm(ProgrammeType::class, $programme);
+        $form -> handleRequest($request);
+
+        // Vérifs/Filtres
+        if($form->isSubmitted()) {
+
+            if( in_array($programme->getModule(), $sessionModules) ) {
+                // Le module que l'on veut ajouter à la session est déjà présent dans le programme
+                $this->addFlash('error', 'Le module est déjà présent dans la programmation de la session');
+                return $this->redirectToRoute('app_sessionDetail', array('id' => $id) );
+            }
+            else {
+
+                if($form->isValid()) {
+
+                
+
+                    // Hydrataion "Entreprise $entreprise" a partir des données du form
+                    $programme = $form->getData();
+                    // Equivalent au prepare et execute PDO (persist() avant si ajout en BDD !)
+                    $entityManager->persist($programme);
+                    $entityManager->flush();
+    
+                    // On récupère l'id de la formation "mère" pour rediriger vers Détail formation
+                    $this->addFlash('success', 'Le module à bien été ajouté à la programmation');
+                    return $this->redirectToRoute('app_sessionDetail', array('id' => $id) );
+                }    
+            }
+
+        }
+
+
+
         return $this->render('session/sessionDetail.html.twig', [
             'session' => $session,
             'subTrainees' => $susbcribedTrainees,
             'nbrSubscribers' => $nbrSubscribers,
             'allTrainees' => $allTrainees,
-            'notSubTrainees' => $notSubTrainees
+            'notSubTrainees' => $notSubTrainees,
+            'allModules' => $allModules,
+            'sessionProgrammes' => $sessionProgrammes,
+            'formAddProgramme' => $form->createView(),
         ]);
 
     }
