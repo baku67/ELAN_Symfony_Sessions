@@ -83,7 +83,11 @@ class TrainingController extends AbstractController
     
             // On vérifie dans quel cas on est (création ou modification de l'entité)
             if(!$training) {
+                $flashMsg = "La formation a bien été ajoutée";
                 $training = new Training();
+            }
+            else {
+                $flashMsg = "Modifications sauvegardées";
             }
     
             $form = $this->createForm(TrainingType::class, $training);
@@ -99,6 +103,7 @@ class TrainingController extends AbstractController
                     $entityManager->persist($training);
                     $entityManager->flush();
     
+                    $this->addFlash('success', $flashMsg);
                     return $this->redirectToRoute('app_trainingDetail', array('id' => $training->getId()) );
                 }
             }

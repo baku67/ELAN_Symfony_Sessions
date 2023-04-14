@@ -55,6 +55,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
+            $this->addFlash('success', 'Connecté');
             return $this->redirectToRoute('app_home');
         }
 

@@ -73,6 +73,10 @@ class TraineeController extends AbstractController
         // On vérifie dans quel cas on est (création ou modification de l'entité)
         if(!$trainee) {
             $trainee = new Trainee();
+            $flashMsg = "Le stagiaire a bien été ajouté";
+        }
+        else {
+            $flashMsg = "Modifications sauvegardées";
         }
 
         $form = $this->createForm(TraineeType::class, $trainee);
@@ -88,6 +92,7 @@ class TraineeController extends AbstractController
                 $entityManager->persist($trainee);
                 $entityManager->flush();
 
+                $this->addFlash('success', $flashMsg);
                 return $this->redirectToRoute('app_traineeDetail', array('id' => $trainee->getId()) );
             }
         }

@@ -129,10 +129,8 @@ class SessionController extends AbstractController
         $session->removeProgramme($program);
         $programRepo->remove($program, true);
 
-
         $this->addFlash('success', 'Le module à bien été supprimé de la programmation');
         return $this->redirectToRoute('app_sessionDetail', array('id' => $id) );
-
     }
 
 
@@ -150,7 +148,11 @@ class SessionController extends AbstractController
 
         // On vérifie dans quel cas on est (création ou modification de l'entité)
         if(!$session) {
+            $flashMsg = "La session a bien été ajoutée";
             $session = new Session();
+        }
+        else {
+            $flashMsg = "Modifications sauvegardées";
         }
 
         $form = $this->createForm(SessionType::class, $session);
@@ -167,6 +169,7 @@ class SessionController extends AbstractController
                 $entityManager->flush();
 
                 // On récupère l'id de la formation "mère" pour rediriger vers Détail formation
+                $this->addFlash('success', $flashMsg);
                 return $this->redirectToRoute('app_trainingDetail', array('id' => $session->getTraining()->getId()) );
             }
         }
@@ -198,6 +201,7 @@ class SessionController extends AbstractController
         $sessionToDelete = $sessionRepo->find($id);
         $sessionRepo->remove($sessionToDelete, true);
 
+        $this->addFlash('success', 'La session a bien été supprimé');
         return $this->redirectToRoute('app_home');
 
     }

@@ -42,6 +42,7 @@ class TraineeType extends AbstractType
                     'Femme' => 'Female',
                     'Autre' => 'Other',
                 ],   
+                'attr' => ['class' => 'form-control']
             ])
             // ->add('sessions')
             ->add('submit', SubmitType::class, [

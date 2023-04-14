@@ -63,7 +63,11 @@ class TrainerController extends AbstractController
 
         // On vérifie dans quel cas on est (création ou modification de l'entité)
         if(!$trainer) {
+            $flashMsg = "Le formateur a bien été créé";
             $trainer = new Trainer();
+        }
+        else {
+            $flashMsg = "Modifications sauvegardées";
         }
 
         $form = $this->createForm(TrainerType::class, $trainer);
@@ -79,6 +83,7 @@ class TrainerController extends AbstractController
                 $entityManager->persist($trainer);
                 $entityManager->flush();
 
+                $this->addFlash('success', $flashMsg);
                 return $this->redirectToRoute('app_trainerDetail', array('id' => $trainer->getId()) );
             }
         }

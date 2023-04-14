@@ -44,6 +44,7 @@ class TraineeSessionController extends AbstractController
         // $entityManager->persist($session);
         $entityManager->flush();
 
+        $this->addFlash('success', 'Le stagiaire a bien été désinscrit de la session');
         if ($redirect == 'trainee') {
             return $this->redirectToRoute('app_traineeDetail', array('id' => $id) );
         }
@@ -72,6 +73,7 @@ class TraineeSessionController extends AbstractController
         $entityManager->persist($session);
         $entityManager->flush();
 
+        $this->addFlash('success', 'Le stagiaire a bien été inscrit à la session');
         return $this->redirectToRoute('app_sessionDetail', array('id' => $idSession) );
 
     }
