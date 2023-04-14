@@ -15,7 +15,24 @@
 
     {# {% if is_granted('ROLE_ADMIN') %} #}
     {% if app.user %}
-    
+
+        {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+        {% set sessionStatusClass = "" %}
+
+        {% if ((nbrSubscribers / session.nbrPlaces ) < 0.5) %}
+            {% set sessionStatusClass = "open" %}
+            {% set sessionStatusText = "(ouvert)" %}
+            {# <p>Inférieur à 50%</p> #}
+        {% elseif ( ((nbrSubscribers / session.nbrPlaces ) >= 0.5) and ((nbrSubscribers / session.nbrPlaces ) != 1) ) %}
+            {% set sessionStatusClass = "midOpen" %}
+            {% set sessionStatusText = "(ouvert)" %}
+            {# <p>Supérieur à 50% mais pas 100%</p> #}
+        {% else %}
+            {% set sessionStatusClass = "full" %}
+            {% set sessionStatusText = "(complet)" %}
+            {# <p>Full</p> #}
+        {% endif %}
+
         <p>Infos</p>
         <ul>
             <li>Formation: {{ session.training }} </li>
@@ -23,7 +40,8 @@
             <li>Formateur: {{ session.trainer }} </li>
             <li>Date de début: {{ session.beginDate|date("m/d/Y") }} </li>
             <li>Date de fin: {{ session.endDate|date("m/d/Y") }} </li>
-            <li>Inscriptions: {{ nbrSubscribers }}/{{ session.nbrPlaces }}</li>
+            <li>Inscriptions: {{ nbrSubscribers }}/{{ session.nbrPlaces }} <i class="fa-solid fa-user-group {{ sessionStatusClass }}"></i></li>
+            <li class="{{ sessionStatusClass }}">{{ sessionStatusText }}</li>
         </ul>
 
     {% else %}
@@ -34,11 +52,11 @@
 
 
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_editSession', {'id': session.id }) }}">Editer la session</a>
-        <a href="{{ path('app_deleteSession', {'id': session.id }) }}">Supprimer la session</a>
+        <a href="{{ path('app_editSession', {'id': session.id }) }}"><i class="fa-solid fa-pen-to-square"></i> Éditer</a>
+        <a style="color:red;" href="{{ path('app_deleteSession', {'id': session.id }) }}"><i class="fa-regular fa-trash-can"></i> Supprimer</a>
     {% else %}
-        <p style="opacity: 0.5">Editer la session (Admin)</p>
-        <p style="opacity: 0.5">Supprimer la session (Admin)</p>
+        <p style="opacity: 0.5"><i class="fa-solid fa-pen-to-square"></i> Éditer (Admin)</p>
+        <p style="opacity: 0.5"><i class="fa-regular fa-trash-can"></i> Supprimer (Admin)</p>
         
     {% endif %}
 
@@ -64,8 +82,10 @@
             {{ form_label(formAddProgramme.module, 'Module')}}
             {{ form_widget(formAddProgramme.module) }}
     
-            {{ form_label(formAddProgramme.length, 'Durée')}}
-            {{ form_widget(formAddProgramme.length) }} h
+            {# <div class="inline"> #}
+                {{ form_label(formAddProgramme.length, 'Durée')}}
+                {{ form_widget(formAddProgramme.length) }} h
+            {# </div> #}
 
             {{ form_label(formAddProgramme.session, 'Session')}}
             {{ form_widget(formAddProgramme.session, { 'value': session.id}) }} 
@@ -86,10 +106,30 @@
         {% if subTrainees|length == 0 %}
             <p>Pas de stagiaires inscrits pour le moment</p>
         {% else %}
-            {% for subTrainee in subTrainees %}
-                <a href="{{ path('app_traineeDetail', {id: subTrainee.id})}}">{{ subTrainee }}</a> &nbsp;<a href="{{ path('app_removetraineeSession', {'id': subTrainee.id, 'idSession': session.id, 'redirect': 'session'}) }}">Désinscrire</a>
-                <br>
-            {% endfor %}
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Stagiaire</th>
+                        <th>Désinscrire</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for subTrainee in subTrainees %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('app_traineeDetail', {id: subTrainee.id})}}">{{ subTrainee }}</a>
+                        </td>
+                        <td style="text-align:center;">
+                            <a href="{{ path('app_removetraineeSession', {'id': subTrainee.id, 'idSession': session.id, 'redirect': 'session'}) }}">
+                                <i class="fa-solid fa-right-from-bracket fa-red"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
         {% endif %}
         
     {% else %}
@@ -97,6 +137,7 @@
     {% endif %}
 
 
+    <br><br>
     <h2>Inscrire un stagiaire</h2>
     {# Mettre un dataTables avec recherche intégré qui affiche uniquement les stagiaire qui sont pas inscrit à cette session (!) et ajouter une colonne <a>"+"</a> dans la table #}
     {% if app.user %}
@@ -125,10 +166,10 @@
                             {{ notSubtrainee.ville }}
                         </td>
                         <td>
-                            <a href="{{ path('app_traineeDetail', {id: notSubtrainee.id}) }}">Voir</a>
+                            <a href="{{ path('app_traineeDetail', {id: notSubtrainee.id}) }}"><i class="fa-solid fa-magnifying-glass fa-centered"></i></a>
                         </td> 
                         <td>
-                            <a href="{{ path('app_addtraineeSession', {'id': notSubtrainee.id, 'idSession': session.id}) }}">IIII</a>
+                            <a href="{{ path('app_addtraineeSession', {'id': notSubtrainee.id, 'idSession': session.id}) }}"><i class="fa-solid fa-right-to-bracket fa-centered fa-green"></i></a>
                         </td>
                     </tr>
                     {% endfor %}

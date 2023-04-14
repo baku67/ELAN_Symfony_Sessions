@@ -109,3 +109,27 @@ ul li {
 .sessionModule:hover .fa-trash-can {
     color: white;
 }
+
+
+.fa-centered {
+    position: relative;
+    left: 14px;
+}
+.fa-red {
+    color: #ad0d0d;
+}
+.fa-green {
+    color: #0dad55;
+}
+
+
+
+.open {
+    color: #0dad55;
+}
+.midOpen {
+    color: #ad550d;
+}
+.full {
+    color: #ad0d0d;
+}
