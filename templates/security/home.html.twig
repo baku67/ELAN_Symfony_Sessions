@@ -15,7 +15,7 @@
 
     <br><br><br>
     
-    <p class="underline">Sessions à venir</p>
+    <h2 class="underline">Sessions à venir</h2>
         <div class="homeSessionSection">
 
             {% if incSessions is null or incSessions is empty %}
@@ -24,7 +24,7 @@
 
             {% else %}
 
-                <table class="homeTable">
+                <table class="homeTable display" id="homeTable1">
                     <thead>
                         <tr>
                             <th>Titre</th>
@@ -40,24 +40,24 @@
                         {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
                         {% if ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) < 0.5) %}
                             {% set sessionStatusClass = "open" %}
-                            {% set sessionStatusText = "(ouvert)" %}
+                            {% set sessionStatusText = "Ouvert" %}
                         {% elseif ( ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) >= 0.5) and ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) != 1) ) %}
                             {% set sessionStatusClass = "midOpen" %}
-                            {% set sessionStatusText = "(ouvert)" %}
+                            {% set sessionStatusText = "Ouvert" %}
                         {% else %}
                             {% set sessionStatusClass = "full" %}
-                            {% set sessionStatusText = "(complet)" %}
+                            {% set sessionStatusText = "Complet" %}
                         {% endif %}
 
                         <tr>
                             <td class="maxWidthEllipsis">
                                 <a href="{{ path('app_sessionDetail', { 'id':incomingSession.id }) }}">{{ incomingSession }}</a>
                             </td>
-                            <td>
+                            <td class="centered">
                                 <span class="{{ sessionStatusClass }}">({{ incomingSession.nbrOfSubscribers }}/{{ incomingSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
                             </td>
-                            <td>
-                                <span class="{{ sessionStatusClass }}">{{ sessionStatusText }}</span>
+                            <td class="centered td{{ sessionStatusClass }}">
+                                <span class="statusText">{{ sessionStatusText }}</span>
                             </td>
                         </tr>
 
@@ -65,12 +65,21 @@
                     </tbody>
                 </table>
 
+                <script>
+                    let table1 = new DataTable('#homeTable1', {
+                        paging: false,
+                        searching: false,
+                        "info": false 
+                        // scrollY: 400
+                    });
+                </script>
+
             {% endif %}
 
         </div>
 
     <br><br>
-    <p class="underline">Sessions en cours</p>
+    <h2 class="underline">Sessions en cours</h2>
         <div class="homeSessionSection">
 
         {% if inProgressSessions is null or inProgressSessions is empty %}
@@ -79,7 +88,7 @@
 
         {% else %}
 
-            <table class="homeTable">
+            <table class="homeTable display" id="homeTable2">
                 <thead>
                     <tr>
                         <th>Titre</th>
@@ -95,30 +104,39 @@
                     {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
                     {% if ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) < 0.5) %}
                         {% set sessionStatusClass = "open" %}
-                        {% set sessionStatusText = "(ouvert)" %}
+                        {% set sessionStatusText = "Ouvert" %}
                     {% elseif ( ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) >= 0.5) and ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) != 1) ) %}
                         {% set sessionStatusClass = "midOpen" %}
-                        {% set sessionStatusText = "(ouvert)" %}
+                        {% set sessionStatusText = "Ouvert" %}
                     {% else %}
                         {% set sessionStatusClass = "full" %}
-                        {% set sessionStatusText = "(complet)" %}
+                        {% set sessionStatusText = "Complet" %}
                     {% endif %}
 
                     <tr>
                         <td class="maxWidthEllipsis" >
                             <a href="{{ path('app_sessionDetail', { 'id':inProgressSession.id }) }}">{{ inProgressSession }}</a>
                         </td>
-                        <td>
+                        <td class="centered">
                             <span class="{{ sessionStatusClass }}">({{ inProgressSession.nbrOfSubscribers }}/{{ inProgressSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
                         </td>
-                        <td>
-                            <span class="{{ sessionStatusClass }}">{{ sessionStatusText }}</span>
+                        <td class="centered td{{ sessionStatusClass }}">
+                            <span class="statusText">{{ sessionStatusText }}</span>
                         </td>
                     </tr>
 
                 {% endfor %}
                 </tbody>
             </table>
+
+            <script>
+                let table2 = new DataTable('#homeTable2', {
+                    paging: false,
+                    searching: false,
+                    "info": false 
+                    // scrollY: 400
+                });
+            </script>
 
         {% endif %}
 
@@ -127,7 +145,7 @@
 
 
     <br><br>
-    <p class="underline">Sessions passées</p>
+    <h2 class="underline">Sessions passées</h2>
         <div class="homeSessionSection">
 
         {% if passedSessions is null or passedSessions is empty %}
@@ -136,7 +154,7 @@
 
         {% else %}
 
-            <table class="homeTable">
+            <table class="homeTable display" id="homeTable3">
                 <thead>
                     <tr>
                         <th>Titre</th>
@@ -153,24 +171,24 @@
                     {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
                     {% if ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) < 0.5) %}
                         {% set sessionStatusClass = "open" %}
-                        {% set sessionStatusText = "(ouvert)" %}
+                        {% set sessionStatusText = "Ouvert" %}
                     {% elseif ( ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 0.5) and ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) != 1) ) %}
                         {% set sessionStatusClass = "midOpen" %}
-                        {% set sessionStatusText = "(ouvert)" %}
+                        {% set sessionStatusText = "Ouvert" %}
                     {% else %}
                         {% set sessionStatusClass = "full" %}
-                        {% set sessionStatusText = "(complet)" %}
+                        {% set sessionStatusText = "Complet" %}
                     {% endif %}
 
                     <tr>
                         <td class="maxWidthEllipsis">
                             <a href="{{ path('app_sessionDetail', { 'id':passedSession.id }) }}">{{ passedSession }}</a>
                         </td>
-                        <td>
-                            <span class="spaceLeft {{ sessionStatusClass }}">({{ passedSession.nbrOfSubscribers }}/{{ passedSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
+                        <td class="centered">
+                            <span class="{{ sessionStatusClass }}">({{ passedSession.nbrOfSubscribers }}/{{ passedSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
                         </td>
-                        <td>
-                            <span class="spaceLeft {{ sessionStatusClass }}">{{ sessionStatusText }}</span>
+                        <td class="centered td{{ sessionStatusClass }}">
+                            <span class="statusText">{{ sessionStatusText }}</span>
                         </td>
                     </tr>
 
@@ -179,8 +197,22 @@
                 </tbody>
             </table>
 
+
+            <script>
+                let table3 = new DataTable('#homeTable3', {
+                    paging: false,
+                    searching: false,
+                    "info": false 
+                    // scrollY: 400
+                });
+            </script>
+
         {% endif %}
         </div>
+
+
+
+
 
 
 {% endblock %}

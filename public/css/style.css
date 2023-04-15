@@ -214,9 +214,22 @@ ul li {
 
 
 
+.tdopen {
+    background-color: #0dad55;
+    color: white;
+}
+.tdfull {
+    background-color: #ad0d0d;
+    color: white;
+}
+.statusText {
+    color: white;
+}
+
+
 .maxWidthEllipsis {
-    max-width: 180px; 
-    width: 180px;
+    max-width: 300px; 
+    width: 300px;
     overflow: hidden; 
     text-overflow: ellipsis; 
     white-space: nowrap;
