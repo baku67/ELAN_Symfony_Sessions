@@ -49,9 +49,14 @@
                             {% set sessionStatusText = "Complet" %}
                         {% endif %}
 
-                        <tr>
+                        <tr class="clickableTr" value="{{incomingSession.id}}">
                             <td class="maxWidthEllipsis">
-                                <a href="{{ path('app_sessionDetail', { 'id':incomingSession.id }) }}">{{ incomingSession }}</a>
+                                    {# Si JS activé: lien de redirection traité en JS (voir bas de page) #}
+                                    <span class="jsEnabled1" style="opacity:0">{{ incomingSession }}</span>
+                                    {# Si JS desactivé: lien en dur sur le titre uniquement #}
+                                    <noscript>
+                                        <a class="jsDisabled" href="{{ path('app_sessionDetail', { 'id':incomingSession.id }) }}">{{ incomingSession }}</a>
+                                    </noscript>
                             </td>
                             <td class="centered">
                                 <span class="{{ sessionStatusClass }}">({{ incomingSession.nbrOfSubscribers }}/{{ incomingSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
@@ -66,6 +71,11 @@
                 </table>
 
                 <script>
+                    var elements1 = document.getElementsByClassName('jsEnabled1');
+                    Array.from(elements1).forEach(function(element) {
+                        element.style.opacity = "1";
+                    });
+
                     let table1 = new DataTable('#homeTable1', {
                         paging: false,
                         searching: false,
@@ -113,9 +123,14 @@
                         {% set sessionStatusText = "Complet" %}
                     {% endif %}
 
-                    <tr>
+                    <tr class="clickableTr" value="{{inProgressSession.id}}">
                         <td class="maxWidthEllipsis" >
-                            <a href="{{ path('app_sessionDetail', { 'id':inProgressSession.id }) }}">{{ inProgressSession }}</a>
+                            {# Si JS activé: lien de redirection traité en JS (voir bas de page) #}
+                            <span class="jsEnabled2" style="opacity:0">{{ inProgressSession }}</span>
+                            {# Si JS desactivé: lien en dur sur le titre uniquement #}
+                            <noscript>
+                                <a href="{{ path('app_sessionDetail', { 'id':inProgressSession.id }) }}">{{ inProgressSession }}</a>
+                            </noscript>
                         </td>
                         <td class="centered">
                             <span class="{{ sessionStatusClass }}">({{ inProgressSession.nbrOfSubscribers }}/{{ inProgressSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
@@ -130,6 +145,11 @@
             </table>
 
             <script>
+                var elements2 = document.getElementsByClassName('jsEnabled2');
+                Array.from(elements2).forEach(function(element) {
+                    element.style.opacity = "1";
+                });
+
                 let table2 = new DataTable('#homeTable2', {
                     paging: false,
                     searching: false,
@@ -180,9 +200,14 @@
                         {% set sessionStatusText = "Complet" %}
                     {% endif %}
 
-                    <tr>
+                    <tr class="clickableTr" value="{{passedSession.id}}">
                         <td class="maxWidthEllipsis">
-                            <a href="{{ path('app_sessionDetail', { 'id':passedSession.id }) }}">{{ passedSession }}</a>
+                            {# Si JS activé: lien de redirection traité en JS (voir bas de page) #}
+                            <span class="jsEnabled3" style="opacity:0">{{ passedSession }}</span>
+                            {# Si JS desactivé: lien en dur sur le titre uniquement #}
+                            <noscript>
+                                <a href="{{ path('app_sessionDetail', { 'id':passedSession.id }) }}">{{ passedSession }}</a>
+                            </noscript>
                         </td>
                         <td class="centered">
                             <span class="{{ sessionStatusClass }}">({{ passedSession.nbrOfSubscribers }}/{{ passedSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
@@ -199,6 +224,11 @@
 
 
             <script>
+                var elements3 = document.getElementsByClassName('jsEnabled3');
+                Array.from(elements3).forEach(function(element) {
+                    element.style.opacity = "1";
+                });
+
                 let table3 = new DataTable('#homeTable3', {
                     paging: false,
                     searching: false,
@@ -209,6 +239,28 @@
 
         {% endif %}
         </div>
+
+
+        <script>
+
+            // Rend les <tr> clickables, redirection vers sessionDetail (mais passe par la route et non le nom de la route)
+            var clickableTrs = document.querySelectorAll('.clickableTr');
+            if(clickableTrs != null) {
+                for (var i = 0; i < clickableTrs.length; i++) {
+                    (function(index) {
+                        clickableTrs[index].addEventListener('click', function() {
+                            var idSessionClicked = clickableTrs[index].getAttribute("value");
+                            console.log(idSessionClicked);
+                            console.log("path('app_sessionDetail', {'id':" + idSessionClicked+"} )");
+                            // window.location.href = "{{ path('app_sessionDetail', {'id':" + idSessionClicked+"} ) }}";
+                            // window.location.href = "path('app_sessionDetail', {'id':" + idSessionClicked+"} )";
+
+                            window.location.href = "/sessionDetail/" + idSessionClicked;
+                        });
+                    })(i);
+                }
+            }
+        </script>
 
 
 

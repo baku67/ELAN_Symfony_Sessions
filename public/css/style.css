@@ -212,18 +212,56 @@ ul li {
     /* width: 100%; */
 }
 
-
+.homeTable tbody tr {
+    cursor: pointer;
+}
 
 .tdopen {
     background-color: #0dad55;
     color: white;
+    /* border-radius: 4px; */
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    transition: all 0.5s;
 }
 .tdfull {
     background-color: #ad0d0d;
     color: white;
+    /* border-radius: 4px; */
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    transition: all 0.5s;
+}
+.tdmidOpen {
+    background-color:#ad550d;
+    color: white;
+    /* border-radius: 4px; */
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    transition: all 0.5s;
 }
 .statusText {
     color: white;
+}
+
+table.dataTable.display tbody tr {
+    transform: translateX(0px);
+    transition: all 0.4s;
+}
+table.dataTable.display tbody tr:hover {
+    position: relative;
+    /* left: 20px; */
+    transform: translateX(20px);
+}
+
+table.dataTable.display tbody tr:hover .tdfull {
+    background-color: rgba(173, 13, 13, 0.8);
+}
+table.dataTable.display tbody tr:hover .tdopen {
+    background-color: rgba(13, 173, 85, 0.8);
+}
+table.dataTable.display tbody tr:hover .tdmidOpen {
+    background-color: rgba(173, 85, 13, 0.8);
 }
 
 
