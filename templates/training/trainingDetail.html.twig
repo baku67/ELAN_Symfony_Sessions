@@ -67,7 +67,7 @@
                         </td>
                         <td>{{ incomingSession.beginDate | date('m/d/Y') }}</td>
                         <td>{{ incomingSession.endDate | date('m/d/Y') }}</td>
-                        <td class="centered {{ sessionStatusClass }}">{{ incomingSession.nbrOfSubscribers }}/{{ incomingSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
+                        <td class="{{ sessionStatusClass }}">{{ incomingSession.nbrOfSubscribers }}/{{ incomingSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -120,7 +120,7 @@
                             </td>
                             <td>{{ ongoingSession.beginDate | date('m/d/Y') }}</td>
                             <td>{{ ongoingSession.endDate | date('m/d/Y') }}</td>
-                            <td class="centered {{ sessionStatusClass }}">{{ ongoingSession.nbrOfSubscribers }}/{{ ongoingSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
+                            <td class="{{ sessionStatusClass }}">{{ ongoingSession.nbrOfSubscribers }}/{{ ongoingSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -176,7 +176,7 @@
                             </td>
                             <td>{{ passedSession.beginDate | date('m/d/Y') }}</td>
                             <td>{{ passedSession.endDate | date('m/d/Y') }}</td>
-                            <td class="centered {{ sessionStatusClass }}">{{ passedSession.nbrOfSubscribers }}/{{ passedSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
+                            <td class="{{ sessionStatusClass }}">{{ passedSession.nbrOfSubscribers }}/{{ passedSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
                         </tr>
                     {% endfor %}
                 </tbody>

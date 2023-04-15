@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Annotation\NotMapped;
+
 use App\Repository\SessionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -44,9 +46,7 @@ class Session
     #[ORM\OneToMany(mappedBy: 'session', targetEntity: TraineeSession::class)]
     private Collection $traineeSessions;
 
-    /**
-     * @Assert\NotMapped
-     */
+    // Propriété non-mappé
     private $nbrOfSubscribers;
 
     public function __construct()

@@ -1,3 +1,5 @@
+Generateur de données: https://www.mockaroo.com
+
 Mettre des table partout (les liste de sessions dans home par exemple) pour structure cadrée
 
 Ajout les flash success/error
