@@ -203,10 +203,10 @@
                     <tr class="clickableTr" value="{{passedSession.id}}">
                         <td class="maxWidthEllipsis">
                             {# Si JS activé: lien de redirection traité en JS (voir bas de page) #}
-                            <span class="jsEnabled3" style="opacity:0">{{ passedSession }}</span>
+                            <span class="jsEnabled3" style="opacity:0">{{ passedSession|capitalize }}</span>
                             {# Si JS desactivé: lien en dur sur le titre uniquement #}
                             <noscript>
-                                <a href="{{ path('app_sessionDetail', { 'id':passedSession.id }) }}">{{ passedSession }}</a>
+                                <a href="{{ path('app_sessionDetail', { 'id':passedSession.id }) }}">{{ passedSession|capitalize }}</a>
                             </noscript>
                         </td>
                         <td class="centered">

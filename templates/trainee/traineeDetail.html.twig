@@ -61,16 +61,29 @@
 
                     {% for traineeSession in traineeSessions %}
 
-                    <tr class="clickableTr" value="{{ traineeSession.id }}">
-                        <td>{{ traineeSession }}</td>
-                        <td>{{ traineeSession }}</td>
-                        <td>{{ traineeSession }}</td>
-                        <td class="unsubscribeTr">
-                            <a class="unsubscribeLink" href="{{ path('app_removetraineeSession', {'id': trainee.id, 'idSession': traineeSession.id, 'redirect': 'trainee' }) }}">
-                                <i class="fa-solid fa-right-from-bracket fa-red biggerBtn"></i>
-                            </a>
-                        </td>
-                    </tr>
+                        {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+                        {% if ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) < 0.5) %}
+                            {% set sessionStatusClass = "open" %}
+                            {% set sessionStatusText = "Ouvert" %}
+                        {% elseif ( ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) >= 0.5) and ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) != 1) ) %}
+                            {% set sessionStatusClass = "midOpen" %}
+                            {% set sessionStatusText = "Ouvert" %}
+                        {% else %}
+                            {% set sessionStatusClass = "full" %}
+                            {% set sessionStatusText = "Complet" %}
+                        {% endif %}
+
+
+                        <tr class="clickableTr" value="{{ traineeSession.id }}">
+                            <td>{{ traineeSession|capitalize }}</td>
+                            <td class="{{ sessionStatusClass }}">{{ sessionStatusText }}</td>
+                            <td class="{{ sessionStatusClass }}">{{ traineeSession.nbrOfSubscribers }}/{{ traineeSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
+                            <td class="unsubscribeTr">
+                                <a class="unsubscribeLink" href="{{ path('app_removetraineeSession', {'id': trainee.id, 'idSession': traineeSession.id, 'redirect': 'trainee' }) }}">
+                                    <i class="fa-solid fa-right-from-bracket fa-red biggerBtn"></i>
+                                </a>
+                            </td>
+                        </tr>
 
                     {% endfor %}
 

@@ -108,7 +108,7 @@
             <p>Pas de stagiaires inscrits pour le moment</p>
         {% else %}
             
-            <table>
+            <table id="subscribersTable" class="display">
                 <thead>
                     <tr>
                         <th>Stagiaire</th>
@@ -117,9 +117,9 @@
                 </thead>
                 <tbody>
                     {% for subTrainee in subTrainees %}
-                    <tr>
+                    <tr class="clickableTr" value="{{ subTrainee.id }}">
                         <td>
-                            <a href="{{ path('app_traineeDetail', {id: subTrainee.id})}}">{{ subTrainee }}</a>
+                            <span>{{ subTrainee }}</span>
                         </td>
                         <td style="text-align:center;">
                             <a href="{{ path('app_removetraineeSession', {'id': subTrainee.id, 'idSession': session.id, 'redirect': 'session'}) }}">
@@ -130,6 +130,37 @@
                     {% endfor %}
                 </tbody>
             </table>
+
+            <script>
+                let table = new DataTable('#subscribersTable', {
+                    paging: false,
+                    searching: false,
+                    "info": false 
+                    // scrollY: 400
+                });
+            </script>
+
+            <script>
+            // Rend les <tr> clickables, redirection vers sessionDetail (mais passe par la route et non le nom de la route)
+            var clickableTrs = document.querySelectorAll('.clickableTr');
+            if(clickableTrs != null) {
+                for (var i = 0; i < clickableTrs.length; i++) {
+                    (function(index) {
+                        clickableTrs[index].addEventListener('click', function() {
+                            var idSessionClicked = clickableTrs[index].getAttribute("value");
+                            console.log(idSessionClicked);
+                            console.log("path('app_traineeDetail', {'id':" + idSessionClicked+"} )");
+                            // window.location.href = "{{ path('app_sessionDetail', {'id':" + idSessionClicked+"} ) }}";
+                            // window.location.href = "path('app_sessionDetail', {'id':" + idSessionClicked+"} )";
+
+                            window.location.href = "/traineeDetail/" + idSessionClicked + "/view";
+                        });
+                    })(i);
+                }
+            }
+            </script>
+
+
             
         {% endif %}
         

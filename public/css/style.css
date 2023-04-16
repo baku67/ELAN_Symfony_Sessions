@@ -267,12 +267,14 @@ ul li {
 
 table.dataTable.display tbody tr {
     transform: translateX(0px);
+    border-radius: 8px;
     transition: all 0.5s;
 }
 table.dataTable.display tbody tr:hover {
     position: relative;
     /* left: 20px; */
-    transform: translateX(11px);
+    border-radius: 8px;
+    transform: translateX(8px);
 }
 
 table.dataTable.display tbody tr:hover .tdfull {
@@ -287,7 +289,18 @@ table.dataTable.display tbody tr:hover .tdmidOpen {
 
 .clickableTr {
     cursor: pointer;
+    transition: all 0.5s;
 }
+.clickableTr:hover {
+    background-color: aquamarine;
+}
+
+#subscribersTable {
+    width: 30%;
+    /* margin: 0 auto; */
+    margin: 0;
+}
+
 
 .maxWidthEllipsis {
     max-width: 300px; 

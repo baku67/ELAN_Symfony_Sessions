@@ -171,7 +171,7 @@
                                     {{ passedSession.title }}
                                 </a> #}
                                 <a href="{{ path('app_sessionDetail', {id: passedSession.id}) }}">
-                                    {{ passedSession.title }}
+                                    {{ passedSession.title|capitalize }}
                                 </a>
                             </td>
                             <td>{{ passedSession.beginDate | date('m/d/Y') }}</td>
