@@ -47,10 +47,71 @@
         {# Si session en cours (label ou bgColor vert?) #}
         <h2>Formations</h2>
 
-        {% for traineeSession in traineeSessions %}
+            <table id="sessionsTable" class="display">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Status</th>
+                        <th>Inscriptions</th>
+                        <th>Désinscrire</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for traineeSession in traineeSessions %}
+
+                    <tr class="clickableTr" value="{{ traineeSession.id }}">
+                        <td>{{ traineeSession }}</td>
+                        <td>{{ traineeSession }}</td>
+                        <td>{{ traineeSession }}</td>
+                        <td class="unsubscribeTr">
+                            <a class="unsubscribeLink" href="{{ path('app_removetraineeSession', {'id': trainee.id, 'idSession': traineeSession.id, 'redirect': 'trainee' }) }}">
+                                <i class="fa-solid fa-right-from-bracket fa-red biggerBtn"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            <script>
+                let table = new DataTable('#sessionsTable', {
+                    paging: false,
+                    searching: false,
+                    "info": false 
+                    // scrollY: 400
+                });
+            </script>
+
+            <script>
+            // Rend les <tr> clickables, redirection vers sessionDetail (mais passe par la route et non le nom de la route)
+            var clickableTrs = document.querySelectorAll('.clickableTr');
+            if(clickableTrs != null) {
+                for (var i = 0; i < clickableTrs.length; i++) {
+                    (function(index) {
+                        clickableTrs[index].addEventListener('click', function() {
+                            var idSessionClicked = clickableTrs[index].getAttribute("value");
+                            console.log(idSessionClicked);
+                            console.log("path('app_sessionDetail', {'id':" + idSessionClicked+"} )");
+                            // window.location.href = "{{ path('app_sessionDetail', {'id':" + idSessionClicked+"} ) }}";
+                            // window.location.href = "path('app_sessionDetail', {'id':" + idSessionClicked+"} )";
+
+                            window.location.href = "/sessionDetail/" + idSessionClicked;
+                        });
+                    })(i);
+                }
+            }
+            </script>
+
+
+        {# {% for traineeSession in traineeSessions %}
             <a href="{{ path('app_sessionDetail', {'id': traineeSession.id }) }}">{{ traineeSession }}</a> &nbsp;<a href="{{ path('app_removetraineeSession', {'id': trainee.id, 'idSession': traineeSession.id, 'redirect': 'trainee' }) }}">Désinscrire</a>
             <br>
-        {% endfor %}
+        {% endfor %} #}
 
 
         {# <br><br><br>

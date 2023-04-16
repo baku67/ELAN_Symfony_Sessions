@@ -1,6 +1,9 @@
 Generateur de données: https://www.mockaroo.com
 
+clip-path on <tr>:hover ??
+
 addSessionController: vérifier que l'input beginDate < endDate
+Date de naissances -> Ages (trainee et rainer)
 
 Mettre des table partout (les liste de sessions dans home par exemple) pour structure cadrée
 
