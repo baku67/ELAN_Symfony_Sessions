@@ -264,6 +264,9 @@ table.dataTable.display tbody tr:hover .tdmidOpen {
     background-color: rgba(173, 85, 13, 0.8);
 }
 
+.clickableTr {
+    cursor: pointer;
+}
 
 .maxWidthEllipsis {
     max-width: 300px; 

@@ -1,5 +1,7 @@
 Generateur de données: https://www.mockaroo.com
 
+addSessionController: vérifier que l'input beginDate < endDate
+
 Mettre des table partout (les liste de sessions dans home par exemple) pour structure cadrée
 
 Ajout les flash success/error

@@ -5,7 +5,7 @@
 
 {% block body %}
 
-    <h1>Liste des stagiaires ({{ totalCount }})</h1>
+    <h1>Stagiaires ({{ totalCount }})</h1>
     <a href="{{ path('app_home') }}"><i class="fa-solid fa-arrow-left"></i> Retour</a>
 
     <br><br>
@@ -14,10 +14,73 @@
     {% if app.user %}
 
         <div class="marginBottom">
-            {% for trainee in trainees %}
+
+            <table id="traineeTable" class="display" >
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Ville</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>tél</th>
+                        <th>Genre</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for trainee in trainees %}
+                    <tr class="clickableTr" value="{{ trainee.id }}">
+                        <td>{{ trainee }}</td>
+                        <td>{{ trainee.ville }}</td>
+                        <td>{{ trainee.birthDate |date("m/d/Y")}}</td>
+                        <td>{{ trainee.email }}</td>
+                        <td>{{ trainee.tel }}</td>
+                        <td>{{ trainee.gender }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+
+            <script>
+                let table = new DataTable('#traineeTable', {
+                    paging: false,
+                    searching: false,
+                    "info": false 
+                    // scrollY: 400
+                });
+            </script>
+
+            <script>
+            // Rend les <tr> clickables, redirection vers sessionDetail (mais passe par la route et non le nom de la route)
+            var clickableTrs = document.querySelectorAll('.clickableTr');
+            if(clickableTrs != null) {
+                for (var i = 0; i < clickableTrs.length; i++) {
+                    (function(index) {
+                        clickableTrs[index].addEventListener('click', function() {
+                            var idSessionClicked = clickableTrs[index].getAttribute("value");
+                            console.log(idSessionClicked);
+                            console.log("path('app_sessionDetail', {'id':" + idSessionClicked+"} )");
+                            // window.location.href = "{{ path('app_sessionDetail', {'id':" + idSessionClicked+"} ) }}";
+                            // window.location.href = "path('app_sessionDetail', {'id':" + idSessionClicked+"} )";
+
+                            window.location.href = "/traineeDetail/" + idSessionClicked + "/view";
+                        });
+                    })(i);
+                }
+            }
+            </script>
+
+
+            {# {% for trainee in trainees %}
+
                 <a href="{{ path('app_traineeDetail', {'id': trainee.id}) }}">{{ trainee }}</a>
                 <br>
-            {% endfor %}
+
+            {% endfor %} #}
+
         </div>
 
     {% else %}
