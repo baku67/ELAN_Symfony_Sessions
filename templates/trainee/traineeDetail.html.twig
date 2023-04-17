@@ -5,7 +5,9 @@
 
 {% block body %}
 
-    <h1>Stagiaire {{ trainee }}</h1>
+    <h1>{{ trainee }}</h1>
+    <span class="subtitle">Stagiaire</span>
+    <br>
     {# <a href="{{ path('app_trainee') }}">Retour</a> #}
     <button onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Retour</button>
 
@@ -102,7 +104,10 @@
                         let table = new DataTable('#ongoingSessionsTable', {
                             paging: false,
                             searching: false,
-                            "info": false 
+                            "info": false,
+                            "language": {
+                                "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                            }
                             // scrollY: 400
                         });
                     </script>
@@ -166,7 +171,10 @@
                         let table2 = new DataTable('#incomingSessionsTable', {
                             paging: false,
                             searching: false,
-                            "info": false 
+                            "info": false,
+                            "language": {
+                                "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                            } 
                             // scrollY: 400
                         });
                     </script>
@@ -231,7 +239,10 @@
                         let table3 = new DataTable('#passedSessionsTable', {
                             paging: false,
                             searching: false,
-                            "info": false 
+                            "info": false,
+                            "language": {
+                                "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                            }
                             // scrollY: 400
                         });
                     </script>

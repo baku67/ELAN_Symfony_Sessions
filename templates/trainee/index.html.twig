@@ -47,9 +47,11 @@
             <script>
                 let table = new DataTable('#traineeTable', {
                     paging: false,
-                    searching: false,
-                    "info": false 
-                    // scrollY: 400
+                    searching: true,
+                    "info": false,
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                    }
                 });
             </script>
 

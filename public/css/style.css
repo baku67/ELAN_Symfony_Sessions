@@ -1,7 +1,9 @@
 body {
+    width: 100%;
+}
+#main {
     width: 65%;
     margin: 0 auto !important;
-
 }
 
 .inline {
@@ -443,4 +445,70 @@ table {
 }
 .right {
     text-align: right;
+}
+
+
+header {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 40px;
+    background-color: cadetblue;
+    color: white;
+    margin-bottom: 40px;
+}
+
+.headerNavContainer {
+    position: relative;
+    top: 23px;
+}
+.headerNavContainer a {
+    text-decoration: none;
+    color: white;
+    transition: all 0.4s;
+}
+
+h1 a {
+    text-decoration: none;
+    color: white;
+}
+h1 a:hover {
+    color: white;
+}
+
+.logoutLink {
+    padding: 12px 12px;
+    transition: all 0.4s;
+    color: #ad0d0d;
+    border-radius: 5px;
+    border: 1px solid rgba(173, 13, 13, 0.2);
+    background-color: rgba(173, 13, 13, 0.05);
+
+    font-size: 1.1em;
+    position: relative;
+    bottom: 3px;
+    left: 20px;
+}
+.logoutLink i {
+    color: #ad0d0d;
+    transition: all 0.4s;
+}
+.logoutLink:hover {
+    color: white;
+    background-color: #ad0d0d;
+}
+.logoutLink:hover i {
+    color: white;
+}
+
+.homeLink {
+    right: 10px;
+    position: relative;
+    font-size: 1.1em;
+}
+
+.subtitle {
+    font-style: italic;
+    opacity: 0.6;
+    font-size: 1.2em;
 }

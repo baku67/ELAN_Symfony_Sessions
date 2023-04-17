@@ -6,16 +6,13 @@
 
     <h1>Bienvenue {{ app.user.email }} </h1>
 
-    <a href="{{ path('app_trainee') }}">Stagiaires ({{ traineeCount }})</a>
-    <br>
-    <a href="{{ path('app_trainer') }}">Formateurs ({{ trainerCount }})</a>
-    <br>
-    <a href="{{ path('app_training') }}">Formations ({{ trainingCount }})</a>
-    <br>
+    <br><br>
 
-    <br><br><br>
+    <h2>Tableau de bord</h2>
+
+    <br>
     
-    <h2 class="underline">Sessions à venir</h2>
+    <h3>Sessions à venir</h3>
         <div class="homeSessionSection">
 
             {% if incSessions is null or incSessions is empty %}
@@ -81,7 +78,10 @@
                     let table1 = new DataTable('#homeTable1', {
                         paging: false,
                         searching: false,
-                        "info": false 
+                        "info": false,
+                        "language": {
+                            "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                        }
                         // scrollY: 400
                     });
                 </script>
@@ -91,7 +91,7 @@
         </div>
 
     <br><br>
-    <h2 class="underline">Sessions en cours</h2>
+    <h3>Sessions en cours</h3>
         <div class="homeSessionSection">
 
         {% if inProgressSessions is null or inProgressSessions is empty %}
@@ -157,7 +157,10 @@
                 let table2 = new DataTable('#homeTable2', {
                     paging: false,
                     searching: false,
-                    "info": false 
+                    "info": false,
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                    }
                     // scrollY: 400
                 });
             </script>
@@ -169,7 +172,7 @@
 
 
     <br><br>
-    <h2 class="underline">Sessions passées</h2>
+    <h3>Sessions passées</h3>
         <div class="homeSessionSection">
 
         {% if passedSessions is null or passedSessions is empty %}
@@ -238,7 +241,10 @@
                 let table3 = new DataTable('#homeTable3', {
                     paging: false,
                     searching: false,
-                    "info": false 
+                    "info": false,
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                    }
                     // scrollY: 400
                 });
             </script>

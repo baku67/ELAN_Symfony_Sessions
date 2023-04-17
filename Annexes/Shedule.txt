@@ -1,5 +1,7 @@
 Dans listes sessions (à venir, en cours, temrinées): sous-section par session.training (le titre formation imortant car session sous forme "session01" etc )
 
+Ajouter fil d'ariane comme cinéma
+
 Generateur de données: https://www.mockaroo.com
 
 clip-path ou plutot bg-gradient avec anim position on <tr>:hover ??
