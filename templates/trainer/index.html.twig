@@ -20,6 +20,7 @@
                 <thead>
                     <tr>
                         <th>Nom</th>
+                        <th>Sessions actives</th>
                     </tr>
                 <thead>
 
@@ -27,6 +28,7 @@
                     {% for trainer in trainers %}
                     <tr class="clickableTr" value="{{ trainer.id }}">
                         <td>{{ trainer }}</td>
+                        <td>{{ trainer.sessionCount }} (All pour l'instant)</td>
                     </tr>
                     {% endfor %}
                 </tbody>

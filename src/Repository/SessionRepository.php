@@ -84,13 +84,13 @@ class SessionRepository extends ServiceEntityRepository
            ->andWhere('a.training = :trainingId')
            ->setParameters(new ArrayCollection(array(
                 new Parameter('now', new \DateTime()),
-                new Parameter('trainingId', $trainingId)
+                new Parameter('trainingId', $traineeId)
             )));
 
         return $qb->getQuery()->getResult();
     }
 
-    public function findOngoingSessionsByTrainee(int $traineeId) {
+    public function findInProgressSessionsByTrainee(int $traineeId) {
 
         // Custom query: https://symfony.com/doc/current/doctrine/associations.html#joining-related-records
         $qb = $this->createQueryBuilder('a');
@@ -100,7 +100,7 @@ class SessionRepository extends ServiceEntityRepository
            ->setParameters(new ArrayCollection(array(
                 new Parameter('now', new \DateTime()),
                 new Parameter('now2', new \DateTime()),
-                new Parameter('trainingId', $trainingId)
+                new Parameter('trainingId', $traineeId)
             )));
 
         return $qb->getQuery()->getResult();
@@ -115,7 +115,7 @@ class SessionRepository extends ServiceEntityRepository
            ->andWhere('a.training = :trainingId')
            ->setParameters(new ArrayCollection(array(
                 new Parameter('now', new \DateTime()),
-                new Parameter('trainingId', $trainingId)
+                new Parameter('trainingId', $traineeId)
             )));
 
         return $qb->getQuery()->getResult();
@@ -198,6 +198,92 @@ class SessionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+
+
+
+
+
+
+        // Récupération des listes de session (A venir, en cours, passées) pour un Trainer (trainerDetail)
+        public function findPassedSessionsByTrainer(int $trainerId) {
+
+            // Custom query: https://symfony.com/doc/current/doctrine/associations.html#joining-related-records
+            // $entityManager = $this->getEntityManager();
+            // $query = $entityManager->createQuery(
+            //     'SELECT s, t
+            //     FROM App\Entity\TraineeSession s
+            //     INNER JOIN s.'
+            // )->setParameter('trainee', $traineeId);
+            // return $query->getOneOrNullResult();
+
+            $qb = $this->createQueryBuilder('a');
+            $qb->where('a.begin_date < :now')
+            ->andWhere('a.end_date < :now')
+            ->andWhere('a.training = :trainingId')
+            ->setParameters(new ArrayCollection(array(
+                    new Parameter('now', new \DateTime()),
+                    new Parameter('trainingId', $trainerId)
+                )));
+
+            return $qb->getQuery()->getResult();
+        }
+
+        public function findInProgressSessionsByTrainer(int $trainerId) {
+
+            // Custom query: https://symfony.com/doc/current/doctrine/associations.html#joining-related-records
+            $qb = $this->createQueryBuilder('a');
+            $qb->where('a.begin_date < :now')
+            ->andWhere('a.end_date > :now2')
+            ->andWhere('a.training = :trainingId')
+            ->setParameters(new ArrayCollection(array(
+                    new Parameter('now', new \DateTime()),
+                    new Parameter('now2', new \DateTime()),
+                    new Parameter('trainingId', $trainerId)
+                )));
+
+            return $qb->getQuery()->getResult();
+        }
+
+        public function findIncomingSessionsByTrainer(int $trainerId) {
+
+            // Custom query: https://symfony.com/doc/current/doctrine/associations.html#joining-related-records
+            $qb = $this->createQueryBuilder('a');
+
+            $qb->where('a.begin_date > :now')
+            ->andWhere('a.training = :trainingId')
+            ->setParameters(new ArrayCollection(array(
+                    new Parameter('now', new \DateTime()),
+                    new Parameter('trainingId', $trainerId)
+                )));
+
+            return $qb->getQuery()->getResult();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    /**
 //     * @return Session[] Returns an array of Session objects

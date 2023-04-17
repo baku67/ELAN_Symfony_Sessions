@@ -66,6 +66,19 @@ class Trainer
         return $this->sessions;
     }
 
+    public function getSessionCount(): ?int 
+    {
+        $count = 0;
+        foreach ($this->sessions as $session) {
+            if ($session->getBeginDate() > date('Y-m-d H:i:s')) {
+                $count++;
+            }
+        }
+
+        return $count;
+        // return count($this->sessions);
+    }
+
     public function addSession(Session $session): self
     {
         if (!$this->sessions->contains($session)) {

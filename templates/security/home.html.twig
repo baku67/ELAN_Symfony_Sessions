@@ -27,6 +27,7 @@
                 <table class="homeTable display" id="homeTable1">
                     <thead>
                         <tr>
+                            <th>Formation</th>
                             <th>Titre</th>
                             <th>Inscriptions</th>
                             <th>Statut</th>
@@ -50,6 +51,7 @@
                         {% endif %}
 
                         <tr class="clickableTr" value="{{incomingSession.id}}">
+                            <td class="maxWidthEllipsis">{{ incomingSession.training }}</td>
                             <td class="maxWidthEllipsis">
                                     {# Si JS activé: lien de redirection traité en JS (voir bas de page) #}
                                     <span class="jsEnabled1" style="opacity:0">{{ incomingSession }}</span>
@@ -101,6 +103,7 @@
             <table class="homeTable display" id="homeTable2">
                 <thead>
                     <tr>
+                        <th>Formation</th>
                         <th>Titre</th>
                         <th>Inscriptions</th>
                         <th>Statut</th>
@@ -124,6 +127,7 @@
                     {% endif %}
 
                     <tr class="clickableTr" value="{{inProgressSession.id}}">
+                        <td class="maxWidthEllipsis trainingTitleHome">{{ inProgressSession.training }}</td>
                         <td class="maxWidthEllipsis" >
                             {# Si JS activé: lien de redirection traité en JS (voir bas de page) #}
                             <span class="jsEnabled2" style="opacity:0">{{ inProgressSession }}</span>
@@ -177,6 +181,7 @@
             <table class="homeTable display" id="homeTable3">
                 <thead>
                     <tr>
+                        <th>Formation</th>
                         <th>Titre</th>
                         <th>Inscriptions</th>
                         <th>Statut</th>
@@ -201,6 +206,7 @@
                     {% endif %}
 
                     <tr class="clickableTr" value="{{passedSession.id}}">
+                        <td class="maxWidthEllipsis">{{ passedSession.training }}</td>
                         <td class="maxWidthEllipsis">
                             {# Si JS activé: lien de redirection traité en JS (voir bas de page) #}
                             <span class="jsEnabled3" style="opacity:0">{{ passedSession|capitalize }}</span>

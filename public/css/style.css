@@ -167,11 +167,21 @@ ul li {
     border: 1px solid;
     border-radius: 5px;
 
-    transition: all 0.5s;
+    transition: padding 0.5s, border-radius 0.5s, border 0s;
 }
 .fa-right-from-bracket:hover {
     background-color: #ad0d0d;
     color: white !important;
+    border: 1px solid;
+}
+
+.disabled:hover {
+    background-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.5) !important;
+}
+
+td {
+    text-align: center;
 }
 
 
@@ -226,6 +236,7 @@ ul li {
     padding: 5px;
     text-align: center; */
 }
+
 
 .biggerBtn {
     padding: 8px 25px;
@@ -290,7 +301,7 @@ table.dataTable.display tbody tr:hover {
     position: relative;
     /* left: 20px; */
     border-radius: 8px;
-    transform: translateX(8px);
+    /* transform: translateX(8px); */
 }
 
 table.dataTable.display tbody tr:hover .tdfull {
@@ -303,13 +314,44 @@ table.dataTable.display tbody tr:hover .tdmidOpen {
     background-color: rgba(173, 85, 13, 0.8);
 }
 
+table.dataTable.display tbody tr .trainingTitle {
+    /* transform: translateX(0px); */
+    border-left: 0px solid cadetblue;
+    transition: border-left 0.5s;
+}
+
+table.dataTable.display tbody tr:hover .trainingTitle {
+    /* transform: translateX(15px); */
+    background-color: cadetblue;
+    border-left: 15px solid rgba(111, 211, 216, 0.5);
+}
+
+
+
+table.dataTable.display tbody tr .trainingTitleHome {
+    /* transform: translateX(0px); */
+    border-left: 0px solid cadetblue;
+    transition: border-left 0.5s;
+}
+
+table.dataTable.display tbody tr:hover .trainingTitleHome {
+    /* transform: translateX(15px); */
+    background-color: cadetblue;
+    border-left: 10px solid rgba(111, 211, 216, 0.5);
+}
+
+.unsubscribeTr {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
 .clickableTr {
     cursor: pointer;
     transition: all 0.5s;
 }
 .clickableTr:hover {
     /* background-color: aquamarine; */
-    background-color: cadetblue;
+    background-color: rgba(95, 158, 160, 0.9);
     color: white !important;
     /* font-weight: 700; */
 }
@@ -317,10 +359,10 @@ table.dataTable.display tbody tr:hover .tdmidOpen {
     color: rgb(71 255 154) !important;
 }
 .clickableTr:hover .midOpen {
-    color: rgb(255, 153, 70) !important;
+    color: rgb(177 93 34) !important;
 }
 .clickableTr:hover .full {
-    color: rgb(255, 108, 108) !important;
+    color: rgb(209 72 72) !important;
 }
 
 table thead th {

@@ -49,14 +49,17 @@ class TraineeController extends AbstractController
 
         $sessionRepo = $entityManager->getRepository(Session::class);
 
-        // $incomingSessionsTrainee = $sessionRepo->findIncomingSessionsByTrainee($id);
-        // $inProgressSessionsTrainee =  $sessionRepo->findInProgressSessionsByTrainee($id);
-        // $passedSessionsTrainee =  $sessionRepo->findPassedSessionsByTrainee($id);
+        $incomingSessionsTrainee = $sessionRepo->findIncomingSessionsByTrainee($id);
+        $inProgressSessionsTrainee =  $sessionRepo->findInProgressSessionsByTrainee($id);
+        $passedSessionsTrainee =  $sessionRepo->findPassedSessionsByTrainee($id);
         
 
         return $this->render('trainee/traineeDetail.html.twig', [
             'trainee' => $trainee,
-            'traineeSessions' => $traineeSessions
+            'traineeSessions' => $traineeSessions,
+            'incomingSessionsTrainee' => $incomingSessionsTrainee,
+            'inProgressSessionsTrainee' => $inProgressSessionsTrainee,
+            'passedSessionsTrainee' => $passedSessionsTrainee
         ]);
     }
 

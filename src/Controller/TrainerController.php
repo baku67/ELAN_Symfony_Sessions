@@ -50,11 +50,18 @@ class TrainerController extends AbstractController
         $trainerSessions = $sessionRepo->findBy(['trainer' => $id]);
         $trainerSessionsCount = count($trainerSessions);
 
+        $incomingSessionsTrainer = $sessionRepo->findIncomingSessionsByTrainer($id);
+        $inProgressSessionsTrainer =  $sessionRepo->findInProgressSessionsByTrainer($id);
+        $passedSessionsTrainer =  $sessionRepo->findPassedSessionsByTrainer($id);
+
 
         return $this->render('trainer/trainerDetail.html.twig', [
             'trainer' => $trainerData,
             'trainerSessions' => $trainerSessions,
             'trainerSessionsCount' => $trainerSessionsCount,
+            'incomingSessionsTrainer' => $incomingSessionsTrainer,
+            'inProgressSessionsTrainer' => $inProgressSessionsTrainer,
+            'passedSessionsTrainer' => $passedSessionsTrainer
         ]);
     }
 
