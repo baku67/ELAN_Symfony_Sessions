@@ -41,10 +41,10 @@
                         {% if ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) < 0.5) %}
                             {% set sessionStatusClass = "open" %}
                             {% set sessionStatusText = "Ouvert" %}
-                        {% elseif ( ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) >= 0.5) and ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) != 1) ) %}
+                        {% elseif ( ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) >= 0.5) and ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) < 1) ) %}
                             {% set sessionStatusClass = "midOpen" %}
                             {% set sessionStatusText = "Ouvert" %}
-                        {% else %}
+                        {% elseif ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) >= 1) %}
                             {% set sessionStatusClass = "full" %}
                             {% set sessionStatusText = "Complet" %}
                         {% endif %}
@@ -115,10 +115,10 @@
                     {% if ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) < 0.5) %}
                         {% set sessionStatusClass = "open" %}
                         {% set sessionStatusText = "Ouvert" %}
-                    {% elseif ( ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) >= 0.5) and ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) != 1) ) %}
+                    {% elseif ( ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) >= 0.5) and ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) < 1) ) %}
                         {% set sessionStatusClass = "midOpen" %}
                         {% set sessionStatusText = "Ouvert" %}
-                    {% else %}
+                    {% elseif ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) >= 1) %}
                         {% set sessionStatusClass = "full" %}
                         {% set sessionStatusText = "Complet" %}
                     {% endif %}
@@ -192,10 +192,10 @@
                     {% if ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) < 0.5) %}
                         {% set sessionStatusClass = "open" %}
                         {% set sessionStatusText = "Ouvert" %}
-                    {% elseif ( ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 0.5) and ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) != 1) ) %}
+                    {% elseif ( ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 0.5) and ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) < 1) ) %}
                         {% set sessionStatusClass = "midOpen" %}
                         {% set sessionStatusText = "Ouvert" %}
-                    {% else %}
+                    {% elseif ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 1) %}
                         {% set sessionStatusClass = "full" %}
                         {% set sessionStatusText = "Complet" %}
                     {% endif %}

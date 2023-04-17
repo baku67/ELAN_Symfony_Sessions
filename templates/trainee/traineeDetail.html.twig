@@ -65,10 +65,10 @@
                         {% if ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) < 0.5) %}
                             {% set sessionStatusClass = "open" %}
                             {% set sessionStatusText = "Ouvert" %}
-                        {% elseif ( ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) >= 0.5) and ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) != 1) ) %}
+                        {% elseif ( ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) >= 0.5) and ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) < 1) ) %}
                             {% set sessionStatusClass = "midOpen" %}
                             {% set sessionStatusText = "Ouvert" %}
-                        {% else %}
+                        {% elseif ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) >= 1) %}
                             {% set sessionStatusClass = "full" %}
                             {% set sessionStatusText = "Complet" %}
                         {% endif %}

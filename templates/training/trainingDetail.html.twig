@@ -48,22 +48,19 @@
                     {% if ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) < 0.5) %}
                         {% set sessionStatusClass = "open" %}
                         {% set sessionStatusText = "(ouvert)" %}
-                    {% elseif ( ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) >= 0.5) and ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) != 1) ) %}
+                    {% elseif ( ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) >= 0.5) and ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) < 1) ) %}
                         {% set sessionStatusClass = "midOpen" %}
                         {% set sessionStatusText = "(ouvert)" %}
-                    {% else %}
+                    {% elseif ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) >= 1) %}
                         {% set sessionStatusClass = "full" %}
                         {% set sessionStatusText = "(complet)" %}
                     {% endif %}
 
-                    <tr>    
+                    <tr class="clickableTr" value="{{ incomingSession.id }}">    
                         <td>
-                            {# <a href="{{ path('app_editSession', {id: incomingSession.id}) }}">
+                            {# <a href="{{ path('app_sessionDetail', {id: incomingSession.id}) }}"> #}
                                 {{ incomingSession.title }}
-                            </a> #}
-                            <a href="{{ path('app_sessionDetail', {id: incomingSession.id}) }}">
-                                {{ incomingSession.title }}
-                            </a>
+                            {# </a> #}
                         </td>
                         <td>{{ incomingSession.beginDate | date('m/d/Y') }}</td>
                         <td>{{ incomingSession.endDate | date('m/d/Y') }}</td>
@@ -79,10 +76,6 @@
 
     
     <h3>En cours ({{ nbrOngoingSessions }})</h3>
-
-        {# {% for ongoingSession in ongoingSessions %}
-            {{ dump(ongoingSession) }}
-        {% endfor %} #}
 
         {% if app.user %}
             <table id="sessionsTable2" class="display">
@@ -101,22 +94,19 @@
                         {% if ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) < 0.5) %}
                             {% set sessionStatusClass = "open" %}
                             {% set sessionStatusText = "(ouvert)" %}
-                        {% elseif ( ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) >= 0.5) and ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) != 1) ) %}
+                        {% elseif ( ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) >= 0.5) and ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) < 1) ) %}
                             {% set sessionStatusClass = "midOpen" %}
                             {% set sessionStatusText = "(ouvert)" %}
-                        {% else %}
+                        {% elseif ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) >= 1) %}
                             {% set sessionStatusClass = "full" %}
                             {% set sessionStatusText = "(complet)" %}
                         {% endif %}
                     
-                        <tr>    
+                        <tr class="clickableTr" value="{{ ongoingSession.id }}">    
                             <td>
-                                {# <a href="{{ path('app_editSession', {id: ongoingSession.id}) }}">
+                                {# <a href="{{ path('app_sessionDetail', {id: ongoingSession.id}) }}"> #}
                                     {{ ongoingSession.title }}
-                                </a> #}
-                                <a href="{{ path('app_sessionDetail', {id: ongoingSession.id}) }}">
-                                    {{ ongoingSession.title }}
-                                </a>
+                                {# </a> #}
                             </td>
                             <td>{{ ongoingSession.beginDate | date('m/d/Y') }}</td>
                             <td>{{ ongoingSession.endDate | date('m/d/Y') }}</td>
@@ -157,22 +147,19 @@
                         {% if ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) < 0.5) %}
                             {% set sessionStatusClass = "open" %}
                             {% set sessionStatusText = "(ouvert)" %}
-                        {% elseif ( ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 0.5) and ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) != 1) ) %}
+                        {% elseif ( ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 0.5) and ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) <= 1) ) %}
                             {% set sessionStatusClass = "midOpen" %}
                             {% set sessionStatusText = "(ouvert)" %}
-                        {% else %}
+                        {% elseif ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 1) %}
                             {% set sessionStatusClass = "full" %}
                             {% set sessionStatusText = "(complet)" %}
                         {% endif %}
 
-                        <tr>    
+                        <tr class="clickableTr" value="{{ passedSession.id }}">    
                             <td>
-                                {# <a href="{{ path('app_editSession', {id: passedSession.id}) }}">
-                                    {{ passedSession.title }}
-                                </a> #}
-                                <a href="{{ path('app_sessionDetail', {id: passedSession.id}) }}">
+                                {# <a href="{{ path('app_sessionDetail', {id: passedSession.id}) }}"> #}
                                     {{ passedSession.title|capitalize }}
-                                </a>
+                                {# </a> #}
                             </td>
                             <td>{{ passedSession.beginDate | date('m/d/Y') }}</td>
                             <td>{{ passedSession.endDate | date('m/d/Y') }}</td>
@@ -209,6 +196,26 @@
                 <p>Accès non autorisé<p> 
         {% endif %}
 
+
+        <script>
+        // Rend les <tr> clickables, redirection vers sessionDetail (mais passe par la route et non le nom de la route)
+        var clickableTrs = document.querySelectorAll('.clickableTr');
+        if(clickableTrs != null) {
+            for (var i = 0; i < clickableTrs.length; i++) {
+                (function(index) {
+                    clickableTrs[index].addEventListener('click', function() {
+                        var idSessionClicked = clickableTrs[index].getAttribute("value");
+                        console.log(idSessionClicked);
+                        console.log("path('app_sessionDetail', {'id':" + idSessionClicked+"} )");
+                        // window.location.href = "{{ path('app_sessionDetail', {'id':" + idSessionClicked+"} ) }}";
+                        // window.location.href = "path('app_sessionDetail', {'id':" + idSessionClicked+"} )";
+
+                        window.location.href = "/sessionDetail/" + idSessionClicked;
+                    });
+                })(i);
+            }
+        }
+        </script>
 
 
 

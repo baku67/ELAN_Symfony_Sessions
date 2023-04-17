@@ -21,15 +21,15 @@
 
         {% if ((nbrSubscribers / session.nbrPlaces ) < 0.5) %}
             {% set sessionStatusClass = "open" %}
-            {% set sessionStatusText = "(ouvert)" %}
+            {% set sessionStatusText = "ouvert" %}
             {# <p>Inférieur à 50%</p> #}
-        {% elseif ( ((nbrSubscribers / session.nbrPlaces ) >= 0.5) and ((nbrSubscribers / session.nbrPlaces ) != 1) ) %}
+        {% elseif ( ((nbrSubscribers / session.nbrPlaces ) >= 0.5) and ((nbrSubscribers / session.nbrPlaces ) < 1) ) %}
             {% set sessionStatusClass = "midOpen" %}
-            {% set sessionStatusText = "(ouvert)" %}
+            {% set sessionStatusText = "ouvert" %}
             {# <p>Supérieur à 50% mais pas 100%</p> #}
-        {% else %}
+        {% elseif ((nbrSubscribers / session.nbrPlaces ) >= 1) %}
             {% set sessionStatusClass = "full" %}
-            {% set sessionStatusText = "(complet)" %}
+            {% set sessionStatusText = "complet" %}
             {# <p>Full</p> #}
         {% endif %}
 
@@ -41,7 +41,7 @@
             <li>Date de début: {{ session.beginDate|date("m/d/Y") }} </li>
             <li>Date de fin: {{ session.endDate|date("m/d/Y") }} </li>
             <li>Inscriptions: {{ nbrSubscribers }}/{{ session.nbrPlaces }} <i class="fa-solid fa-user-group {{ sessionStatusClass }}"></i></li>
-            <li class="{{ sessionStatusClass }}">{{ sessionStatusText }}</li>
+            <li class="{{ sessionStatusClass }}">{{ sessionStatusText|capitalize }}</li>
         </ul>
 
     {% else %}
