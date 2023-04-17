@@ -13,22 +13,62 @@
         {# {% if is_granted('ROLE_ADMIN') %} #}
         {% if app.user %}
 
-            <table style="gap: 15px">
+            <table id="trainingsTable" class="display">
                 <thead>
+                    <tr class="TableParentLine">
+                        <th style="background-color: rgb(255 255 255 / 70%) !important;"></th>
+                        <th colspan="3" class="tableGroupParent">Sessions</th>
+                    </tr>
                     <tr>
                         <th>Titre</th>
-                        <th>Sessions</th>
+                        <th>A venir</th>
+                        <th>En cours</th>
+                        <th>Terminées</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for training in trainings %}
-                    <tr>
-                        <td><a href="{{ path('app_trainingDetail', {'id': training.id}) }}">{{ training.title }}</a></td>
-                        <td>({{ training.sessionCount }} sessions)</td>
+                    <tr class="clickableTr" value="{{ training.id }}">
+                        {# <td><a href="{{ path('app_trainingDetail', {'id': training.id}) }}">{{ training.title }}</a></td> #}
+                        <td>{{ training.title }} ({{ training.sessionCount }})</td>
+                        {# <td>{{ training.incomingSessionCount }} sessions</td>
+                        <td>{{ training.ongoingSessionCount }} sessions</td>
+                        <td>{{ training.closedSessionCount }} sessions</td> #}
+                        <td>{{ training.sessionCount }} sessions (TODO)</td>
+                        <td>{{ training.sessionCount }} sessions (TODO)</td>
+                        <td>{{ training.sessionCount }} sessions (TODO)</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+
+
+            <script>
+                let table = new DataTable('#trainingsTable', {
+                    paging: false,
+                    searching: false,
+                    "info": false 
+                    // scrollY: 400
+                });
+            </script>
+
+            <script>
+            // Rend les <tr> clickables, redirection vers sessionDetail (mais passe par la route et non le nom de la route)
+            var clickableTrs = document.querySelectorAll('.clickableTr');
+            if(clickableTrs != null) {
+                for (var i = 0; i < clickableTrs.length; i++) {
+                    (function(index) {
+                        clickableTrs[index].addEventListener('click', function() {
+
+                            var idSessionClicked = clickableTrs[index].getAttribute("value");
+                            window.location.href = "/trainingDetail/" + idSessionClicked + "/view";
+
+                        });
+                    })(i);
+                }
+            }
+            </script>
+
 
         {% else %}
 

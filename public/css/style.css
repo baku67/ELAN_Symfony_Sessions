@@ -308,7 +308,34 @@ table.dataTable.display tbody tr:hover .tdmidOpen {
     transition: all 0.5s;
 }
 .clickableTr:hover {
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
+    background-color: cadetblue;
+    color: white !important;
+    /* font-weight: 700; */
+}
+.clickableTr:hover .open {
+    color: rgb(71 255 154) !important;
+}
+.clickableTr:hover .midOpen {
+    color: rgb(255, 153, 70) !important;
+}
+.clickableTr:hover .full {
+    color: rgb(255, 108, 108) !important;
+}
+
+table thead th {
+    text-align: center !important;
+}
+
+.tableGroupParent {
+    text-align:center; 
+    background-color:cadetBlue;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: white;
+}
+.TableParentLine th {
+    padding: 3px !important;
 }
 
 #subscribersTable {

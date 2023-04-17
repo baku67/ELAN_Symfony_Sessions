@@ -99,6 +99,8 @@ class SessionController extends AbstractController
 
         }
 
+        $dateNow = date('Y-m-d H:i:s');
+
         return $this->render('session/sessionDetail.html.twig', [
             'session' => $session,
             'subTrainees' => $susbcribedTrainees,
@@ -108,6 +110,7 @@ class SessionController extends AbstractController
             'allModules' => $allModules,
             'sessionProgrammes' => $sessionProgrammes,
             'formAddProgramme' => $form->createView(),
+            'dateNow' => $dateNow
         ]);
 
     }

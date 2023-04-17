@@ -24,13 +24,21 @@ class TrainingController extends AbstractController
         // if($this->getUser()) {}
 
         $trainingRepo = $entityManager->getRepository(Training::class);
+        $sessionRepo = $entityManager->getRepository(Session::class);
 
         $trainingList = $trainingRepo->findBy([], ['title' => 'ASC']);
         $trainingTotalCount = $trainingRepo->count([]);
 
+        // $nbrIncomingSessions = count($sessionRepo->findIncomingSessionByTraining($id));
+        // $nbrOngoingSessions = count($sessionRepo->findOngoingSessionByTraining($id));
+        // $nbrPassedSessions = count($sessionRepo->findPassedSessionByTraining($id));
+
         return $this->render('training/index.html.twig', [
             'trainings' => $trainingList,
-            'totalCount' => $trainingTotalCount
+            'totalCount' => $trainingTotalCount,
+            // 'nbrIncomingSessions' => $nbrIncomingSessions,
+            // 'nbrOngoingSessions' => $nbrOngoingSessions,
+            // 'nbrPassedSessions' => $nbrPassedSessions,
         ]);
     }
 

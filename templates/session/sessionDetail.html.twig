@@ -40,6 +40,9 @@
             <li>Formateur: <a href="{{ path('app_trainerDetail', {'id': session.trainer.id}) }}">{{ session.trainer }}</a> </li>
             <li>Date de début: {{ session.beginDate|date("m/d/Y") }} </li>
             <li>Date de fin: {{ session.endDate|date("m/d/Y") }} </li>
+            {#*** Test affichage Dates: ***#}
+            {# <li>Date de fin: {{ dump(session.endDate) }} </li>
+            <li>{{ dump(dateNow) }}</li> #}
             <li>Inscriptions: {{ nbrSubscribers }}/{{ session.nbrPlaces }} <i class="fa-solid fa-user-group {{ sessionStatusClass }}"></i></li>
             <li class="{{ sessionStatusClass }}">{{ sessionStatusText|capitalize }}</li>
         </ul>

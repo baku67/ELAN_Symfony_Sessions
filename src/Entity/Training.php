@@ -22,11 +22,12 @@ class Training
     private Collection $sessions;
 
 
+
     /**
      * #NotMapped
      */
     private ?int $sessionCount = null;
-
+    // private $closedSessions;
 
     public function __construct()
     {
@@ -57,6 +58,43 @@ class Training
     {
         return $this->sessions;
     }
+
+
+    public function getincomingSessionCount() {
+        $allSessions = $this->sessions;
+        $count = 0;
+        foreach ($allSessions as $session) {
+            if ($session->getBeginDate() > date("Y-m-d"))  {
+                $count++;
+            }
+        }
+        return $count;
+    }
+
+
+    public function getongoingSessionCount() {
+        $allSessions = $this->getSessions();
+        $count = 0;
+        foreach ($allSessions as $session) {
+            if ( ($session->getBeginDate() < date("Y-m-d H:i:s")) && ($session->getEndDate() > date("Y-m-d H:i:s")) ) {
+                $count++;
+            }
+        }
+        return $count;
+    }
+
+
+    public function getclosedSessionCount() {
+        $allSessions = $this->getSessions();
+        $count = 0;
+        foreach ($allSessions as $session) {
+            if ($session->getEndDate() < date("Y-m-d H:i:s") ) {
+                $count++;
+            }
+        }
+        return $count;
+    }
+
 
 
     public function getSessionCount() {
