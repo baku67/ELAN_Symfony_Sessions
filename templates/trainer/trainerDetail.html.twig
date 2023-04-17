@@ -15,10 +15,78 @@
     {# {% if is_granted('ROLE_ADMIN') %} #}
     {% if app.user %}
     
-        <p>Infos</p>
+        <h2>Infos</h2>
         <ul>
             <li>Nom: {{ trainer }}</li>
+            <li>Sessions Formées: {{ trainerSessionsCount }}</li>
         </ul>
+
+
+        <h2></h2>
+        <table id="trainerSessions" class="display">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Dates</th>
+                    <th>Inscrits</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for trainerSession in trainerSessions %}
+
+                    {% if ((trainerSession.nbrOfSubscribers / trainerSession.nbrPlaces ) < 0.5) %}
+                        {% set sessionStatusClass = "open" %}
+                        {% set sessionStatusText = "Ouvert" %}
+                    {% elseif ( ((trainerSession.nbrOfSubscribers / trainerSession.nbrPlaces ) >= 0.5) and ((trainerSession.nbrOfSubscribers / trainerSession.nbrPlaces ) < 1) ) %}
+                        {% set sessionStatusClass = "midOpen" %}
+                        {% set sessionStatusText = "Ouvert" %}
+                    {% elseif ((trainerSession.nbrOfSubscribers / trainerSession.nbrPlaces ) >= 1) %}
+                        {% set sessionStatusClass = "full" %}
+                        {% set sessionStatusText = "Complet" %}
+                    {% endif %}
+                            
+                    <tr class="clickableTr" value="{{ trainerSession.id }}">
+                        <td class="maxWidthEllipsis">{{ trainerSession }}</td>
+                        <td>Du {{ trainerSession.beginDate|date('m/d/Y') }}<br>
+                        au {{ trainerSession.endDate|date('m/d/Y')  }}</td>
+                        <td  class="{{ sessionStatusClass }}">{{ trainerSession.nbrOfSubscribers }}/{{ trainerSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
+                        <td class="{{ sessionStatusClass }}">{{ sessionStatusText }}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+
+        <script>
+            let table = new DataTable('#trainerSessions', {
+                paging: false,
+                searching: false,
+                "info": false 
+                // scrollY: 400
+            });
+        </script>
+
+
+        <script>
+        // Rend les <tr> clickables, redirection vers sessionDetail (mais passe par la route et non le nom de la route)
+        var clickableTrs = document.querySelectorAll('.clickableTr');
+        if(clickableTrs != null) {
+            for (var i = 0; i < clickableTrs.length; i++) {
+                (function(index) {
+                    clickableTrs[index].addEventListener('click', function() {
+
+                        var idSessionClicked = clickableTrs[index].getAttribute("value");
+                        window.location.href = "/sessionDetail/" + idSessionClicked;
+
+                    });
+                })(i);
+            }
+        }
+        </script>
+
 
 
     {% else %}

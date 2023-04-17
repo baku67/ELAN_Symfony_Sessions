@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Trainer;
+use App\Entity\Session;
 use App\Form\TrainerType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,11 +44,17 @@ class TrainerController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $trainerRepo = $entityManager->getRepository(Trainer::class);
+        $sessionRepo = $entityManager->getRepository(Session::class);
 
         $trainerData = $trainerRepo->find($id);
+        $trainerSessions = $sessionRepo->findBy(['trainer' => $id]);
+        $trainerSessionsCount = count($trainerSessions);
+
 
         return $this->render('trainer/trainerDetail.html.twig', [
             'trainer' => $trainerData,
+            'trainerSessions' => $trainerSessions,
+            'trainerSessionsCount' => $trainerSessionsCount,
         ]);
     }
 

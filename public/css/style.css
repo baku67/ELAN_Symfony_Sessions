@@ -265,6 +265,22 @@ ul li {
     color: white;
 }
 
+.display {
+    background-color: rgb(95 158 160 / 12%);
+    padding: 10px;
+    border-radius: 7px;
+    margin-bottom: 25px !important;
+}
+.display thead tr {
+    background-color: rgb(95 158 160 / 40%);
+} 
+.display thead tr:first-child {
+    border-radius: 7px;
+}
+.display thead tr:last-child {
+    border-radius: 7px;
+}
+
 table.dataTable.display tbody tr {
     transform: translateX(0px);
     border-radius: 8px;
@@ -300,6 +316,13 @@ table.dataTable.display tbody tr:hover .tdmidOpen {
     /* margin: 0 auto; */
     margin: 0;
 }
+
+#trainerSessions {
+    width: 80%;
+    margin: 0;
+}
+
+
 
 
 .maxWidthEllipsis {
@@ -343,7 +366,7 @@ table {
 }
 
 .marginBottom {
-    margin-bottom: 25px;
+    /* margin-bottom: 25px; */
 }
 
 .centered {
