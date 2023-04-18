@@ -5,43 +5,64 @@
 
 {% block body %}
 
-    <h1>{{ trainee }}</h1>
-    <span class="subtitle">Stagiaire</span>
-    <br>
     {# <a href="{{ path('app_trainee') }}">Retour</a> #}
     <button onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Retour</button>
 
-
     <br><br>
 
-    {# {% if is_granted('ROLE_ADMIN') %} #}
-    {% if app.user %}
-    
-        <p>Infos</p>
-        <ul>
-            <li>Nom: {{ trainee }}</li>
-            <li>Age: {{ trainee.birthDate|date("m/d/Y") }}</li>
-            <li>Ville: {{ trainee.ville }}</li>
-            <li>Email: {{ trainee.email }}</li>
-            <li>Tél: {{ trainee.tel }}</li>
-            <li>Genre: {{ trainee.gender }}</li>
-        </ul>
+    <div class="headerDetail">
+
+        <div class="headerHeaderDetail">
+            <h1 class="detailCardTitle"><i class="fa-solid fa-graduation-cap"></i> &nbsp;{{ trainee }} </h1>
+            <p class="subtitle">Stagiaire</p>
+        </div>
 
 
-    {% else %}
+        <div class="contentHeaderDetail">
+        
+            <div class="cardDetailGrid">
 
-        <p>Vous n'avez pas l'autorisation de voir ces infos</p>
+                <div style="width:max-content;">
 
-    {% endif %}
+                    {# {% if is_granted('ROLE_ADMIN') %} #}
+                    {% if app.user %}
+                    
+                        <p class="subTitleCardDetail">Détail</p>
+                        <ul>
+                            <li><span class="labelTraineeInfos">Nom:</span> {{ trainee }}</li>
+                            <li><span class="labelTraineeInfos">Age:</span> {{ trainee.birthDate|date("m/d/Y") }}</li>
+                            <li><span class="labelTraineeInfos">Ville:</span> {{ trainee.ville }}</li>
+                            <li><span class="labelTraineeInfos">Email:</span> {{ trainee.email }}</li>
+                            <li><span class="labelTraineeInfos">Tél:</span> {{ trainee.tel }}</li>
+                            <li><span class="labelTraineeInfos">Genre:</span> {{ trainee.gender }}</li>
+                        </ul>
 
 
-    {# {% if is_granted('ROLE_ADMIN') %} #}
-    {% if app.user %}
-        <a class="editButton" href="{{ path('app_editTrainee', {'id': trainee.id }) }}"><i class="fa-solid fa-pen-to-square"></i> Éditer le stagiaire</a>
-        <a href="{{ path('app_deleteTrainee', {'id': trainee.id}) }}" class="deleteButton"><i class="fa-solid fa-trash-can"></i> Supprimer le stagiaire</a>
-    {% else %}
-        <p class="editButton" style="opacity: 0.5"><i class="fa-solid fa-pen-to-square"></i> Éditer le stagiaire (Admin)</p>
-    {% endif %}
+                    {% else %}
+
+                        <p>Vous n'avez pas l'autorisation de voir ces infos</p>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div style="position: relative; border-left: 1px solid rgb(225 225 225 / 15%)">
+                    {# {% if is_granted('ROLE_ADMIN') %} #}
+                    {% if app.user %}
+                        <div class="detailCardButtons">
+                            <a class="editButton" href="{{ path('app_editTrainee', {'id': trainee.id }) }}"><i class="fa-solid fa-pen-to-square"></i> Éditer</a>
+                            <a href="{{ path('app_deleteTrainee', {'id': trainee.id}) }}" class="deleteButton"><i class="fa-solid fa-trash-can"></i> Supprimer</a>
+                        </div>
+                    {% else %}
+                        <p class="editButton" style="opacity: 0.5"><i class="fa-solid fa-pen-to-square"></i> Éditer le stagiaire (Admin)</p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 
 
     {% if app.user %}

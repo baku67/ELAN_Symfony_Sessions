@@ -188,31 +188,39 @@ td {
 
 
 .deleteButton {
+    text-align: center;
     padding: 5px 9px;
     text-decoration: none;
     border: 1px solid;
     border-radius: 5px;
-    color:#ad0d0d;
+    color:#970606;
+    margin: 5px auto;
+    background-color: rgb(151 6 6 / 10%);
 
     transition: all 0.5s;
 }
 .editButton {
+    text-align: center;
     padding: 5px 9px;
     text-decoration: none;
     border: 1px solid;
     border-radius: 5px;
+    color: #003f9c;
+    background-color: rgb(9 81 188 / 15%);
 
     transition: all 0.5s;
 }
 
 .deleteButton:hover {
-    background-color: #ad0d0d;
+    background-color: #970606;
     color: white;
+    border: 1px solid #970606;
 }
 
 .editButton:hover {
-    background-color: #0d6efd;
+    background-color: #003f9c;
     color: white;
+    border: 1px solid #003f9c;
 }
 
 .emptyTableMsg {
@@ -507,8 +515,63 @@ h1 a:hover {
     font-size: 1.1em;
 }
 
+.detailCardTitle {
+    margin-bottom: 0;
+}
+
 .subtitle {
     font-style: italic;
     opacity: 0.6;
     font-size: 1.2em;
+    margin-bottom: 10px;
+    color: rgb(255, 209, 93);
+}
+.fa-graduation-cap {
+    color: rgb(255, 209, 93);
+}
+
+.headerDetail {
+    /* padding: 10px 25px 15px 25px; */
+    border-radius: 7px;
+    margin-bottom: 25px;
+    background-color: cadetblue;
+    color: white;
+    border: 2px solid rgba(32, 57, 58, 0.7);
+}
+.headerHeaderDetail {
+    padding: 10px 25px 5px 25px;
+    background-color: rgb(32, 57, 58);
+    border-top-right-radius: 7px;
+    border-top-left-radius: 7px;
+    border-bottom: 3px solid rgb(255, 209, 93);
+
+}
+.contentHeaderDetail {
+    padding: 10px 25px 15px 25px;
+
+}
+
+.detailCardButtons {
+    display: inline-flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    bottom: 13px;
+}
+
+.cardDetailGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 0px;
+}
+
+.labelTraineeInfos {
+    color: rgb(32, 57, 58);
+}
+
+.subTitleCardDetail {
+    color: rgb(32, 57, 58);
+    font-weight: bold;
 }
