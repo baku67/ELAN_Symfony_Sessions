@@ -8,20 +8,108 @@
 
     <br><br>
 
-    <h2>Tableau de bord</h2>
+        <h2>Tableau de bord</h2>
 
-    <br>
-    
-    <h3>Sessions à venir</h3>
-        <div class="homeSessionSection">
+        <br>
+        
+        <div class="sessionTableContainer widthFix">
 
-            {% if incSessions is null or incSessions is empty %}
+            <h3 class="sessionTableTitle">Sessions à venir</h3>
+            <div class="homeSessionSection">
+
+                {% if incSessions is null or incSessions is empty %}
+
+                    <p class="emptyTableMsg">Pas de session programmée<p>
+
+                {% else %}
+
+                    <table class="homeTable display" id="homeTable1">
+                        <thead>
+                            <tr>
+                                <th>Formation</th>
+                                <th>Titre</th>
+                                <th>Inscriptions</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                        {% for incomingSession in incSessions %}
+
+                            {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+                            {% if ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) < 0.5) %}
+                                {% set sessionStatusClass = "open" %}
+                                {% set sessionStatusText = "Ouvert" %}
+                            {% elseif ( ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) >= 0.5) and ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) < 1) ) %}
+                                {% set sessionStatusClass = "midOpen" %}
+                                {% set sessionStatusText = "Ouvert" %}
+                            {% elseif ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) >= 1) %}
+                                {% set sessionStatusClass = "full" %}
+                                {% set sessionStatusText = "Complet" %}
+                            {% endif %}
+
+                            <tr class="clickableTr" value="{{incomingSession.id}}">
+                                <td class="maxWidthEllipsis trainingTitle">{{ incomingSession.training }}</td>
+                                <td class="maxWidthEllipsis">
+                                        {# Si JS activé: lien de redirection traité en JS (voir bas de page) #}
+                                        <span class="jsEnabled1" style="opacity:0">{{ incomingSession }}</span>
+                                        {# Si JS desactivé: lien en dur sur le titre uniquement #}
+                                        <noscript>
+                                            <a class="jsDisabled" href="{{ path('app_sessionDetail', { 'id':incomingSession.id }) }}">{{ incomingSession }}</a>
+                                        </noscript>
+                                </td>
+                                <td class="centered">
+                                    <span class="{{ sessionStatusClass }}">({{ incomingSession.nbrOfSubscribers }}/{{ incomingSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
+                                </td>
+                                <td class="centered td{{ sessionStatusClass }}">
+                                    <span class="statusText">{{ sessionStatusText }}</span>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <script>
+                        var elements1 = document.getElementsByClassName('jsEnabled1');
+                        Array.from(elements1).forEach(function(element) {
+                            element.style.opacity = "1";
+                        });
+
+                        let table1 = new DataTable('#homeTable1', {
+                            paging: false,
+                            searching: false,
+                            "info": false,
+                            "language": {
+                                "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                            }
+                            // scrollY: 400
+                        });
+                    </script>
+
+                {% endif %}
+
+            </div>
+        </div>
+
+
+
+        <br><br>
+
+
+        <div class="sessionTableContainer widthFix">
+
+            <h3 class="sessionTableTitle">Sessions en cours</h3>
+            <div class="homeSessionSection">
+
+            {% if inProgressSessions is null or inProgressSessions is empty %}
 
                 <p class="emptyTableMsg">Pas de session programmée<p>
 
             {% else %}
 
-                <table class="homeTable display" id="homeTable1">
+                <table class="homeTable display" id="homeTable2">
                     <thead>
                         <tr>
                             <th>Formation</th>
@@ -33,32 +121,32 @@
 
                     <tbody>
 
-                    {% for incomingSession in incSessions %}
+                    {% for inProgressSession in inProgressSessions %}
 
                         {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
-                        {% if ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) < 0.5) %}
+                        {% if ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) < 0.5) %}
                             {% set sessionStatusClass = "open" %}
                             {% set sessionStatusText = "Ouvert" %}
-                        {% elseif ( ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) >= 0.5) and ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) < 1) ) %}
+                        {% elseif ( ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) >= 0.5) and ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) < 1) ) %}
                             {% set sessionStatusClass = "midOpen" %}
                             {% set sessionStatusText = "Ouvert" %}
-                        {% elseif ((incomingSession.nbrOfSubscribers / incomingSession.nbrPlaces ) >= 1) %}
+                        {% elseif ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) >= 1) %}
                             {% set sessionStatusClass = "full" %}
                             {% set sessionStatusText = "Complet" %}
                         {% endif %}
 
-                        <tr class="clickableTr" value="{{incomingSession.id}}">
-                            <td class="maxWidthEllipsis">{{ incomingSession.training }}</td>
-                            <td class="maxWidthEllipsis">
-                                    {# Si JS activé: lien de redirection traité en JS (voir bas de page) #}
-                                    <span class="jsEnabled1" style="opacity:0">{{ incomingSession }}</span>
-                                    {# Si JS desactivé: lien en dur sur le titre uniquement #}
-                                    <noscript>
-                                        <a class="jsDisabled" href="{{ path('app_sessionDetail', { 'id':incomingSession.id }) }}">{{ incomingSession }}</a>
-                                    </noscript>
+                        <tr class="clickableTr" value="{{inProgressSession.id}}">
+                            <td class="maxWidthEllipsis trainingTitleHome">{{ inProgressSession.training }}</td>
+                            <td class="maxWidthEllipsis" >
+                                {# Si JS activé: lien de redirection traité en JS (voir bas de page) #}
+                                <span class="jsEnabled2" style="opacity:0">{{ inProgressSession }}</span>
+                                {# Si JS desactivé: lien en dur sur le titre uniquement #}
+                                <noscript>
+                                    <a href="{{ path('app_sessionDetail', { 'id':inProgressSession.id }) }}">{{ inProgressSession }}</a>
+                                </noscript>
                             </td>
                             <td class="centered">
-                                <span class="{{ sessionStatusClass }}">({{ incomingSession.nbrOfSubscribers }}/{{ incomingSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
+                                <span class="{{ sessionStatusClass }}">({{ inProgressSession.nbrOfSubscribers }}/{{ inProgressSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
                             </td>
                             <td class="centered td{{ sessionStatusClass }}">
                                 <span class="statusText">{{ sessionStatusText }}</span>
@@ -70,12 +158,12 @@
                 </table>
 
                 <script>
-                    var elements1 = document.getElementsByClassName('jsEnabled1');
-                    Array.from(elements1).forEach(function(element) {
+                    var elements2 = document.getElementsByClassName('jsEnabled2');
+                    Array.from(elements2).forEach(function(element) {
                         element.style.opacity = "1";
                     });
 
-                    let table1 = new DataTable('#homeTable1', {
+                    let table2 = new DataTable('#homeTable2', {
                         paging: false,
                         searching: false,
                         "info": false,
@@ -88,169 +176,99 @@
 
             {% endif %}
 
-        </div>
-
-    <br><br>
-    <h3>Sessions en cours</h3>
-        <div class="homeSessionSection">
-
-        {% if inProgressSessions is null or inProgressSessions is empty %}
-
-            <p class="emptyTableMsg">Pas de session programmée<p>
-
-        {% else %}
-
-            <table class="homeTable display" id="homeTable2">
-                <thead>
-                    <tr>
-                        <th>Formation</th>
-                        <th>Titre</th>
-                        <th>Inscriptions</th>
-                        <th>Statut</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                {% for inProgressSession in inProgressSessions %}
-
-                    {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
-                    {% if ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) < 0.5) %}
-                        {% set sessionStatusClass = "open" %}
-                        {% set sessionStatusText = "Ouvert" %}
-                    {% elseif ( ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) >= 0.5) and ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) < 1) ) %}
-                        {% set sessionStatusClass = "midOpen" %}
-                        {% set sessionStatusText = "Ouvert" %}
-                    {% elseif ((inProgressSession.nbrOfSubscribers / inProgressSession.nbrPlaces ) >= 1) %}
-                        {% set sessionStatusClass = "full" %}
-                        {% set sessionStatusText = "Complet" %}
-                    {% endif %}
-
-                    <tr class="clickableTr" value="{{inProgressSession.id}}">
-                        <td class="maxWidthEllipsis trainingTitleHome">{{ inProgressSession.training }}</td>
-                        <td class="maxWidthEllipsis" >
-                            {# Si JS activé: lien de redirection traité en JS (voir bas de page) #}
-                            <span class="jsEnabled2" style="opacity:0">{{ inProgressSession }}</span>
-                            {# Si JS desactivé: lien en dur sur le titre uniquement #}
-                            <noscript>
-                                <a href="{{ path('app_sessionDetail', { 'id':inProgressSession.id }) }}">{{ inProgressSession }}</a>
-                            </noscript>
-                        </td>
-                        <td class="centered">
-                            <span class="{{ sessionStatusClass }}">({{ inProgressSession.nbrOfSubscribers }}/{{ inProgressSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
-                        </td>
-                        <td class="centered td{{ sessionStatusClass }}">
-                            <span class="statusText">{{ sessionStatusText }}</span>
-                        </td>
-                    </tr>
-
-                {% endfor %}
-                </tbody>
-            </table>
-
-            <script>
-                var elements2 = document.getElementsByClassName('jsEnabled2');
-                Array.from(elements2).forEach(function(element) {
-                    element.style.opacity = "1";
-                });
-
-                let table2 = new DataTable('#homeTable2', {
-                    paging: false,
-                    searching: false,
-                    "info": false,
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
-                    }
-                    // scrollY: 400
-                });
-            </script>
-
-        {% endif %}
+            </div>
 
         </div>
 
 
-
-    <br><br>
-    <h3>Sessions passées</h3>
-        <div class="homeSessionSection">
-
-        {% if passedSessions is null or passedSessions is empty %}
-
-            <p class="emptyTableMsg">Pas de session programmée<p>
-
-        {% else %}
-
-            <table class="homeTable display" id="homeTable3">
-                <thead>
-                    <tr>
-                        <th>Formation</th>
-                        <th>Titre</th>
-                        <th>Inscriptions</th>
-                        <th>Statut</th>
-                    </tr>
-                </thead>
-
-                <tbody>
+        <br><br>
 
 
-                {% for passedSession in passedSessions %}
-                    
-                    {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
-                    {% if ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) < 0.5) %}
-                        {% set sessionStatusClass = "open" %}
-                        {% set sessionStatusText = "Ouvert" %}
-                    {% elseif ( ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 0.5) and ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) < 1) ) %}
-                        {% set sessionStatusClass = "midOpen" %}
-                        {% set sessionStatusText = "Ouvert" %}
-                    {% elseif ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 1) %}
-                        {% set sessionStatusClass = "full" %}
-                        {% set sessionStatusText = "Complet" %}
-                    {% endif %}
+        <div class="sessionTableContainer widthFix">
 
-                    <tr class="clickableTr" value="{{passedSession.id}}">
-                        <td class="maxWidthEllipsis">{{ passedSession.training }}</td>
-                        <td class="maxWidthEllipsis">
-                            {# Si JS activé: lien de redirection traité en JS (voir bas de page) #}
-                            <span class="jsEnabled3" style="opacity:0">{{ passedSession|capitalize }}</span>
-                            {# Si JS desactivé: lien en dur sur le titre uniquement #}
-                            <noscript>
-                                <a href="{{ path('app_sessionDetail', { 'id':passedSession.id }) }}">{{ passedSession|capitalize }}</a>
-                            </noscript>
-                        </td>
-                        <td class="centered">
-                            <span class="{{ sessionStatusClass }}">({{ passedSession.nbrOfSubscribers }}/{{ passedSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
-                        </td>
-                        <td class="centered td{{ sessionStatusClass }}">
-                            <span class="statusText">{{ sessionStatusText }}</span>
-                        </td>
-                    </tr>
+            <h3 class="sessionTableTitle">Sessions passées</h3>
+            <div class="homeSessionSection">
 
-                {% endfor %}
+            {% if passedSessions is null or passedSessions is empty %}
 
-                </tbody>
-            </table>
+                <p class="emptyTableMsg">Pas de session programmée<p>
+
+            {% else %}
+
+                <table class="homeTable display" id="homeTable3">
+                    <thead>
+                        <tr>
+                            <th>Formation</th>
+                            <th>Titre</th>
+                            <th>Inscriptions</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
 
 
-            <script>
-                var elements3 = document.getElementsByClassName('jsEnabled3');
-                Array.from(elements3).forEach(function(element) {
-                    element.style.opacity = "1";
-                });
+                    {% for passedSession in passedSessions %}
+                        
+                        {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+                        {% if ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) < 0.5) %}
+                            {% set sessionStatusClass = "open" %}
+                            {% set sessionStatusText = "Ouvert" %}
+                        {% elseif ( ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 0.5) and ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) < 1) ) %}
+                            {% set sessionStatusClass = "midOpen" %}
+                            {% set sessionStatusText = "Ouvert" %}
+                        {% elseif ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 1) %}
+                            {% set sessionStatusClass = "full" %}
+                            {% set sessionStatusText = "Complet" %}
+                        {% endif %}
 
-                let table3 = new DataTable('#homeTable3', {
-                    paging: false,
-                    searching: false,
-                    "info": false,
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
-                    }
-                    // scrollY: 400
-                });
-            </script>
+                        <tr class="clickableTr" value="{{passedSession.id}}">
+                            <td class="maxWidthEllipsis">{{ passedSession.training }}</td>
+                            <td class="maxWidthEllipsis">
+                                {# Si JS activé: lien de redirection traité en JS (voir bas de page) #}
+                                <span class="jsEnabled3" style="opacity:0">{{ passedSession|capitalize }}</span>
+                                {# Si JS desactivé: lien en dur sur le titre uniquement #}
+                                <noscript>
+                                    <a href="{{ path('app_sessionDetail', { 'id':passedSession.id }) }}">{{ passedSession|capitalize }}</a>
+                                </noscript>
+                            </td>
+                            <td class="centered">
+                                <span class="{{ sessionStatusClass }}">({{ passedSession.nbrOfSubscribers }}/{{ passedSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i>)</span>
+                            </td>
+                            <td class="centered td{{ sessionStatusClass }}">
+                                <span class="statusText">{{ sessionStatusText }}</span>
+                            </td>
+                        </tr>
 
-        {% endif %}
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+
+
+                <script>
+                    var elements3 = document.getElementsByClassName('jsEnabled3');
+                    Array.from(elements3).forEach(function(element) {
+                        element.style.opacity = "1";
+                    });
+
+                    let table3 = new DataTable('#homeTable3', {
+                        paging: false,
+                        searching: false,
+                        "info": false,
+                        "language": {
+                            "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                        }
+                        // scrollY: 400
+                    });
+                </script>
+
+            {% endif %}
+            </div>
+
         </div>
+    
+
 
 
         <script>

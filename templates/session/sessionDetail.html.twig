@@ -145,8 +145,8 @@
                 <tbody>
                     {% for subTrainee in subTrainees %}
                     <tr class="clickableTr" value="{{ subTrainee.id }}">
-                        <td>
-                            <span>{{ subTrainee }}</span>
+                        <td class="trainingTitle">
+                            {{ subTrainee }}
                         </td>
                         <td style="text-align:center;">
                             <a href="{{ path('app_removetraineeSession', {'id': subTrainee.id, 'idSession': session.id, 'redirect': 'session'}) }}">
@@ -203,7 +203,7 @@
     <h2>Inscrire un stagiaire</h2>
     {# Mettre un dataTables avec recherche intégré qui affiche uniquement les stagiaire qui sont pas inscrit à cette session (!) et ajouter une colonne <a>"+"</a> dans la table #}
     {% if app.user %}
-            <table id="subscribersTable" class="display">
+            <table id="notSubscribersTable" class="display">
                 <thead>
                     <tr>  
                         <th>Nom</th>
@@ -239,7 +239,7 @@
             </table>
 
             <script>
-                let table = new DataTable('#subscribersTable', {
+                let table2 = new DataTable('#notSubscribersTable', {
                     paging: false,
                     // searching: false,
                     "info": false,

@@ -4,9 +4,9 @@
 
 {% block body %}
 
-
-        <h1>Formations ({{ totalCount }})</h1>
         <a href="{{ path('app_home') }}"><i class="fa-solid fa-arrow-left"></i> Retour</a>
+
+        <h1 class="listPageTitre"><i class="fa-solid fa-graduation-cap"></i> &nbsp;Formations <span class="sessionTableTitleCount">({{ totalCount }})</span></h1>
 
         <br><br>
 
@@ -37,7 +37,7 @@
                     {% for training in trainings %}
                     <tr class="clickableTr" value="{{ training.id }}">
                         {# <td><a href="{{ path('app_trainingDetail', {'id': training.id}) }}">{{ training.title }}</a></td> #}
-                        <td>{{ training.title }} ({{ training.sessionCount }})</td>
+                        <td class="trainingTitle">{{ training.title }} ({{ training.sessionCount }})</td>
                         {# <td>{{ training.incomingSessionCount }} sessions</td>
                         <td>{{ training.ongoingSessionCount }} sessions</td>
                         <td>{{ training.closedSessionCount }} sessions</td> #}

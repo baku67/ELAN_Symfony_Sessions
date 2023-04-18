@@ -87,7 +87,7 @@
                     {% endif %}
 
                     <tr class="clickableTr" value="{{ incomingSession.id }}">    
-                        <td>
+                        <td class="trainingTitle">
                             {# <a href="{{ path('app_sessionDetail', {id: incomingSession.id}) }}"> #}
                                 {{ incomingSession.title }}
                             {# </a> #}
@@ -138,7 +138,7 @@
                             {% endif %}
                         
                             <tr class="clickableTr" value="{{ ongoingSession.id }}">    
-                                <td>
+                                <td class="trainingTitle">
                                     {# <a href="{{ path('app_sessionDetail', {id: ongoingSession.id}) }}"> #}
                                         {{ ongoingSession.title }}
                                     {# </a> #}
@@ -194,7 +194,7 @@
                             {% endif %}
 
                             <tr class="clickableTr" value="{{ passedSession.id }}">    
-                                <td>
+                                <td class="trainingTitle">
                                     {# <a href="{{ path('app_sessionDetail', {id: passedSession.id}) }}"> #}
                                         {{ passedSession.title|capitalize }}
                                     {# </a> #}

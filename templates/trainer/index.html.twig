@@ -4,9 +4,9 @@
 
 {% block body %}
 
-
-        <h1>Formateurs ({{ totalCount }})</h1>
         <a href="{{ path('app_home') }}"><i class="fa-solid fa-arrow-left"></i> Retour</a>
+
+        <h1 class="listPageTitre"><i class="fa-solid fa-person-chalkboard"></i>&nbsp; Formateurs <span class="sessionTableTitleCount">({{ totalCount }})</span></h1>
 
         <br><br>
 
@@ -34,7 +34,7 @@
                 <tbody>
                     {% for trainer in trainers %}
                     <tr class="clickableTr" value="{{ trainer.id }}">
-                        <td>{{ trainer }}</td>
+                        <td class="trainingTitle">{{ trainer }}</td>
                         <td>{{ trainer.sessionCount }} (All pour l'instant)</td>
                     </tr>
                     {% endfor %}
