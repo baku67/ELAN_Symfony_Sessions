@@ -52,6 +52,10 @@ class TraineeController extends AbstractController
         $incomingSessionsTrainee = $sessionRepo->findIncomingSessionsByTrainee($id);
         $inProgressSessionsTrainee =  $sessionRepo->findInProgressSessionsByTrainee($id);
         $passedSessionsTrainee =  $sessionRepo->findPassedSessionsByTrainee($id);
+
+        $nbrIncomingSessions = count($incomingSessionsTrainee);
+        $nbrInProgressSessions = count($inProgressSessionsTrainee);
+        $nbrPassedSessions = count($passedSessionsTrainee);
         
 
         return $this->render('trainee/traineeDetail.html.twig', [
@@ -59,7 +63,10 @@ class TraineeController extends AbstractController
             'traineeSessions' => $traineeSessions,
             'incomingSessionsTrainee' => $incomingSessionsTrainee,
             'inProgressSessionsTrainee' => $inProgressSessionsTrainee,
-            'passedSessionsTrainee' => $passedSessionsTrainee
+            'passedSessionsTrainee' => $passedSessionsTrainee,
+            'nbrIncomingSessions' => $nbrIncomingSessions,
+            'nbrInProgressSessions' => $nbrInProgressSessions,
+            'nbrPassedSessions' => $nbrPassedSessions
         ]);
     }
 

@@ -1,4 +1,8 @@
+Si session cloturée (dates passées), Préciser dans le status, et verrouillage des inscriptions et desinscription, et modules (pour l'instant juste le raccourcis unsubscribe grisé et désactivé)
+
 Dans listes sessions (à venir, en cours, temrinées): sous-section par session.training (le titre formation imortant car session sous forme "session01" etc )
+
+TrainingDetail: dans infos: nbr total d'inscrits (en cours et totaux)
 
 Ajouter fil d'ariane comme cinéma
 

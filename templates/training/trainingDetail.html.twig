@@ -14,8 +14,8 @@
 
 
         <div class="headerHeaderDetail">
-            <h1><i class="fa-solid fa-graduation-cap"></i> &nbsp;{{ training.title }}</h1>
-            <span class="subtitle">Formation</span>
+            <h1 class="detailCardTitle"><i class="fa-solid fa-graduation-cap"></i> &nbsp;{{ training.title }}</h1>
+            <p class="subtitle">Formation</p>
         </div>
 
         <div class="contentHeaderDetail">
@@ -51,11 +51,15 @@
     </div>
 
 
+    <div style="display:inline-flex; width:100%; justify-content:space-between;">
+        <span style="font-weight:500; font-size:2em;">Programmation</span>
+        <a class="listAddButton" style="position:relative; top:4px;" href="{{ path('app_addSession', { 'idTraining': training.id }) }}"><i class="fa-solid fa-square-plus"></i> Ajouter une Session</a>
+    </div>
 
-    <a class="listAddButton" href="{{ path('app_addSession', { 'idTraining': training.id }) }}"><i class="fa-solid fa-square-plus"></i> Ajouter une Session</a>
 
+    <div class="sessionTableContainer">
 
-    <h3 style="margin-top: 25px;">Prochainement ({{ nbrIncomingSessions }})</h3>
+        <h3 class="sessionTableTitle" style="margin-top: 25px;">Prochainement <span class="sessionTableTitleCount">({{ nbrIncomingSessions }})</span></h3>
 
         {% if app.user %}
             <table id="sessionsTable" class="display">
@@ -100,136 +104,146 @@
             <p>Accès non autorisé<p> 
         {% endif %}
 
-    
-    <h3>En cours ({{ nbrOngoingSessions }})</h3>
+    </div>
 
-        {% if app.user %}
-            <table id="sessionsTable2" class="display">
-                <thead>
-                    <tr>    
-                        <th>Titre</th>
-                        <th>Début</th>
-                        <th>Fin</th>
-                        <th>Inscriptions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for ongoingSession in ongoingSessions %}
 
-                        {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
-                        {% if ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) < 0.5) %}
-                            {% set sessionStatusClass = "open" %}
-                            {% set sessionStatusText = "(ouvert)" %}
-                        {% elseif ( ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) >= 0.5) and ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) < 1) ) %}
-                            {% set sessionStatusClass = "midOpen" %}
-                            {% set sessionStatusText = "(ouvert)" %}
-                        {% elseif ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) >= 1) %}
-                            {% set sessionStatusClass = "full" %}
-                            {% set sessionStatusText = "(complet)" %}
-                        {% endif %}
-                    
-                        <tr class="clickableTr" value="{{ ongoingSession.id }}">    
-                            <td>
-                                {# <a href="{{ path('app_sessionDetail', {id: ongoingSession.id}) }}"> #}
-                                    {{ ongoingSession.title }}
-                                {# </a> #}
-                            </td>
-                            <td>{{ ongoingSession.beginDate | date('m/d/Y') }}</td>
-                            <td>{{ ongoingSession.endDate | date('m/d/Y') }}</td>
-                            <td class="{{ sessionStatusClass }}">{{ ongoingSession.nbrOfSubscribers }}/{{ ongoingSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
+
+    <div class="sessionTableContainer">
+
+        <h3 class="sessionTableTitle" style="margin-top: 25px;">En cours <span class="sessionTableTitleCount">({{ nbrOngoingSessions }})</span></h3>
+
+            {% if app.user %}
+                <table id="sessionsTable2" class="display">
+                    <thead>
+                        <tr>    
+                            <th>Titre</th>
+                            <th>Début</th>
+                            <th>Fin</th>
+                            <th>Inscriptions</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for ongoingSession in ongoingSessions %}
 
-        {% else %}
-            <p>Accès non autorisé<p> 
-        {% endif %}
+                            {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+                            {% if ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) < 0.5) %}
+                                {% set sessionStatusClass = "open" %}
+                                {% set sessionStatusText = "(ouvert)" %}
+                            {% elseif ( ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) >= 0.5) and ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) < 1) ) %}
+                                {% set sessionStatusClass = "midOpen" %}
+                                {% set sessionStatusText = "(ouvert)" %}
+                            {% elseif ((ongoingSession.nbrOfSubscribers / ongoingSession.nbrPlaces ) >= 1) %}
+                                {% set sessionStatusClass = "full" %}
+                                {% set sessionStatusText = "(complet)" %}
+                            {% endif %}
+                        
+                            <tr class="clickableTr" value="{{ ongoingSession.id }}">    
+                                <td>
+                                    {# <a href="{{ path('app_sessionDetail', {id: ongoingSession.id}) }}"> #}
+                                        {{ ongoingSession.title }}
+                                    {# </a> #}
+                                </td>
+                                <td>{{ ongoingSession.beginDate | date('m/d/Y') }}</td>
+                                <td>{{ ongoingSession.endDate | date('m/d/Y') }}</td>
+                                <td class="{{ sessionStatusClass }}">{{ ongoingSession.nbrOfSubscribers }}/{{ ongoingSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+                <p>Accès non autorisé<p> 
+            {% endif %}
+
+    </div>
         
 
 
 
+    <div class="sessionTableContainer">
 
-    <h3>Passés ({{ nbrPassedSessions }})</h3>
+        <h3 class="sessionTableTitle" style="margin-top: 25px;">Passés <span class="sessionTableTitleCount">({{ nbrPassedSessions }})</span></h3>
 
-        {# {% for passedSession in passedSessions %}
-            {{ dump(passedSession) }}
-        {% endfor %} #}
+            {# {% for passedSession in passedSessions %}
+                {{ dump(passedSession) }}
+            {% endfor %} #}
 
-        {% if app.user %}
-            <table id="sessionsTable3" class="display">
-                <thead>
-                    <tr>    
-                        <th>Titre</th>
-                        <th>Début</th>
-                        <th>Fin</th>
-                        <th>Inscriptions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for passedSession in passedSessions %}
-
-                        {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
-                        {% if ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) < 0.5) %}
-                            {% set sessionStatusClass = "open" %}
-                            {% set sessionStatusText = "(ouvert)" %}
-                        {% elseif ( ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 0.5) and ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) <= 1) ) %}
-                            {% set sessionStatusClass = "midOpen" %}
-                            {% set sessionStatusText = "(ouvert)" %}
-                        {% elseif ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 1) %}
-                            {% set sessionStatusClass = "full" %}
-                            {% set sessionStatusText = "(complet)" %}
-                        {% endif %}
-
-                        <tr class="clickableTr" value="{{ passedSession.id }}">    
-                            <td>
-                                {# <a href="{{ path('app_sessionDetail', {id: passedSession.id}) }}"> #}
-                                    {{ passedSession.title|capitalize }}
-                                {# </a> #}
-                            </td>
-                            <td>{{ passedSession.beginDate | date('m/d/Y') }}</td>
-                            <td>{{ passedSession.endDate | date('m/d/Y') }}</td>
-                            <td class="{{ sessionStatusClass }}">{{ passedSession.nbrOfSubscribers }}/{{ passedSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
+            {% if app.user %}
+                <table id="sessionsTable3" class="display">
+                    <thead>
+                        <tr>    
+                            <th>Titre</th>
+                            <th>Début</th>
+                            <th>Fin</th>
+                            <th>Inscriptions</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for passedSession in passedSessions %}
+
+                            {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+                            {% if ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) < 0.5) %}
+                                {% set sessionStatusClass = "open" %}
+                                {% set sessionStatusText = "(ouvert)" %}
+                            {% elseif ( ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 0.5) and ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) <= 1) ) %}
+                                {% set sessionStatusClass = "midOpen" %}
+                                {% set sessionStatusText = "(ouvert)" %}
+                            {% elseif ((passedSession.nbrOfSubscribers / passedSession.nbrPlaces ) >= 1) %}
+                                {% set sessionStatusClass = "full" %}
+                                {% set sessionStatusText = "(complet)" %}
+                            {% endif %}
+
+                            <tr class="clickableTr" value="{{ passedSession.id }}">    
+                                <td>
+                                    {# <a href="{{ path('app_sessionDetail', {id: passedSession.id}) }}"> #}
+                                        {{ passedSession.title|capitalize }}
+                                    {# </a> #}
+                                </td>
+                                <td>{{ passedSession.beginDate | date('m/d/Y') }}</td>
+                                <td>{{ passedSession.endDate | date('m/d/Y') }}</td>
+                                <td class="{{ sessionStatusClass }}">{{ passedSession.nbrOfSubscribers }}/{{ passedSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+                    <p>Accès non autorisé<p> 
+            {% endif %}
+
+    </div>
 
 
-            <script>
-                let table = new DataTable('#sessionsTable', {
-                    paging: false,
-                    searching: false,
-                    "info": false,
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
-                    }
-                    // scrollY: 400
-                });
-                let table2 = new DataTable('#sessionsTable2', {
-                    paging: false,
-                    searching: false,
-                    "info": false,
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
-                    }
-                    // scrollY: 400
-                });
-                let table3 = new DataTable('#sessionsTable3', {
-                    paging: false,
-                    searching: false,
-                    "info": false,
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
-                    }
-                    // scrollY: 400
-                });
+        <script>
+            let table = new DataTable('#sessionsTable', {
+                paging: false,
+                searching: false,
+                "info": false,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                }
+                // scrollY: 400
+            });
+            let table2 = new DataTable('#sessionsTable2', {
+                paging: false,
+                searching: false,
+                "info": false,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                }
+                // scrollY: 400
+            });
+            let table3 = new DataTable('#sessionsTable3', {
+                paging: false,
+                searching: false,
+                "info": false,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                }
+                // scrollY: 400
+            });
 
-            </script>
-
-        {% else %}
-                <p>Accès non autorisé<p> 
-        {% endif %}
+        </script>
 
 
         <script>

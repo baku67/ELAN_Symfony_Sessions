@@ -68,10 +68,12 @@
     {% if app.user %}
 
         {# Si session en cours (label ou bgColor vert?) #}
-        <h2>Formations</h2>
+        <span style="font-weight:500; font-size:2em;">Formations</span>
 
-            <h3>En cours</h3>
 
+        <div class="sessionTableContainer">
+
+            <h3 class="sessionTableTitle">En cours <span class="sessionTableTitleCount">({{ nbrInProgressSessions }})</span></h3>
 
                     <table id="ongoingSessionsTable" class="display">
                         <thead>
@@ -133,140 +135,145 @@
                         });
                     </script>
 
-
-
-            <h3>A venir</h3>
+            </div>
 
 
 
 
-                    <table id="incomingSessionsTable" class="display">
-                        <thead>
-                            <tr>
-                                <th>Formation</th>
-                                <th>Session</th>
-                                <th>Dates</th>
-                                <th>Status</th>
-                                <th>Inscriptions</th>
-                                <th>Désinscrire</th>
+            <div class="sessionTableContainer">
+
+                <h3 class="sessionTableTitle">A venir <span class="sessionTableTitleCount">({{ nbrIncomingSessions }})</span></h3>
+
+                <table id="incomingSessionsTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Formation</th>
+                            <th>Session</th>
+                            <th>Dates</th>
+                            <th>Status</th>
+                            <th>Inscriptions</th>
+                            <th>Désinscrire</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for traineeSession in incomingSessionsTrainee %}
+
+                            {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+                            {% if ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) < 0.5) %}
+                                {% set sessionStatusClass = "open" %}
+                                {% set sessionStatusText = "Ouvert" %}
+                            {% elseif ( ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) >= 0.5) and ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) < 1) ) %}
+                                {% set sessionStatusClass = "midOpen" %}
+                                {% set sessionStatusText = "Ouvert" %}
+                            {% elseif ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) >= 1) %}
+                                {% set sessionStatusClass = "full" %}
+                                {% set sessionStatusText = "Complet" %}
+                            {% endif %}
+
+
+                            <tr class="clickableTr" value="{{ traineeSession.id }}">
+                                <td class="trainingTitle">{{ traineeSession.training }}</td>
+                                <td>{{ traineeSession|capitalize }}</td>
+                                <td>Du {{ traineeSession.beginDate|date('d-m-Y') }}<br>au {{ traineeSession.endDate|date('d-m-Y') }}</td>
+                                <td class="{{ sessionStatusClass }}">{{ sessionStatusText }}</td>
+                                <td class="{{ sessionStatusClass }}">{{ traineeSession.nbrOfSubscribers }}/{{ traineeSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
+                                <td class="unsubscribeTr">
+                                    <a class="unsubscribeLink" href="{{ path('app_removetraineeSession', {'id': trainee.id, 'idSession': traineeSession.id, 'redirect': 'trainee' }) }}">
+                                        <i class="fa-solid fa-right-from-bracket fa-red biggerBtn"></i>
+                                    </a>
+                                </td>
                             </tr>
-                        </thead>
 
-                        <tbody>
+                        {% endfor %}
 
-                            {% for traineeSession in incomingSessionsTrainee %}
+                    </tbody>
 
-                                {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
-                                {% if ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) < 0.5) %}
-                                    {% set sessionStatusClass = "open" %}
-                                    {% set sessionStatusText = "Ouvert" %}
-                                {% elseif ( ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) >= 0.5) and ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) < 1) ) %}
-                                    {% set sessionStatusClass = "midOpen" %}
-                                    {% set sessionStatusText = "Ouvert" %}
-                                {% elseif ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) >= 1) %}
-                                    {% set sessionStatusClass = "full" %}
-                                    {% set sessionStatusText = "Complet" %}
-                                {% endif %}
+                </table>
 
+                <script>
+                    let table2 = new DataTable('#incomingSessionsTable', {
+                        paging: false,
+                        searching: false,
+                        "info": false,
+                        "language": {
+                            "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                        } 
+                        // scrollY: 400
+                    });
+                </script>
 
-                                <tr class="clickableTr" value="{{ traineeSession.id }}">
-                                    <td class="trainingTitle">{{ traineeSession.training }}</td>
-                                    <td>{{ traineeSession|capitalize }}</td>
-                                    <td>Du {{ traineeSession.beginDate|date('d-m-Y') }}<br>au {{ traineeSession.endDate|date('d-m-Y') }}</td>
-                                    <td class="{{ sessionStatusClass }}">{{ sessionStatusText }}</td>
-                                    <td class="{{ sessionStatusClass }}">{{ traineeSession.nbrOfSubscribers }}/{{ traineeSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
-                                    <td class="unsubscribeTr">
-                                        <a class="unsubscribeLink" href="{{ path('app_removetraineeSession', {'id': trainee.id, 'idSession': traineeSession.id, 'redirect': 'trainee' }) }}">
-                                            <i class="fa-solid fa-right-from-bracket fa-red biggerBtn"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-
-                            {% endfor %}
-
-                        </tbody>
-
-                    </table>
-
-                    <script>
-                        let table2 = new DataTable('#incomingSessionsTable', {
-                            paging: false,
-                            searching: false,
-                            "info": false,
-                            "language": {
-                                "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
-                            } 
-                            // scrollY: 400
-                        });
-                    </script>
+            </div>
 
 
 
 
-            <h3>Passées</h3>
+            <div class="sessionTableContainer">
+
+                <h3 class="sessionTableTitle">Passées <span class="sessionTableTitleCount">({{ nbrPassedSessions }})</span></h3>
+
+                <table id="passedSessionsTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Formation</th>
+                            <th>Titre</th>
+                            <th>Dates</th>
+                            <th>Status</th>
+                            <th>Inscriptions</th>
+                            <th>Désinscrire</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for traineeSession in passedSessionsTrainee %}
+
+                            {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+                            {% if ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) < 0.5) %}
+                                {% set sessionStatusClass = "open" %}
+                                {% set sessionStatusText = "Ouvert" %}
+                            {% elseif ( ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) >= 0.5) and ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) < 1) ) %}
+                                {% set sessionStatusClass = "midOpen" %}
+                                {% set sessionStatusText = "Ouvert" %}
+                            {% elseif ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) >= 1) %}
+                                {% set sessionStatusClass = "full" %}
+                                {% set sessionStatusText = "Complet" %}
+                            {% endif %}
 
 
-
-
-                    <table id="passedSessionsTable" class="display">
-                        <thead>
-                            <tr>
-                                <th>Formation</th>
-                                <th>Titre</th>
-                                <th>Dates</th>
-                                <th>Status</th>
-                                <th>Inscriptions</th>
-                                <th>Désinscrire</th>
+                            <tr class="clickableTr" value="{{ traineeSession.id }}">
+                                <td class="trainingTitle maxWidthEllipsis">{{ traineeSession.training }}</td>
+                                <td>{{ traineeSession|capitalize }}</td>
+                                <td>Du {{ traineeSession.beginDate|date('d-m-Y') }}<br>au {{ traineeSession.endDate|date('d-m-Y') }}</td>
+                                <td class="{{ sessionStatusClass }}">{{ sessionStatusText }}</td>
+                                <td class="{{ sessionStatusClass }}">{{ traineeSession.nbrOfSubscribers }}/{{ traineeSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
+                                <td class="unsubscribeTr">
+                                    <span class="unsubscribeLink" href="" style="opacity:0.5; color: rgba(0, 0, 0, 0.5);">
+                                        <i class="fa-solid fa-right-from-bracket disabled fa-red biggerBtn" style="color: rgba(0, 0, 0, 0.5);"></i>
+                                    </span>
+                                </td>
                             </tr>
-                        </thead>
 
-                        <tbody>
+                        {% endfor %}
 
-                            {% for traineeSession in passedSessionsTrainee %}
+                    </tbody>
 
-                                {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
-                                {% if ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) < 0.5) %}
-                                    {% set sessionStatusClass = "open" %}
-                                    {% set sessionStatusText = "Ouvert" %}
-                                {% elseif ( ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) >= 0.5) and ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) < 1) ) %}
-                                    {% set sessionStatusClass = "midOpen" %}
-                                    {% set sessionStatusText = "Ouvert" %}
-                                {% elseif ((traineeSession.nbrOfSubscribers / traineeSession.nbrPlaces ) >= 1) %}
-                                    {% set sessionStatusClass = "full" %}
-                                    {% set sessionStatusText = "Complet" %}
-                                {% endif %}
+                </table>
 
+                <script>
+                    let table3 = new DataTable('#passedSessionsTable', {
+                        paging: false,
+                        searching: false,
+                        "info": false,
+                        "language": {
+                            "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
+                        }
+                        // scrollY: 400
+                    });
+                </script>
 
-                                <tr class="clickableTr" value="{{ traineeSession.id }}">
-                                    <td class="trainingTitle maxWidthEllipsis">{{ traineeSession.training }}</td>
-                                    <td>{{ traineeSession|capitalize }}</td>
-                                    <td>Du {{ traineeSession.beginDate|date('d-m-Y') }}<br>au {{ traineeSession.endDate|date('d-m-Y') }}</td>
-                                    <td class="{{ sessionStatusClass }}">{{ sessionStatusText }}</td>
-                                    <td class="{{ sessionStatusClass }}">{{ traineeSession.nbrOfSubscribers }}/{{ traineeSession.nbrPlaces }} <i class="fa-solid fa-user-group"></i></td>
-                                    <td class="unsubscribeTr">
-                                        <span class="unsubscribeLink" href="" style="opacity:0.5; color: rgba(0, 0, 0, 0.5);">
-                                            <i class="fa-solid fa-right-from-bracket disabled fa-red biggerBtn" style="color: rgba(0, 0, 0, 0.5);"></i>
-                                        </span>
-                                    </td>
-                                </tr>
-
-                            {% endfor %}
-
-                        </tbody>
-
-                    </table>
-
-                    <script>
-                        let table3 = new DataTable('#passedSessionsTable', {
-                            paging: false,
-                            searching: false,
-                            "info": false,
-                            "language": {
-                                "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
-                            }
-                            // scrollY: 400
-                        });
-                    </script>
+            </div>
 
 
 
