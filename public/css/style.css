@@ -186,6 +186,10 @@ td {
     text-align: center;
 }
 
+.trashPosition {
+    position: relative;
+    top: 4px;
+}
 
 .deleteButton {
     text-align: center;
@@ -195,7 +199,8 @@ td {
     border-radius: 5px;
     color:#970606;
     margin: 5px auto;
-    background-color: rgb(151 6 6 / 10%);
+    background-color: rgb(255 255 255 / 10%);
+    display: inline-flex;
 
     transition: all 0.5s;
 }
@@ -206,7 +211,7 @@ td {
     border: 1px solid;
     border-radius: 5px;
     color: #003f9c;
-    background-color: rgb(9 81 188 / 15%);
+    background-color: rgb(255 255 255 / 10%);
 
     transition: all 0.5s;
 }
@@ -436,6 +441,7 @@ table {
     padding: 5px 10px;
     border-radius: 5px;
     border: 1px solid #0dad55;
+    margin-bottom: 25px;
 
     transition: all 0.5s;
 }
@@ -526,7 +532,7 @@ h1 a:hover {
     margin-bottom: 10px;
     color: rgb(255, 209, 93);
 }
-.fa-graduation-cap, .fa-person-chalkboard, .fa-user-graduate {
+.fa-graduation-cap, .fa-person-chalkboard, .fa-user-graduate, .fa-calendar-days {
     color: rgb(255, 209, 93);
 }
 
@@ -541,8 +547,8 @@ h1 a:hover {
 .headerHeaderDetail {
     padding: 10px 25px 5px 25px;
     background-color: rgb(32, 57, 58);
-    border-top-right-radius: 7px;
-    border-top-left-radius: 7px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
     border-bottom: 3px solid rgb(255, 209, 93);
 
 }

@@ -12,6 +12,13 @@
 
         {# {% if is_granted('ROLE_ADMIN') %} #}
         {% if app.user %}
+            <a class="listAddButton" href="{{ path('app_addTraining') }}"><i class="fa-solid fa-square-plus"></i> Ajouter une formation</a>
+        {% endif %}
+
+        <br><br>
+
+        {# {% if is_granted('ROLE_ADMIN') %} #}
+        {% if app.user %}
 
             <table id="trainingsTable" class="display">
                 <thead>
@@ -79,13 +86,6 @@
 
         {% endif %}
 
-
-
-
-        {# {% if is_granted('ROLE_ADMIN') %} #}
-        {% if app.user %}
-            <a class="listAddButton" href="{{ path('app_addTraining') }}"><i class="fa-solid fa-square-plus"></i> Ajouter une formation</a>
-        {% endif %}
 
 
 {% endblock %}

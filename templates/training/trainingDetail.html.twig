@@ -15,7 +15,7 @@
 
         <div class="headerHeaderDetail">
             <h1><i class="fa-solid fa-graduation-cap"></i> &nbsp;{{ training.title }}</h1>
-            <span  class="subtitle">Formation</span>
+            <span class="subtitle">Formation</span>
         </div>
 
         <div class="contentHeaderDetail">
@@ -31,15 +31,12 @@
                         <p><span class="labelTraineeInfos">Sessions:</span> {{ nbrSessions }}</p>
                     </div>
 
-
-
                     <div style="position: relative; top:20px;">
                         <div class="detailCardButtons">
                             <a class="editButton" href="{{ path('app_editTraining', {'id': training.id }) }}"><i class="fa-solid fa-pen-to-square"></i> Éditer</a>
                             <a href="{{ path('app_deleteTraining', {'id': training.id}) }}" class="deleteButton"><i class="fa-solid fa-triangle-exclamation"></i> Supprimer la formation <i class="fa-solid fa-triangle-exclamation"></i></a>
                         </div>
                     </div>
-
 
                 {% else %}
 
@@ -58,7 +55,7 @@
     <a class="listAddButton" href="{{ path('app_addSession', { 'idTraining': training.id }) }}"><i class="fa-solid fa-square-plus"></i> Ajouter une Session</a>
 
 
-    <h3>Prochainement ({{ nbrIncomingSessions }})</h3>
+    <h3 style="margin-top: 25px;">Prochainement ({{ nbrIncomingSessions }})</h3>
 
         {% if app.user %}
             <table id="sessionsTable" class="display">

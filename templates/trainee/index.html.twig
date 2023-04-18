@@ -12,6 +12,13 @@
 
     {# {% if is_granted('ROLE_ADMIN') %} #}
     {% if app.user %}
+        <a class="listAddButton" href="{{ path('app_addTrainee') }}"><i class="fa-solid fa-square-plus"></i> Ajouter un Stagiaire</a>
+    {% endif %}
+
+    <br><br>
+
+    {# {% if is_granted('ROLE_ADMIN') %} #}
+    {% if app.user %}
 
         <div class="marginBottom">
 
@@ -91,13 +98,6 @@
 
     {% endif %}
 
-
-
-
-    {# {% if is_granted('ROLE_ADMIN') %} #}
-    {% if app.user %}
-        <a class="listAddButton" href="{{ path('app_addTrainee') }}"><i class="fa-solid fa-square-plus"></i> Ajouter un Stagiaire</a>
-    {% endif %}
 
 
 {% endblock %}

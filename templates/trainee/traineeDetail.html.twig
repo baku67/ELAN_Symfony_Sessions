@@ -52,7 +52,7 @@
                     {% if app.user %}
                         <div class="detailCardButtons">
                             <a class="editButton" href="{{ path('app_editTrainee', {'id': trainee.id }) }}"><i class="fa-solid fa-pen-to-square"></i> Éditer</a>
-                            <a href="{{ path('app_deleteTrainee', {'id': trainee.id}) }}" class="deleteButton"><i class="fa-solid fa-trash-can"></i> Supprimer</a>
+                            <a href="{{ path('app_deleteTrainee', {'id': trainee.id}) }}" class="deleteButton"><i class="fa-solid fa-trash-can trashPosition"></i> Supprimer</a>
                         </div>
                     {% else %}
                         <p class="editButton" style="opacity: 0.5"><i class="fa-solid fa-pen-to-square"></i> Éditer le stagiaire (Admin)</p>

@@ -5,64 +5,88 @@
 
 {% block body %}
 
-    <h1>Détail de la session {{ session }}</h1>
     {# Retour sur la fiche formation #}
     {# <a href="{{ path('app_trainingDetail', {'id':session.training.id }) }}">Retour</a> #}
     <button onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Retour</button>
     {# <input action="action" onclick="window.history.go(-1); return false;" type="submit" value="Cancel" /> #}
 
-    <br><br>
+    <div class="headerDetail">
 
-    {# {% if is_granted('ROLE_ADMIN') %} #}
-    {% if app.user %}
+        <div class="headerHeaderDetail">
+            <h1><i class="fa-solid fa-calendar-days"></i> &nbsp;{{ session }}</h1>
+            <span class="subtitle">Session de formation</span>
+        </div>
 
-        {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
-        {% set sessionStatusClass = "" %}
+        <div class="contentHeaderDetail">
 
-        {% if ((nbrSubscribers / session.nbrPlaces ) < 0.5) %}
-            {% set sessionStatusClass = "open" %}
-            {% set sessionStatusText = "ouvert" %}
-            {# <p>Inférieur à 50%</p> #}
-        {% elseif ( ((nbrSubscribers / session.nbrPlaces ) >= 0.5) and ((nbrSubscribers / session.nbrPlaces ) < 1) ) %}
-            {% set sessionStatusClass = "midOpen" %}
-            {% set sessionStatusText = "ouvert" %}
-            {# <p>Supérieur à 50% mais pas 100%</p> #}
-        {% elseif ((nbrSubscribers / session.nbrPlaces ) >= 1) %}
-            {% set sessionStatusClass = "full" %}
-            {% set sessionStatusText = "complet" %}
-            {# <p>Full</p> #}
-        {% endif %}
+            <div class="cardDetailGrid">
 
-        <p>Infos</p>
-        <ul>
-            <li>Formation: <a href="{{ path('app_trainingDetail', {'id': session.training.id}) }}">{{ session.training }}</a> </li>
-            <li>Session: {{ session }} </li>
-            <li>Formateur: <a href="{{ path('app_trainerDetail', {'id': session.trainer.id}) }}">{{ session.trainer }}</a> </li>
-            <li>Date de début: {{ session.beginDate|date("m/d/Y") }} </li>
-            <li>Date de fin: {{ session.endDate|date("m/d/Y") }} </li>
-            {#*** Test affichage Dates: ***#}
-            {# <li>Date de fin: {{ dump(session.endDate) }} </li>
-            <li>{{ dump(dateNow) }}</li> #}
-            <li>Inscriptions: {{ nbrSubscribers }}/{{ session.nbrPlaces }} <i class="fa-solid fa-user-group {{ sessionStatusClass }}"></i></li>
-            <li class="{{ sessionStatusClass }}">{{ sessionStatusText|capitalize }}</li>
-        </ul>
+                {# {% if is_granted('ROLE_ADMIN') %} #}
+                {% if app.user %}
 
-    {% else %}
+                    {# Calcul du pourcentage de places réservés et affichage color fa-user en fonction #}
+                    {% set sessionStatusClass = "" %}
 
-        <p>Vous n'avez pas l'autorisation de voir ces infos</p>
+                    {% if ((nbrSubscribers / session.nbrPlaces ) < 0.5) %}
+                        {% set sessionStatusClass = "open" %}
+                        {% set sessionStatusText = "ouvert" %}
+                        {# <p>Inférieur à 50%</p> #}
+                    {% elseif ( ((nbrSubscribers / session.nbrPlaces ) >= 0.5) and ((nbrSubscribers / session.nbrPlaces ) < 1) ) %}
+                        {% set sessionStatusClass = "midOpen" %}
+                        {% set sessionStatusText = "ouvert" %}
+                        {# <p>Supérieur à 50% mais pas 100%</p> #}
+                    {% elseif ((nbrSubscribers / session.nbrPlaces ) >= 1) %}
+                        {% set sessionStatusClass = "full" %}
+                        {% set sessionStatusText = "complet" %}
+                        {# <p>Full</p> #}
+                    {% endif %}
 
-    {% endif %}
+                    <div style="width:max-content;">
+
+                            <p>Infos</p>
+                            <ul>
+                                <li><span class="labelTraineeInfos">Formation:</span> <a href="{{ path('app_trainingDetail', {'id': session.training.id}) }}">{{ session.training }}</a> </li>
+                                <li><span class="labelTraineeInfos">Session:</span> {{ session }} </li>
+                                <li><span class="labelTraineeInfos">Formateur:</span> <a href="{{ path('app_trainerDetail', {'id': session.trainer.id}) }}">{{ session.trainer }}</a> </li>
+                                <li><span class="labelTraineeInfos">Date de début:</span> {{ session.beginDate|date("m/d/Y") }} </li>
+                                <li><span class="labelTraineeInfos">Date de fin:</span> {{ session.endDate|date("m/d/Y") }} </li>
+                                {#*** Test affichage Dates: ***#}
+                                {# <li>Date de fin: {{ dump(session.endDate) }} </li>
+                                <li>{{ dump(dateNow) }}</li> #}
+                                <li><span class="labelTraineeInfos">Inscriptions:</span> {{ nbrSubscribers }}/{{ session.nbrPlaces }} <i class="fa-solid fa-user-group {{ sessionStatusClass }}"></i></li>
+                                <li class="{{ sessionStatusClass }}">{{ sessionStatusText|capitalize }}</li>
+                            </ul>
+
+                        {% else %}
+
+                            <p>Vous n'avez pas l'autorisation de voir ces infos</p>
+    
+                        {% endif %}
+
+                    </div>
 
 
-    {# {% if is_granted('ROLE_ADMIN') %} #}
-    {% if app.user %}
-        <a class="editButton" href="{{ path('app_editSession', {'id': session.id }) }}"><i class="fa-solid fa-pen-to-square"></i> Éditer</a>
-        <a class="deleteButton" href="{{ path('app_deleteSession', {'id': session.id }) }}"><i class="fa-regular fa-trash-can"></i> Supprimer la session</a>
-    {% else %}
-        <p style="opacity: 0.5"><i class="fa-solid fa-pen-to-square"></i> Éditer (Admin)</p>
-        <p style="opacity: 0.5"><i class="fa-regular fa-trash-can"></i> Supprimer (Admin)</p>
+                    <div style="position: relative; top:20px;">
+                        <div class="detailCardButtons">
+                            {# {% if is_granted('ROLE_ADMIN') %} #}
+                            {% if app.user %}
+                                <a class="editButton" href="{{ path('app_editSession', {'id': session.id }) }}"><i class="fa-solid fa-pen-to-square"></i> Éditer</a>
+                                <a class="deleteButton" href="{{ path('app_deleteSession', {'id': session.id }) }}"><i class="fa-regular fa-trash-can trashPosition"></i> <span>Supprimer</span></a>
+                            {% else %}
+                                <p style="opacity: 0.5"><i class="fa-solid fa-pen-to-square"></i> Éditer (Admin)</p>
+                                <p style="opacity: 0.5"><i class="fa-regular fa-trash-can"></i> Supprimer (Admin)</p>
+                                
+                            {% endif %}
+                        </div>
+                    </div>
+
+            </div>
         
-    {% endif %}
+        </div>
+
+
+    </div>
+
 
 
     <br><br>
