@@ -468,7 +468,7 @@ header {
 
 .headerNavContainer {
     position: relative;
-    top: 23px;
+    top: 14px;
 }
 .headerNavContainer a {
     text-decoration: none;
@@ -526,7 +526,7 @@ h1 a:hover {
     margin-bottom: 10px;
     color: rgb(255, 209, 93);
 }
-.fa-graduation-cap {
+.fa-graduation-cap, .fa-person-chalkboard, .fa-user-graduate {
     color: rgb(255, 209, 93);
 }
 

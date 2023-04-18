@@ -5,29 +5,58 @@
 
 {% block body %}
 
-    <h1>Formation: {{ training.title }}</h1>
     {# <a href="{{ path('app_training') }}">Retour</a> #}
     <button onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Retour</button>
 
-
     <br><br>
 
-    {# {% if is_granted('ROLE_ADMIN') %} #}
-    {% if app.user %}
+    <div class="headerDetail">
+
+
+        <div class="headerHeaderDetail">
+            <h1><i class="fa-solid fa-graduation-cap"></i> &nbsp;{{ training.title }}</h1>
+            <span  class="subtitle">Formation</span>
+        </div>
+
+        <div class="contentHeaderDetail">
     
+            <div class="cardDetailGrid" style="height:100px;">
 
-        <p>Titre: {{ training.title }}&nbsp; {% if app.user %}<a class="editButton" href="{{ path('app_editTraining', {'id': training.id }) }}"><i class="fa-solid fa-pen-to-square"></i> Éditer</a>{% endif %}</p>
+                {# {% if is_granted('ROLE_ADMIN') %} #}
+                {% if app.user %}
+                
+
+                    <div style="width:max-content;">
+                        <p><span class="labelTraineeInfos">Titre:</span> {{ training.title }}&nbsp;</p>
+                        <p><span class="labelTraineeInfos">Sessions:</span> {{ nbrSessions }}</p>
+                    </div>
 
 
 
-    {% else %}
+                    <div style="position: relative; top:20px;">
+                        <div class="detailCardButtons">
+                            <a class="editButton" href="{{ path('app_editTraining', {'id': training.id }) }}"><i class="fa-solid fa-pen-to-square"></i> Éditer</a>
+                            <a href="{{ path('app_deleteTraining', {'id': training.id}) }}" class="deleteButton"><i class="fa-solid fa-triangle-exclamation"></i> Supprimer la formation <i class="fa-solid fa-triangle-exclamation"></i></a>
+                        </div>
+                    </div>
 
-        <p>Vous n'avez pas l'autorisation de voir ces infos</p>
 
-    {% endif %}
+                {% else %}
+
+                    <p>Vous n'avez pas l'autorisation de voir ces infos</p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
 
 
-    <h2>Sessions ({{ nbrSessions }})</h2>
+
+    <a class="listAddButton" href="{{ path('app_addSession', { 'idTraining': training.id }) }}"><i class="fa-solid fa-square-plus"></i> Ajouter une Session</a>
+
 
     <h3>Prochainement ({{ nbrIncomingSessions }})</h3>
 
@@ -225,12 +254,6 @@
             }
         }
         </script>
-
-
-
-    <br>
-    <a class="listAddButton" href="{{ path('app_addSession', { 'idTraining': training.id }) }}"><i class="fa-solid fa-square-plus"></i> Ajouter une Session</a>
-    <a href="{{ path('app_deleteTraining', {'id': training.id}) }}" class="deleteButton"><i class="fa-solid fa-triangle-exclamation"></i> Supprimer la formation <i class="fa-solid fa-triangle-exclamation"></i></a>
         
 
 
