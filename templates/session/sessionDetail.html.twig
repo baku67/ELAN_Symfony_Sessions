@@ -92,36 +92,63 @@
     <br><br>
     <h2>Programme</h2>
     <div class="sessionModulesDiv">
-        {% for sessionProgramme in sessionProgrammes %}
-            <a href="{{ path('app_deleteProgram', {'id': session.id, 'idProgram': sessionProgramme.id}) }}" class="sessionModule">{{ sessionProgramme.module.name }} | {{ sessionProgramme.length }}h <span class="deleteBin"><i class="fa-regular fa-trash-can red"></i></span></a>
-        {% endfor %}
+        {% if sessionProgrammes is not empty %}
+        
+            {% for sessionProgramme in sessionProgrammes %}
+                <a href="{{ path('app_deleteProgram', {'id': session.id, 'idProgram': sessionProgramme.id}) }}" class="sessionModule">{{ sessionProgramme.module.name }} | {{ sessionProgramme.length }}h <span class="deleteBin"><i class="fa-regular fa-trash-can red"></i></span></a>
+            {% endfor %}
+        
+        {% else %}
+            
+            <p style="opacity:0.7; font-style:italic;">Aucun module ajouté pour l'instant</p>
+        
+        {% endif %}
+        
+        
     </div>
 
     <br><br>
-    <h3>Ajouter un module</h3>
-    {# formAddProgramme #}
-    {{ form_start(formAddProgramme) }}
 
-        <div class="my-custom-class-for-errors">
-            {{ form_errors(formAddProgramme) }}
+
+    <div class="sessionTableContainer" style="width: 40%;">
+
+        <h3 class="sessionTableTitle">Ajouter un module</h3>
+
+        <div style="padding: 7px 15px;">
+
+            {# formAddProgramme #}
+            {{ form_start(formAddProgramme) }}
+
+                <div class="my-custom-class-for-errors">
+                    {{ form_errors(formAddProgramme) }}
+                </div>
+
+                <div>
+                    
+                    <div class="inline" style="margin: 5px auto;">
+                        <span class="labelSpan" style="width:100px;">{{ form_label(formAddProgramme.module, 'Module')}}</span>
+                        {{ form_widget(formAddProgramme.module) }}
+                    </div>
+            
+                    <div class="inline" style="position:relative; margin: 5px auto;">
+                        <span class="labelSpan" style="width:100px;">{{ form_label(formAddProgramme.length, 'Durée')}}</span>
+                        {{ form_widget(formAddProgramme.length) }} <span style="position:absolute; right:10px; top:50%; transform:translateY(-50%);">h</span>
+                    </div>
+
+                    <div class="inline" style="margin: 5px auto;">
+                        <span class="labelSpan" style="width:100px;">{{ form_label(formAddProgramme.session, 'Session')}}</span>
+                        {{ form_widget(formAddProgramme.session, { 'value': session.id}) }} 
+                    </div>
+
+                    <span class="submitButton" style="margin: 15px auto;">{{ form_widget(formAddProgramme.submit, { 'label': 'Programmer' }) }}</span>
+
+                </div>
+
+            {{ form_end(formAddProgramme) }}
+
         </div>
 
-        <div class="inline">
-            {{ form_label(formAddProgramme.module, 'Module')}}
-            {{ form_widget(formAddProgramme.module) }}
-    
-            {# <div class="inline"> #}
-                {{ form_label(formAddProgramme.length, 'Durée')}}
-                {{ form_widget(formAddProgramme.length) }} h
-            {# </div> #}
-
-            {{ form_label(formAddProgramme.session, 'Session')}}
-            {{ form_widget(formAddProgramme.session, { 'value': session.id}) }} 
-        </div>
-
-        {{ form_widget(formAddProgramme.submit, { 'label': 'Programmer' }) }} 
-    
-    {{ form_end(formAddProgramme) }}
+    </div>
 
     
 

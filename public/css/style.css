@@ -150,6 +150,7 @@ ul li {
 .fa-right-to-bracket:hover {
     background-color: #0dad55;
     color: white !important;
+    border: 1px solid #0dad55;
 }
 
 .fa-magnifying-glass {
@@ -162,6 +163,7 @@ ul li {
 .fa-magnifying-glass:hover {
     background-color: #0d6efd;
     color: white !important;
+    border: 1px solid #0d6efd;
 }
 
 
@@ -638,4 +640,13 @@ h1 a:hover {
 .sessionDetailLink:hover .redirectIcon {
     opacity: 1;
     color:rgb(255, 199, 59);
+}
+
+.labelSpan label {
+    position: relative;
+    top: 5px;
+
+}
+.submitButton button {
+    margin: 15px auto;
 }
