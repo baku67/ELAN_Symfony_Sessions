@@ -619,3 +619,23 @@ h1 a:hover {
 .homeSessionSection {
     width: 100%;
 }
+
+.sessionDetailLink {
+    /* text-decoration-color: rgba(32, 57, 58, 0.5);
+    text-underline-offset: 4px; */
+    text-decoration: none;
+    color: palegoldenrod;
+    font-size: 105%;
+    transition: all 0.5s;
+}
+.sessionDetailLink:hover {
+    color:rgb(255, 199, 59);
+}
+.redirectIcon {
+    opacity: 0;
+    transition: all 0.5s;
+}
+.sessionDetailLink:hover .redirectIcon {
+    opacity: 1;
+    color:rgb(255, 199, 59);
+}

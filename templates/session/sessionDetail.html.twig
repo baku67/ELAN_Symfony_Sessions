@@ -45,9 +45,9 @@
 
                             <p>Infos</p>
                             <ul>
-                                <li><span class="labelTraineeInfos">Formation:</span> <a href="{{ path('app_trainingDetail', {'id': session.training.id}) }}">{{ session.training }}</a> </li>
+                                <li><span class="labelTraineeInfos">Formation:</span> <a class="sessionDetailLink" href="{{ path('app_trainingDetail', {'id': session.training.id}) }}"><span>{{ session.training }}</span> &nbsp; <i class="fa-solid fa-up-right-from-square redirectIcon"></i></a> </li>
                                 <li><span class="labelTraineeInfos">Session:</span> {{ session }} </li>
-                                <li><span class="labelTraineeInfos">Formateur:</span> <a href="{{ path('app_trainerDetail', {'id': session.trainer.id}) }}">{{ session.trainer }}</a> </li>
+                                <li><span class="labelTraineeInfos">Formateur:</span> <a class="sessionDetailLink" href="{{ path('app_trainerDetail', {'id': session.trainer.id}) }}"><span>{{ session.trainer }}</span> &nbsp; <i class="fa-solid fa-up-right-from-square redirectIcon"></i></a> </li>
                                 <li><span class="labelTraineeInfos">Date de début:</span> {{ session.beginDate|date("m/d/Y") }} </li>
                                 <li><span class="labelTraineeInfos">Date de fin:</span> {{ session.endDate|date("m/d/Y") }} </li>
                                 {#*** Test affichage Dates: ***#}
