@@ -45,6 +45,12 @@ class TraineeController extends AbstractController
 
         $traineeRepo = $entityManager->getRepository(Trainee::class);
         $trainee = $traineeRepo->find($id);
+
+        if (is_null($trainee)) {
+            $this->addFlash('error', 'Le stagiaire demandé n\'existe pas');
+            return $this->redirectToRoute('app_trainee');
+        }
+
         $traineeSessions = $trainee->getSessions();
 
         $sessionRepo = $entityManager->getRepository(Session::class);

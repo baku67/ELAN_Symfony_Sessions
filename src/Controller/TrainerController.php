@@ -47,6 +47,12 @@ class TrainerController extends AbstractController
         $sessionRepo = $entityManager->getRepository(Session::class);
 
         $trainerData = $trainerRepo->find($id);
+
+        if (is_null($trainerData)) {
+            $this->addFlash('error', 'Le formateur demandé n\'existe pas');
+            return $this->redirectToRoute('app_trainer');
+        }
+
         $trainerSessions = $sessionRepo->findBy(['trainer' => $id]);
         $trainerSessionsCount = count($trainerSessions);
 

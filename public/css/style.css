@@ -131,13 +131,55 @@ ul li {
 
 
 .open {
-    color: #0dad55;
+    /* color: #0dad55; */
+    color: #0b8140;
 }
 .midOpen {
     color: #ad550d;
 }
 .full {
     color: #ad0d0d;
+}
+
+.openSessionDetail {
+    margin-top: 5px;
+    padding: 7px 13px;
+    background-color: #0b8140;
+    color: whitesmoke;
+    width: fit-content;
+    border-radius: 3px;
+    border: 1px solid rgb(32, 57, 58);
+}
+
+.midOpenSessionDetail {
+    margin-top: 5px;
+    padding: 7px 13px;
+    background-color: #ad550d;
+    color: whitesmoke;
+    width: fit-content;
+    border-radius: 3px;
+    border: 1px solid rgb(32, 57, 58);
+}
+
+.fullSessionDetail {
+    margin-top: 5px;
+    padding: 7px 13px;
+    background-color: #ad0d0d;
+    color: whitesmoke;
+    width: fit-content;
+    border-radius: 3px;
+    border: 1px solid rgb(32, 57, 58);
+}
+
+.barreVerticale {
+    color:#0d6efd;
+}
+
+.grised {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0px 4px;
+    border-radius: 4px;
+    float: right;
 }
 
 .fa-right-to-bracket {
@@ -183,6 +225,7 @@ ul li {
 .disabled:hover {
     background-color: rgba(0, 0, 0, 0);
     color: rgba(0, 0, 0, 0.5) !important;
+    border-color: rgba(0, 0, 0, 0.5) !important;
 }
 
 td {
@@ -234,6 +277,13 @@ td {
 .emptyTableMsg {
     font-style: italic; 
     opacity: 0.7;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.sessionDeleteIcon {
+    position: relative;
+    margin: 5px;
 }
 
 .homeTable {

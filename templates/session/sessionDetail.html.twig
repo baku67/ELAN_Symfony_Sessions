@@ -53,8 +53,8 @@
                                 {#*** Test affichage Dates: ***#}
                                 {# <li>Date de fin: {{ dump(session.endDate) }} </li>
                                 <li>{{ dump(dateNow) }}</li> #}
-                                <li><span class="labelTraineeInfos">Inscriptions:</span> {{ nbrSubscribers }}/{{ session.nbrPlaces }} <i class="fa-solid fa-user-group {{ sessionStatusClass }}"></i></li>
-                                <li class="{{ sessionStatusClass }}">{{ sessionStatusText|capitalize }}</li>
+                                <li><span class="labelTraineeInfos">Inscriptions:</span> <span class="{{ sessionStatusClass }}">{{ nbrSubscribers }}/{{ session.nbrPlaces }}</span> <i class="fa-solid fa-user-group {{ sessionStatusClass }}"></i></li>
+                                <li class="{{ sessionStatusClass }} {{ sessionStatusClass }}SessionDetail">{{ sessionStatusText|capitalize }}</li>
                             </ul>
 
                         {% else %}
@@ -95,7 +95,7 @@
         {% if sessionProgrammes is not empty %}
         
             {% for sessionProgramme in sessionProgrammes %}
-                <a href="{{ path('app_deleteProgram', {'id': session.id, 'idProgram': sessionProgramme.id}) }}" class="sessionModule">{{ sessionProgramme.module.name }} | {{ sessionProgramme.length }}h <span class="deleteBin"><i class="fa-regular fa-trash-can red"></i></span></a>
+                <a href="{{ path('app_deleteProgram', {'id': session.id, 'idProgram': sessionProgramme.id}) }}" class="sessionModule"><span>{{ sessionProgramme.module.name }} | </span><span class="grised">{{ sessionProgramme.length }}h</span> <span class="deleteBin"><i class="fa-regular fa-trash-can red"></i></span></a>
             {% endfor %}
         
         {% else %}

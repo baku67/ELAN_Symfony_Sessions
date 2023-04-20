@@ -54,6 +54,11 @@ class TrainingController extends AbstractController
         $sessionRepo = $entityManager->getRepository(Session::class);
 
         $trainingData = $trainingRepo->find($id);
+
+        if (is_null($trainingData)) {
+            $this->addFlash('error', 'La formation demandée n\'existe pas');
+            return $this->redirectToRoute('app_training');
+        }
         
         $sessions = $sessionRepo->findBy(["training" => $id], ['begin_date' => 'DESC']);
         $nbrSession = count($sessions);

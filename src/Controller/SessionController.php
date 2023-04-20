@@ -41,6 +41,11 @@ class SessionController extends AbstractController
 
         $session = $sessionRepo->find($id);
 
+        if (is_null($session)) {
+            $this->addFlash('error', 'La session demandée n\'existe pas');
+            return $this->redirectToRoute('app_home');
+        }
+
         $susbcribedTrainees = $session->getTrainees();
         // PersistentCollection (entités avec relation) to array d'objets
         $susbcribedTraineesArray = $susbcribedTrainees->toArray();
